@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Nic Rausch">
+  <defs>
+    <linearGradient id="rausch-bg" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eef2f7" />
+      <stop offset="1" stop-color="#d8dee7" />
+    </linearGradient>
+    <linearGradient id="rausch-stroke" x1="20" y1="18" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4b5563" />
+      <stop offset="1" stop-color="#6b7280" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="64" fill="url(#rausch-bg)" />
+  <circle cx="64" cy="64" r="54" fill="none" stroke="url(#rausch-stroke)" stroke-width="4" />
+  <circle cx="64" cy="50" r="20" fill="#c7d0dc" />
+  <path d="M33 99c6-16 18-24 31-24s25 8 31 24" fill="#c7d0dc" />
+  <text x="64" y="67" text-anchor="middle" dominant-baseline="middle" fill="#4b5563" font-family="Arial, sans-serif" font-size="28" font-weight="700">
+    N
+  </text>
+</svg>

@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_astro/sir.kQPaK3JW.js","_astro/sir.ClRoeJK2.js","_astro/typography.BunPOzRM.js"])))=>i.map(i=>d[i]);
+import{_ as e}from"./preload-helper.CVfkMyKi.js";async function o(t){return t.dataset.model==="sir"?(await e(()=>import("./sir.kQPaK3JW.js"),__vite__mapDeps([0,1,2]))).mountSirExploreWorkbench(t):null}const r=document.querySelectorAll("[data-explore-workbench]");r.forEach(t=>{t instanceof HTMLElement&&t.dataset.mounted!=="true"&&(t.dataset.mounted="true",o(t))});

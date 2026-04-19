@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Professor Heinz">
+  <defs>
+    <linearGradient id="heinz-bg" x1="18" y1="14" x2="112" y2="114" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3f6fb" />
+      <stop offset="1" stop-color="#dde6f0" />
+    </linearGradient>
+    <linearGradient id="heinz-stroke" x1="20" y1="18" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#64748b" />
+      <stop offset="1" stop-color="#94a3b8" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="64" fill="url(#heinz-bg)" />
+  <circle cx="64" cy="64" r="54" fill="none" stroke="url(#heinz-stroke)" stroke-width="4" />
+  <circle cx="64" cy="48" r="19" fill="#cad6e2" />
+  <path d="M30 100c6-16 19-24 34-24 14 0 27 8 34 24" fill="#cad6e2" />
+  <text x="64" y="66" text-anchor="middle" dominant-baseline="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="26" font-weight="700">
+    H
+  </text>
+</svg>

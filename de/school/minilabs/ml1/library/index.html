@@ -1,0 +1,386 @@
+<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ben-Library fuer das erste SIR-Modell mit Rueckblick, Grundbegriffen und Quellen."><title>Minilab 1 Library | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/BaseLayout.DQLY4cRe.css"></head> <body data-coach="ben" data-surface="light" data-shell-mode="default"> <div class="site-shell" data-shell-mode="default"> <div class="shell-frame" data-shell-mode="default"> <header class="site-header site-header--track"> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/de/school"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-26ad85aa-820b-4e12-b622-f420aebe64e0" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-26ad85aa-820b-4e12-b622-f420aebe64e0" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-26ad85aa-820b-4e12-b622-f420aebe64e0)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-26ad85aa-820b-4e12-b622-f420aebe64e0)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-26ad85aa-820b-4e12-b622-f420aebe64e0)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> didaktisch. reduziert. verständlich. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-de-school-ml1-library" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Kontext · DE · Gefuehrt</span> <span class="track-context-switch__label track-context-switch__label--expanded">Kontext</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-de-school-ml1-library" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Sprache"> <span class="track-context-switch__segment is-active" aria-current="page"> DE </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Folgt spaeter"> EN </span> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Modus"> <span class="track-context-switch__segment is-active" aria-current="page"> Gefuehrt </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Folgt spaeter"> Akademisch </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Folgt spaeter"> Wissenschaftlich </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script> <div class="coach-assist coach-assist--header-coin" data-coach-assist data-endpoint="http://127.0.0.1:8787/api/coach" data-assistant-id="ben-global" data-assist-thinking-label="Ben denkt nach" data-context="{&#34;pageKey&#34;:&#34;journey&#34;,&#34;pageLabel&#34;:&#34;Lernreise&#34;,&#34;legalPageHref&#34;:&#34;/de/school/rechtliches&#34;,&#34;isContactPage&#34;:false,&#34;siteIdentity&#34;:&#34;Infektionsdynamiken verstehen&#34;,&#34;operatorHint&#34;:&#34;Dies ist die Projektplattform. Interne Labels und URL-Segmente gehoeren nicht in die nutzerseitige Erklaerung.&#34;,&#34;minilabId&#34;:&#34;ml1&#34;,&#34;phase&#34;:&#34;library&#34;,&#34;coachId&#34;:&#34;ben&#34;,&#34;coachLabel&#34;:&#34;Ben&#34;,&#34;audience&#34;:&#34;Gefuehrt&#34;,&#34;language&#34;:&#34;DE&#34;}" data-open="false" aria-busy="false" style="--coach-accent: #2ec27e; --coach-accent-strong: #157f58; --coach-gradient-from: #effbf5; --coach-gradient-to: #dff8ec; --coach-ring: rgba(46, 194, 126, 0.35)"> <button class="coach-assist__trigger coach-assist__trigger--header coach-assist__trigger--header-coin" type="button" aria-expanded="false" aria-controls="coach-assist-panel-ben-global-header-coin" aria-label="KI-Coach Ben oeffnen" data-assist-toggle> <span class="coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/ben-small.png" alt="" loading="lazy" decoding="async"> </span> <span class="coach-assist__trigger-badge" aria-hidden="true">AI</span> <span class="coach-assist__trigger-copy"> <span class="coach-assist__trigger-label">Coach Ben</span> <span class="coach-assist__trigger-text">KI-Coach Ben oeffnen</span> </span> </button> <section class="coach-assist__panel card" id="coach-assist-panel-ben-global-header-coin" data-assist-panel hidden aria-hidden="true"> <div class="coach-assist__panel-head"> <div class="coach-assist__panel-copy"> <p class="coach-assist__panel-label">Coach Ben</p> <h3>Ben als KI-Coach</h3> <p class="coach-assist__panel-intro">Frag nach Orientierung, Seitenziel oder deinem naechsten Schritt. Der Coach bleibt fest im Header verankert.</p> </div> <button class="coach-assist__close" type="button" aria-label="Coach-Fenster schliessen" data-assist-close> <span aria-hidden="true">×</span> </button> </div> <div class="coach-assist__quick-list"> <button class="coach-assist__quick" type="button" data-assist-quick-prompt="Wo bin ich gerade?"> Wo bin ich gerade? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="Was ist hier wichtig?"> Was ist hier wichtig? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="Was ist mein naechster Schritt?"> Was ist mein naechster Schritt? </button> </div> <div class="coach-assist__thread" data-assist-thread> <article class="coach-assist__message is-assistant"> <p>Ich bleibe bei der aktuellen Seite. Frag mich, wo du bist, was hier wichtig ist oder was dein naechster Schritt ist.</p> </article> </div> <form class="coach-assist__form" data-assist-form> <label class="coach-assist__input-shell"> <span class="coach-assist__sr-only">Frage an Coach Ben</span> <textarea class="coach-assist__textarea" name="question" rows="3" placeholder="Frag Ben nach dieser Seite." data-assist-input></textarea> </label> <div class="coach-assist__form-footer"> <p class="coach-assist__status" data-assist-status>Kontextbezogene Hilfe fuer diese Seite.</p> <button class="card-cta" type="submit" data-assist-submit>
+Senden
+</button> </div> </form> </section> </div> <script type="module" src="/_astro/CoachAssistShell.astro_astro_type_script_index_0_lang.BvuqghHp.js"></script> </div> <div class="header-action-cluster"> <div class="header-canvas-shell" data-header-canvas-root data-header-canvas-id="site-header-canvas-de-school-journey-ml1-library" data-open="false"> <button class="header-canvas-toggle" type="button" aria-expanded="false" aria-controls="site-header-canvas-de-school-journey-ml1-library" aria-label="Navigationsmenue oeffnen" data-header-canvas-toggle> <span class="header-canvas-toggle__lines" aria-hidden="true"> <span></span> <span></span> <span></span> </span> </button> </div> </div>  </div> </div> </header> <div class="header-canvas-overlay" data-header-canvas-overlay data-header-canvas-id="site-header-canvas-de-school-journey-ml1-library" data-open="false"> <div class="header-canvas-backdrop" data-header-canvas-close hidden></div> <aside class="header-canvas-panel" id="site-header-canvas-de-school-journey-ml1-library" aria-hidden="true" aria-label="Weitere Seiten" tabindex="-1" data-header-canvas-panel hidden> <div class="header-canvas-panel__head"> <div class="header-canvas-panel__copy"> <p class="header-canvas-panel__eyebrow">Weitere Seiten</p> <h2 class="header-canvas-panel__title">Alles mit mehr Kontext</h2> <p class="header-canvas-panel__intro">Die primaere Navigation bleibt kompakt. Sekundaere Seiten wandern in den Canvas, ohne den Kontext zu verlieren.</p> </div> <button class="header-canvas-panel__close" type="button" aria-label="Navigationsmenue schliessen" data-header-canvas-close> <span aria-hidden="true">×</span> </button> </div> <div class="header-canvas-panel__meta" aria-label="Aktueller Kontext"> <span class="tag">DE</span> <span class="tag">Gefuehrt</span> <span class="tag">Coach Ben</span> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Sekundaere Navigation</p> <nav class="header-canvas-panel__nav" aria-label="Sekundaere Navigation"> <a class="header-canvas-panel__link" href="/de/school" data-header-canvas-link> <span>Start</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link is-active" href="/de/school/lernreise" data-header-canvas-link> <span>Lernreise</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/school/bedienhinweise" data-header-canvas-link> <span>Bedienhinweise</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/school/about" data-header-canvas-link> <span>Ueber das Projekt</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/school/kontakt" data-header-canvas-link> <span>Kontakt</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/school/rechtliches" data-header-canvas-link> <span>Rechtliches</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/school/sammlung" data-header-canvas-link> <span>Repository</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a> </nav> </div> </aside> </div> <script>
+    (() => {
+      const roots = Array.from(document.querySelectorAll('[data-header-canvas-root]'));
+      const overlays = Array.from(document.querySelectorAll('[data-header-canvas-overlay]'));
+      if (!roots.length) return;
+
+      const findOverlay = (root) => {
+        if (!(root instanceof HTMLElement)) return null;
+        const overlayId = root.dataset.headerCanvasId;
+        if (!overlayId) return null;
+        return overlays.find(
+          (overlay) => overlay instanceof HTMLElement && overlay.dataset.headerCanvasId === overlayId
+        ) ?? null;
+      };
+
+      const mountOverlayToBody = (overlay) => {
+        if (!(overlay instanceof HTMLElement)) return null;
+        if (overlay.parentElement !== document.body) {
+          document.body.appendChild(overlay);
+        }
+        return overlay;
+      };
+
+      const syncBodyState = () => {
+        const hasOpenRoot = roots.some((root) => root instanceof HTMLElement && root.dataset.open === 'true');
+        document.body.dataset.headerCanvasOpen = hasOpenRoot ? 'true' : 'false';
+      };
+
+      const setOpen = (root, nextOpen) => {
+        if (!(root instanceof HTMLElement)) return;
+        const overlay = mountOverlayToBody(findOverlay(root));
+        const trigger = root.querySelector('[data-header-canvas-toggle]');
+        const backdrop = overlay?.querySelector('.header-canvas-backdrop');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        root.dataset.open = nextOpen ? 'true' : 'false';
+        if (overlay instanceof HTMLElement) {
+          overlay.dataset.open = nextOpen ? 'true' : 'false';
+        }
+        if (trigger instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        }
+        if (backdrop instanceof HTMLElement) {
+          backdrop.hidden = !nextOpen;
+        }
+        if (panel instanceof HTMLElement) {
+          panel.hidden = !nextOpen;
+          panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+          if (nextOpen) {
+            window.setTimeout(() => panel.focus(), 30);
+          }
+        }
+        syncBodyState();
+      };
+
+      const closeAll = (except) => {
+        roots.forEach((root) => {
+          if (!(root instanceof HTMLElement) || root === except) return;
+          setOpen(root, false);
+        });
+      };
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root.dataset.mounted === 'true') return;
+        root.dataset.mounted = 'true';
+
+        const overlay = findOverlay(root);
+        mountOverlayToBody(overlay);
+        const toggle = root.querySelector('[data-header-canvas-toggle]');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        const closeButtons = Array.from(overlay?.querySelectorAll('[data-header-canvas-close]') ?? []);
+        const navLinks = Array.from(overlay?.querySelectorAll('[data-header-canvas-link]') ?? []);
+
+        if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+        toggle.addEventListener('click', () => {
+          const nextOpen = root.dataset.open !== 'true';
+          closeAll(root);
+          setOpen(root, nextOpen);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setOpen(root, false);
+            toggle.focus();
+          });
+        });
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            setOpen(root, false);
+          });
+        });
+
+        const handleEscape = (event) => {
+          if (event.key !== 'Escape') return;
+          setOpen(root, false);
+          toggle.focus();
+        };
+
+        root.addEventListener('keydown', handleEscape);
+        overlay?.addEventListener('keydown', handleEscape);
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        if (event.target.closest('[data-header-canvas-root]') || event.target.closest('[data-header-canvas-overlay]')) return;
+        closeAll(null);
+      });
+    })();
+  </script> <nav class="journey-local-rail" aria-label="Lokale Seitennavigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/de/school"> <span>Start</span> </a> <a class="journey-local-rail__link is-parent" href="/de/school/lernreise"> <span>Lernreise</span> </a> <a class="journey-local-rail__link is-parent" href="/de/school/lernreise#journey-overview"> <span>Überblick</span> </a> <a class="journey-local-rail__link is-context" href="/de/school/lernreise#journey-minilabs"> <span>MiniLabs</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-module" href="/de/school/minilabs/ml1/library"> <span>ML1</span> </a> <a class="journey-local-rail__link is-child" href="/de/school/minilabs/ml1/intro"> <span>Intro</span> </a> <a class="journey-local-rail__link is-child" href="/de/school/minilabs/ml1/explore"> <span>Explore</span> </a> <a class="journey-local-rail__link is-child" href="/de/school/minilabs/ml1/challenge"> <span>Challenge</span> </a> <a class="journey-local-rail__link is-active" href="/de/school/minilabs/ml1/library" aria-current="page"> <span>Library</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-parent" href="/de/school/bedienhinweise"> <span>Hinweise</span> </a>  </div> </div> </nav> <script>
+            (() => {
+              const root = document.documentElement;
+              const header = document.querySelector('.site-header');
+              if (!(header instanceof HTMLElement)) return;
+
+              const syncStickyOffset = () => {
+                root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+              };
+
+              syncStickyOffset();
+
+              if ('ResizeObserver' in window) {
+                const observer = new ResizeObserver(syncStickyOffset);
+                observer.observe(header);
+              } else {
+                window.addEventListener('resize', syncStickyOffset, { passive: true });
+              }
+            })();
+          </script> <main class="site-main site-main--with-subrail">   <section class="minilab-grid phase-library-layout"> <div class="content-panel prose"> <div class="library-stack">
+  <section class="library-grid">
+    <article class="library-card">
+      <p class="eyebrow">Ueberblick</p>
+      <h2>Minilab 1 zeigt, wie Ausbrueche ihren Rhythmus bekommen.</h2>
+      <p class="lead">Das SIR-Modell macht sichtbar, warum Wellen wachsen, kippen und enden. Entscheidend ist die Schwellenlogik rund um <code>R0</code> und <code>Reff</code>.</p>
+      <ul>
+        <li>Wellen wachsen nur, wenn der effektive R-Wert ueber 1 liegt.</li>
+        <li>Massnahmen und Schutz verschieben nicht nur Zahlen, sondern den gesamten Verlauf.</li>
+        <li>Je kleiner der anfaellige Anteil <code>S/N</code>, desto schwerer findet die Welle neue Ziele.</li>
+      </ul>
+    </article>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;aside class="library-card library-card-soft"></span></span>
+<span class="line"><span>  &#x3C;p class="eyebrow">Schnellinfo&#x3C;/p></span></span>
+<span class="line"><span>  &#x3C;div class="library-pill-row"></span></span>
+<span class="line"><span>    &#x3C;span class="pill">SIR&#x3C;/span></span></span>
+<span class="line"><span>    &#x3C;span class="pill">R0 / Reff&#x3C;/span></span></span>
+<span class="line"><span>    &#x3C;span class="pill">Schwelle&#x3C;/span></span></span>
+<span class="line"><span>  &#x3C;/div></span></span>
+<span class="line"><span>  &#x3C;p>Diese Library bleibt bewusst kompakt: erst Synthese, dann Nachschlagewerk.&#x3C;/p></span></span>
+<span class="line"><span>&#x3C;/aside></span></span></code></pre>
+  </section>
+  <section>
+    <p class="eyebrow">Rueckblick</p>
+    <div class="library-recap-grid">
+      <article class="library-card library-recap-card">
+        <h3>Intro</h3>
+        <p>Die erste Welle wird als SIR-Choreografie lesbar: <code>S</code> sinkt, <code>I</code> steigt, <code>R</code> waechst.</p>
+      </article>
+      <article class="library-card library-recap-card">
+        <h3>Explore</h3>
+        <p>Regler fuer <code>R0</code>, Dauer und Kontakte zeigen, wie sich Peak, Timing und Endverlauf verschieben.</p>
+      </article>
+      <article class="library-card library-recap-card">
+        <h3>Challenge</h3>
+        <p>Die Aufgabe ist nicht "alles maximal drehen", sondern tragfaehige Kombinationen zu finden, die die Welle bremsen.</p>
+      </article>
+    </div>
+  </section>
+  <section class="library-card library-takehome">
+    <p class="eyebrow">Take-home-Message</p>
+    <p class="library-takehome-quote">Reff = R0 * S/N ist der Kompass. Unter 1 verliert die Welle ihren Schwung.</p>
+    <p>Genau deshalb ist das SIR-Modell so hilfreich: Es verknuepft individuelles Anstecken, kollektive Dynamik und das allmaehliche Schrumpfen der anfaelligen Gruppe in einer einzigen, lesbaren Idee.</p>
+  </section>
+  <section class="library-card library-flow-card">
+    <p class="eyebrow">Kompartiment-Fluss</p>
+    <figure class="library-flow-figure">
+      <svg viewBox="0 0 680 180" role="img" aria-label="Kompartimentfluss SIR">
+        <defs>
+          <style>
+            .node { fill: #ffffff; stroke: rgba(15, 23, 42, 0.14); stroke-width: 1.5; }
+            .lbl  { font: 600 14px system-ui, sans-serif; fill: #0f172a; }
+            .arr  { stroke: rgba(15, 23, 42, 0.42); stroke-width: 2.2; marker-end: url(#arrow); fill: none; }
+          </style>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+          </marker>
+        </defs>
+        <rect class="node" x="40" y="50" width="120" height="60" rx="14"></rect>
+        <rect class="node" x="280" y="50" width="120" height="60" rx="14"></rect>
+        <rect class="node" x="520" y="50" width="120" height="60" rx="14"></rect>
+        <circle cx="58" cy="80" r="6" fill="#22c55e"></circle>
+        <circle cx="298" cy="80" r="6" fill="#ef4444"></circle>
+        <circle cx="538" cy="80" r="6" fill="#2563eb"></circle>
+        <text class="lbl" x="72" y="86">S</text>
+        <text class="lbl" x="312" y="86">I</text>
+        <text class="lbl" x="552" y="86">R</text>
+        <path class="arr" d="M160 80C200 80,240 80,280 80"></path>
+        <path class="arr" d="M400 80C440 80,480 80,520 80"></path>
+      </svg>
+      <figcaption>Das Grundschema bleibt bewusst einfach: Menschen bewegen sich von anfaellig zu infektioes zu genesen.</figcaption>
+    </figure>
+  </section>
+  <section class="library-two-col">
+    <article class="library-card">
+      <p class="eyebrow">Annahmen</p>
+      <ul>
+        <li>Neue Faelle entstehen, wenn anfaellige Personen oft genug auf infektioese Personen treffen.</li>
+        <li>Mit der Zeit wandern Menschen in den genesenen Anteil; dadurch schrumpft die Zahl der moeglichen Neuinfektionen.</li>
+        <li>Das Modell ist absichtlich einfacher als die Wirklichkeit, damit die Grundlogik klar sichtbar wird.</li>
+      </ul>
+    </article>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;article class="library-card"></span></span>
+<span class="line"><span>  &#x3C;p class="eyebrow">Kernparameter&#x3C;/p></span></span>
+<span class="line"><span>  &#x3C;ul></span></span>
+<span class="line"><span>    &#x3C;li>&#x3C;strong>R0&#x3C;/strong>: Basisreproduktionszahl am Anfang ohne Schutz.&#x3C;/li></span></span>
+<span class="line"><span>    &#x3C;li>&#x3C;strong>D&#x3C;/strong>: mittlere Dauer, in der eine Person infektioes bleibt.&#x3C;/li></span></span>
+<span class="line"><span>    &#x3C;li>&#x3C;strong>S/N&#x3C;/strong>: Anteil der Gruppe, der noch anfaellig ist.&#x3C;/li></span></span>
+<span class="line"><span>  &#x3C;/ul></span></span>
+<span class="line"><span>&#x3C;/article></span></span></code></pre>
+  </section>
+  <section class="library-two-col">
+    <article class="library-card">
+      <p class="eyebrow">Beispiele</p>
+      <ul>
+        <li>Kontakte reduzieren: Die Welle wird flacher und spaeter.</li>
+        <li>Infektioese Phase verkuerzen: Der Ausbruch verliert Tempo.</li>
+        <li>Mehr geschuetzte Personen zu Beginn: Der Startwert von <code>Reff</code> sinkt sofort.</li>
+      </ul>
+    </article>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;article class="library-card"></span></span>
+<span class="line"><span>  &#x3C;p class="eyebrow">Grundbegriffe&#x3C;/p></span></span>
+<span class="line"><span>  &#x3C;dl class="library-glossary"></span></span>
+<span class="line"><span>    &#x3C;dt>R0&#x3C;/dt></span></span>
+<span class="line"><span>    &#x3C;dd>Basisreproduktionszahl ohne Immunitaet oder Interventionen.&#x3C;/dd></span></span>
+<span class="line"><span>    &#x3C;dt>Reff&#x3C;/dt></span></span>
+<span class="line"><span>    &#x3C;dd>Effektiver R-Wert unter aktuellen Bedingungen. Im SIR-Kontext oft als &#x3C;code>R0 * S/N&#x3C;/code> gedacht.&#x3C;/dd></span></span>
+<span class="line"><span>    &#x3C;dt>Peak&#x3C;/dt></span></span>
+<span class="line"><span>    &#x3C;dd>Der hoechste Punkt der I-Kurve. Er zeigt, wann die Welle am staerksten drueckt.&#x3C;/dd></span></span>
+<span class="line"><span>  &#x3C;/dl></span></span>
+<span class="line"><span>&#x3C;/article></span></span></code></pre>
+  </section>
+  <section class="library-card">
+    <p class="eyebrow">Kernquellen</p>
+    <ul class="library-ref-list">
+      <li>Kermack, W. O., &#x26; McKendrick, A. G. (1927). A contribution to the mathematical theory of epidemics.</li>
+      <li>Hethcote, H. W. (2000). The mathematics of infectious diseases.</li>
+      <li>Anderson, R. M., &#x26; May, R. M. (1991). Infectious diseases of humans.</li>
+    </ul>
+  </section>
+</div> </div>  </section>   </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-f537ebaf-ac66-48ce-9fd6-e532c645783c" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-f537ebaf-ac66-48ce-9fd6-e532c645783c" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-f537ebaf-ac66-48ce-9fd6-e532c645783c)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-f537ebaf-ac66-48ce-9fd6-e532c645783c)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-f537ebaf-ac66-48ce-9fd6-e532c645783c)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> <p class="site-footer-brand__lead" lang="de"> <span class="site-brand-responsive-copy is-long">Eine zweisprachige Lernumgebung, die Infektionsdynamiken verstaendlich macht.</span> <span class="site-brand-responsive-copy is-short">Eine zweisprachige Lernumgebung.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Lernen</p> <a href="/de/school">Start</a><a href="/de/school/lernreise">Lernreise</a><a href="/de/school/bedienhinweise">Bedienhinweise</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Projekt</p> <a href="/de/school/about">Ueber das Projekt</a><a href="/de/school/kontakt">Kontakt</a><a href="/de/school/sammlung">Repository</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Rahmen</p> <a href="/de/school/rechtliches">Rechtliches</a> <p class="site-footer-note">Start, Coaches, Minilabs und Labs folgen hier derselben Systemlogik.</p> </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/de/school" aria-label="Infektionsdynamiken verstehen"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-3d7fe47c-f183-44d6-8f95-70dc8e62d4f0" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-3d7fe47c-f183-44d6-8f95-70dc8e62d4f0" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-3d7fe47c-f183-44d6-8f95-70dc8e62d4f0)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-3d7fe47c-f183-44d6-8f95-70dc8e62d4f0)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-3d7fe47c-f183-44d6-8f95-70dc8e62d4f0)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="de">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </span> </a> <div class="micro-footer__links"> <a href="/de/school/kontakt">Kontakt</a> <a href="/de/school/rechtliches">Rechtliches</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>

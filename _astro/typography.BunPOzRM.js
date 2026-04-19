@@ -1,0 +1,1 @@
+const a="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",e="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace";function t(s,n,o){return`${o?`${o} `:""}${s}px ${n}`}export{a as C,e as a,t as c};
