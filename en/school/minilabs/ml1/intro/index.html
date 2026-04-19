@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"> <head><script data-staging-gate-bootstrap>(function(){try{if(location.pathname==="/gate.html")return;var raw=localStorage.getItem("idv.staging.session");var ok=false;if(raw){var s=JSON.parse(raw);ok=!!(s&&s.v==="v2"&&s.exp>Date.now());}if(!ok){var next=location.pathname+location.search+location.hash;location.replace("/gate.html?next="+encodeURIComponent(next));}}catch(e){var next=location.pathname+location.search+location.hash;location.replace("/gate.html?next="+encodeURIComponent(next));}})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="First intro shell for the SIR lab with Chloe as the English school entry point in V2."><title>MiniLab 1 Intro | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/BaseLayout.qnq8MBj_.css"></head> <body data-coach="chloe" data-surface="light" data-shell-mode="default"> <div class="site-shell" data-shell-mode="default"> <div class="shell-frame" data-shell-mode="default"> <header class="site-header site-header--track"> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/en/school"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-21ad9c92-6655-495b-bb23-0052d3f3d4c7" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-21ad9c92-6655-495b-bb23-0052d3f3d4c7" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-21ad9c92-6655-495b-bb23-0052d3f3d4c7)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-21ad9c92-6655-495b-bb23-0052d3f3d4c7)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-21ad9c92-6655-495b-bb23-0052d3f3d4c7)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> </div> <p class="brand-subtitle brand-claim" lang="en"> guided. playful. clear. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-en-school-ml1-intro" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Context · EN · Guided</span> <span class="track-context-switch__label track-context-switch__label--expanded">Context</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-en-school-ml1-intro" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Language"> <a class="track-context-switch__segment" href="/de/school/minilabs/ml1/intro" data-track-context-link> DE </a><span class="track-context-switch__segment is-active" aria-current="page"> EN </span> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Mode"> <span class="track-context-switch__segment is-active" aria-current="page"> Guided </span><a class="track-context-switch__segment" href="/en/university/minilabs/ml1/intro" data-track-context-link> Academic </a><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Coming soon"> Scientific </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script> <div class="coach-assist coach-assist--header-coin" data-coach-assist data-endpoint="http://127.0.0.1:8787/api/coach" data-assistant-id="chloe-global" data-assist-fallback-assistant-id="chloe-local" data-assist-thinking-label="Chloé is thinking" data-context="{&#34;pageKey&#34;:&#34;journey&#34;,&#34;pageLabel&#34;:&#34;Learning journey&#34;,&#34;legalPageHref&#34;:&#34;/en/school/legal&#34;,&#34;isContactPage&#34;:false,&#34;siteIdentity&#34;:&#34;Infektionsdynamiken verstehen&#34;,&#34;operatorHint&#34;:&#34;This is the project platform. Internal labels and URL segments are not part of the user-facing explanation.&#34;,&#34;minilabId&#34;:&#34;ml1&#34;,&#34;phase&#34;:&#34;intro&#34;,&#34;coachId&#34;:&#34;chloe&#34;,&#34;coachLabel&#34;:&#34;Chloé&#34;,&#34;audience&#34;:&#34;Guided&#34;,&#34;language&#34;:&#34;EN&#34;}" data-open="false" aria-busy="false" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff; --coach-ring: rgba(217, 70, 239, 0.35)"> <button class="coach-assist__trigger coach-assist__trigger--header coach-assist__trigger--header-coin" type="button" aria-expanded="false" aria-controls="coach-assist-panel-chloe-global-header-coin" aria-label="Open AI coach Chloé" data-assist-toggle> <span class="coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async"> </span> <span class="coach-assist__trigger-badge" aria-hidden="true">AI</span> <span class="coach-assist__trigger-copy"> <span class="coach-assist__trigger-label">Coach Chloé</span> <span class="coach-assist__trigger-text">Open AI coach Chloé</span> </span> </button> <section class="coach-assist__panel card" id="coach-assist-panel-chloe-global-header-coin" data-assist-panel hidden aria-hidden="true"> <div class="coach-assist__panel-head"> <div class="coach-assist__panel-copy"> <p class="coach-assist__panel-label">Coach Chloé</p> <h3>Chloé as your AI coach</h3> <p class="coach-assist__panel-intro">Ask for orientation, page goal or your next step. The coach stays anchored in the header.</p> </div> <button class="coach-assist__close" type="button" aria-label="Coach-Fenster schliessen" data-assist-close> <span aria-hidden="true">×</span> </button> </div> <div class="coach-assist__quick-list"> <button class="coach-assist__quick" type="button" data-assist-quick-prompt="Where am I right now?"> Where am I right now? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="What matters on this page?"> What matters on this page? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="What should I do next?"> What should I do next? </button> </div> <div class="coach-assist__thread" data-assist-thread> <article class="coach-assist__message is-assistant"> <p>I stay with the current page. Ask me where you are, what matters here or what to do next.</p> </article> </div> <form class="coach-assist__form" data-assist-form> <label class="coach-assist__input-shell"> <span class="coach-assist__sr-only">Frage an Coach Chloé</span> <textarea class="coach-assist__textarea" name="question" rows="3" placeholder="Ask Chloé about this page." data-assist-input></textarea> </label> <div class="coach-assist__form-footer"> <p class="coach-assist__status" data-assist-status>Context-aware help for this page.</p> <button class="card-cta" type="submit" data-assist-submit>
+Senden
+</button> </div> </form> </section> </div> <script type="module" src="/_astro/CoachAssistShell.astro_astro_type_script_index_0_lang.BvuqghHp.js"></script> </div> <div class="header-action-cluster"> <div class="header-canvas-shell" data-header-canvas-root data-header-canvas-id="site-header-canvas-en-school-journey-ml1-intro" data-open="false"> <button class="header-canvas-toggle" type="button" aria-expanded="false" aria-controls="site-header-canvas-en-school-journey-ml1-intro" aria-label="Open navigation menu" data-header-canvas-toggle> <span class="header-canvas-toggle__lines" aria-hidden="true"> <span></span> <span></span> <span></span> </span> </button> </div> </div>  </div> </div> </header> <div class="header-canvas-overlay" data-header-canvas-overlay data-header-canvas-id="site-header-canvas-en-school-journey-ml1-intro" data-open="false"> <div class="header-canvas-backdrop" data-header-canvas-close hidden></div> <aside class="header-canvas-panel" id="site-header-canvas-en-school-journey-ml1-intro" aria-hidden="true" aria-label="More pages" tabindex="-1" data-header-canvas-panel hidden> <div class="header-canvas-panel__head"> <div class="header-canvas-panel__copy"> <p class="header-canvas-panel__eyebrow">More pages</p> <h2 class="header-canvas-panel__title">Everything with more context</h2> <p class="header-canvas-panel__intro">Primary navigation stays compact. Secondary pages move into the canvas without losing context.</p> </div> <button class="header-canvas-panel__close" type="button" aria-label="Close navigation menu" data-header-canvas-close> <span aria-hidden="true">×</span> </button> </div> <div class="header-canvas-panel__meta" aria-label="Current track context"> <span class="tag">EN</span> <span class="tag">Guided</span> <span class="tag">Coach Chloé</span> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Secondary navigation</p> <nav class="header-canvas-panel__nav" aria-label="Secondary navigation"> <a class="header-canvas-panel__link" href="/en/school" data-header-canvas-link> <span>Home</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link is-active" href="/en/school/learning-journey" data-header-canvas-link> <span>Learning journey</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/school/about" data-header-canvas-link> <span>About</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/school/contact" data-header-canvas-link> <span>Contact</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/school/legal" data-header-canvas-link> <span>Legal</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a> </nav> </div> </aside> </div> <script>
+    (() => {
+      const roots = Array.from(document.querySelectorAll('[data-header-canvas-root]'));
+      const overlays = Array.from(document.querySelectorAll('[data-header-canvas-overlay]'));
+      if (!roots.length) return;
+
+      const findOverlay = (root) => {
+        if (!(root instanceof HTMLElement)) return null;
+        const overlayId = root.dataset.headerCanvasId;
+        if (!overlayId) return null;
+        return overlays.find(
+          (overlay) => overlay instanceof HTMLElement && overlay.dataset.headerCanvasId === overlayId
+        ) ?? null;
+      };
+
+      const mountOverlayToBody = (overlay) => {
+        if (!(overlay instanceof HTMLElement)) return null;
+        if (overlay.parentElement !== document.body) {
+          document.body.appendChild(overlay);
+        }
+        return overlay;
+      };
+
+      const syncBodyState = () => {
+        const hasOpenRoot = roots.some((root) => root instanceof HTMLElement && root.dataset.open === 'true');
+        document.body.dataset.headerCanvasOpen = hasOpenRoot ? 'true' : 'false';
+      };
+
+      const setOpen = (root, nextOpen) => {
+        if (!(root instanceof HTMLElement)) return;
+        const overlay = mountOverlayToBody(findOverlay(root));
+        const trigger = root.querySelector('[data-header-canvas-toggle]');
+        const backdrop = overlay?.querySelector('.header-canvas-backdrop');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        root.dataset.open = nextOpen ? 'true' : 'false';
+        if (overlay instanceof HTMLElement) {
+          overlay.dataset.open = nextOpen ? 'true' : 'false';
+        }
+        if (trigger instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        }
+        if (backdrop instanceof HTMLElement) {
+          backdrop.hidden = !nextOpen;
+        }
+        if (panel instanceof HTMLElement) {
+          panel.hidden = !nextOpen;
+          panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+          if (nextOpen) {
+            window.setTimeout(() => panel.focus(), 30);
+          }
+        }
+        syncBodyState();
+      };
+
+      const closeAll = (except) => {
+        roots.forEach((root) => {
+          if (!(root instanceof HTMLElement) || root === except) return;
+          setOpen(root, false);
+        });
+      };
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root.dataset.mounted === 'true') return;
+        root.dataset.mounted = 'true';
+
+        const overlay = findOverlay(root);
+        mountOverlayToBody(overlay);
+        const toggle = root.querySelector('[data-header-canvas-toggle]');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        const closeButtons = Array.from(overlay?.querySelectorAll('[data-header-canvas-close]') ?? []);
+        const navLinks = Array.from(overlay?.querySelectorAll('[data-header-canvas-link]') ?? []);
+
+        if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+        toggle.addEventListener('click', () => {
+          const nextOpen = root.dataset.open !== 'true';
+          closeAll(root);
+          setOpen(root, nextOpen);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setOpen(root, false);
+            toggle.focus();
+          });
+        });
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            setOpen(root, false);
+          });
+        });
+
+        const handleEscape = (event) => {
+          if (event.key !== 'Escape') return;
+          setOpen(root, false);
+          toggle.focus();
+        };
+
+        root.addEventListener('keydown', handleEscape);
+        overlay?.addEventListener('keydown', handleEscape);
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        if (event.target.closest('[data-header-canvas-root]') || event.target.closest('[data-header-canvas-overlay]')) return;
+        closeAll(null);
+      });
+    })();
+  </script> <nav class="journey-local-rail" aria-label="Local page navigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/en/school"> <span>Home</span> </a> <a class="journey-local-rail__link is-parent" href="/en/school/learning-journey"> <span>Learning journey</span> </a> <a class="journey-local-rail__link is-parent" href="/en/school/learning-journey#journey-overview"> <span>Overview</span> </a> <a class="journey-local-rail__link is-context" href="/en/school/learning-journey#journey-minilabs"> <span>MiniLabs</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-module" href="/en/school/minilabs/ml1/intro"> <span>ML1</span> </a> <a class="journey-local-rail__link is-active" href="/en/school/minilabs/ml1/intro" aria-current="page"> <span>Intro</span> </a> <a class="journey-local-rail__link is-child" href="/en/school/minilabs/ml1/explore"> <span>Explore</span> </a>  </div> </div> </nav> <script>
+            (() => {
+              const root = document.documentElement;
+              const header = document.querySelector('.site-header');
+              if (!(header instanceof HTMLElement)) return;
+
+              const syncStickyOffset = () => {
+                root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+              };
+
+              syncStickyOffset();
+
+              if ('ResizeObserver' in window) {
+                const observer = new ResizeObserver(syncStickyOffset);
+                observer.observe(header);
+              } else {
+                window.addEventListener('resize', syncStickyOffset, { passive: true });
+              }
+            })();
+          </script> <main class="site-main site-main--with-subrail">   <section class="minilab-grid phase-intro-layout"> <div class="content-panel prose">  </div> <div class="runtime-column"> <article class="coach-intro-experience" data-intro-experience="sir" data-coach="chloe" data-clip-id="en-school-chloe-ml1-intro" data-overlay-mode="true">  <div class="coach-intro-layout"> <section class="coach-intro-stage-panel"> <div class="coach-intro-canvas-shell"> <canvas data-intro-canvas class="coach-intro-canvas" width="960" height="480"></canvas> </div> <div class="coach-intro-kpis"> <article class="coach-intro-kpi"> <p class="meta-label">S</p> <p class="coach-intro-kpi-value" data-kpi="s">0.0 %</p> </article> <article class="coach-intro-kpi"> <p class="meta-label">I</p> <p class="coach-intro-kpi-value" data-kpi="i">0.0 %</p> </article> <article class="coach-intro-kpi"> <p class="meta-label">R</p> <p class="coach-intro-kpi-value" data-kpi="r">0.0 %</p> </article> <article class="coach-intro-kpi"> <p class="meta-label">t</p> <p class="coach-intro-kpi-value" data-kpi="t">0</p> </article> <article class="coach-intro-kpi"> <p class="meta-label">R0</p> <p class="coach-intro-kpi-value" data-kpi="r0">2.20</p> </article> <article class="coach-intro-kpi"> <p class="meta-label">Reff</p> <p class="coach-intro-kpi-value" data-kpi="reff">2.20</p> </article> </div> <div class="coach-intro-controls"> <button class="card-cta" type="button" data-intro-start>
+Intro mit Chloé starten
+</button> <button class="phase-link" type="button" data-intro-replay>
+Nochmal ohne Kommentar
+</button> </div> </section>  </div> </article> <script type="module" src="/_astro/CoachIntroExperience.astro_astro_type_script_index_0_lang.By6hI1Jo.js"></script> </div> </section> <aside class="coach-overlay-shell" data-coach-overlay data-overlay-id="en-school:en-school-chloe-ml1-intro" data-state="open" data-hidden="false" aria-hidden="false"> <div class="coach-overlay-card card"> <div class="coach-overlay-handle" data-overlay-handle> <span class="coach-overlay-chip"> <span class="coach-overlay-grip" aria-hidden="true"></span> <span>Coach Chloé</span> </span> <div class="coach-overlay-actions"> <button class="coach-overlay-button" type="button" data-overlay-toggle> <span data-overlay-toggle-label>Compact</span> </button> <button class="coach-overlay-button is-quiet" type="button" data-overlay-minimize> <span data-overlay-minimize-label>Minimize</span> </button> </div> </div> <div class="coach-overlay-body"> <div class="coach-player-stage coach-overlay-stage" data-frame="portrait" data-anchor="head" data-frame-open="portrait" data-frame-compact="compact" data-frame-mobile-compact="mini-landscape" data-style-open="--coach-frame-ratio:4 / 5;--coach-focus-x:50%;--coach-focus-y:22%;--coach-media-zoom:1.08" data-style-compact="--coach-frame-ratio:5 / 4;--coach-focus-x:50%;--coach-focus-y:22%;--coach-media-zoom:1.08" data-style-mobile-compact="--coach-frame-ratio:3 / 2;--coach-focus-x:50%;--coach-focus-y:18%;--coach-media-zoom:1.34" style="--coach-frame-ratio:4 / 5;--coach-focus-x:50%;--coach-focus-y:22%;--coach-media-zoom:1.08"> <video class="coach-player-media" data-overlay-video-for="en-school-chloe-ml1-intro" playsinline preload="metadata" poster="/media/coaches/avatars/chloe-small.png"> <source src="/media/coaches/chloe/minilab-1-en-school.mp4" type="video/mp4"> Your browser does not support the video element. </video> </div> <div class="coach-overlay-controls"> <button class="coach-overlay-link" type="button" data-video-toggle> <span data-video-toggle-label>Play</span> </button> <button class="coach-overlay-link" type="button" data-video-restart> Restart </button> <button class="coach-overlay-link" type="button" data-video-mute> <span data-video-mute-label>Mute</span> </button> <button class="coach-overlay-link is-subtle" type="button" data-transcript-toggle aria-expanded="false"> <span data-transcript-toggle-label>Transcript</span> </button> </div> <div class="coach-overlay-footer"> <button class="coach-overlay-link is-subtle" type="button" data-overlay-reset> Dock right </button> <p class="coach-overlay-time" data-video-time>0:00 / --:--</p> </div> <section class="coach-overlay-transcript" data-transcript-panel hidden aria-hidden="true" aria-label="Transcript"> <div class="coach-overlay-transcript-head"> <p class="meta-label">Transcript</p> </div> <div class="coach-overlay-transcript-body"> <p data-transcript-paragraph data-transcript-index="0">So, this is our very first model — S-I-R. The red wave climbs fast, showing loads of new cases at once. At the same time, the green line drops, cause fewer people are left to catch it. Then the blue curve takes over — those are the ones who got sick but recovered. Since each person spreads it to about two others on average, the outbreak takes off really quickly. In Explore Mode you can mess around with the settings, and in Challenge Mode you can try to bend the wave.</p> </div> </section> </div> <button class="coach-overlay-minibar" type="button" data-overlay-restore> <span class="coach-overlay-chip">Coach Chloé</span> <span>Reopen Chloe</span> </button> </div> </aside> <script type="module" src="/_astro/CoachOverlayShell.astro_astro_type_script_index_0_lang.DcDqaRts.js"></script>  </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-9edbf7e8-7656-4329-8d75-1e8073cf3422" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-9edbf7e8-7656-4329-8d75-1e8073cf3422" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-9edbf7e8-7656-4329-8d75-1e8073cf3422)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-9edbf7e8-7656-4329-8d75-1e8073cf3422)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-9edbf7e8-7656-4329-8d75-1e8073cf3422)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> <p class="site-footer-brand__lead" lang="en"> <span class="site-brand-responsive-copy is-long">A bilingual learning environment that makes infection dynamics easier to understand.</span> <span class="site-brand-responsive-copy is-short">A bilingual learning environment.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Learn</p> <a href="/en/school">Home</a><a href="/en/school/learning-journey">Learning journey</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Project</p> <a href="/en/school/about">About</a><a href="/en/school/contact">Contact</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Frame</p> <a href="/en/school/legal">Legal</a> <p class="site-footer-note">Start, coaches, MiniLabs and Labs now share one common system logic.</p> </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/en/school" aria-label="Understanding Infection Dynamics"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-1a1036de-41d9-4301-9060-70ee46039380" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-1a1036de-41d9-4301-9060-70ee46039380" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-1a1036de-41d9-4301-9060-70ee46039380)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-1a1036de-41d9-4301-9060-70ee46039380)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-1a1036de-41d9-4301-9060-70ee46039380)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="en">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </span> </a> <div class="micro-footer__links"> <a href="/en/school/contact">Contact</a> <a href="/en/school/legal">Legal</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>
