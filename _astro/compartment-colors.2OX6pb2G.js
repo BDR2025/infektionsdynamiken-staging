@@ -1,0 +1,1 @@
+const n={S:"#22c55e",E:"#f59e0b",I:"#ef4444",R:"#60a5fa",D:"#64748b",V:"#8b5cf6"};function a(e){const o=`--compartment-${e.toLowerCase()}`,t=n[e];return typeof document>"u"?t:window.getComputedStyle(document.documentElement).getPropertyValue(o).trim()||t}export{a as r};

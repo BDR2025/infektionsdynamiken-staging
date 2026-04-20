@@ -1,2 +1,0 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_astro/sir.2mQ7U2s-.js","_astro/sir.ClRoeJK2.js","_astro/typography.BunPOzRM.js"])))=>i.map(i=>d[i]);
-import{_ as e}from"./preload-helper.CVfkMyKi.js";async function a(t){return t.dataset.model==="sir"?(await e(()=>import("./sir.2mQ7U2s-.js"),__vite__mapDeps([0,1,2]))).mountSirChallengeBoard(t):null}const n=document.querySelectorAll("[data-challenge-board]");n.forEach(t=>{t instanceof HTMLElement&&t.dataset.mounted!=="true"&&(t.dataset.mounted="true",a(t))});
