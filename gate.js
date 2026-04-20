@@ -42,7 +42,8 @@
   function nextTarget() {
     const url = new URL(window.location.href);
     const candidate = url.searchParams.get("next");
-    if (!candidate || !candidate.startsWith("/")) return "/";
+    if (!candidate || !candidate.startsWith("/")) return "/de/school/";
+    if (candidate === "/") return "/de/school/";
     return candidate;
   }
 
