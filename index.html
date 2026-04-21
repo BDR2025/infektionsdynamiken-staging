@@ -4,7 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Weiterleitung | Infektionsdynamiken verstehen</title>
-    <meta name="robots" content="noindex,nofollow" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <style data-staging-gate-veil>
+      html {
+        background: #f3f6f4;
+      }
+
+      body {
+        opacity: 0 !important;
+        visibility: hidden !important;
+      }
+    </style>
     <script>
       (function () {
         var target = "/de/guided/";
@@ -23,12 +33,20 @@
             return;
           }
 
+          var veil = document.querySelector("[data-staging-gate-veil]");
+          if (veil) {
+            veil.remove();
+          }
+
           window.location.replace(target);
         } catch (error) {
           window.location.replace("/gate.html?next=" + encodeURIComponent(target));
         }
       })();
     </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/gate.html" />
+    </noscript>
   </head>
   <body>
     <p>Weiterleitung ...</p>
