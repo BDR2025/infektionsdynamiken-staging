@@ -15,34 +15,13 @@
         visibility: hidden !important;
       }
     </style>
+    <script src="/gate-guard.js"></script>
     <script>
-      (function () {
-        var target = "/de/guided/";
-
-        try {
-          var raw = window.sessionStorage.getItem("idv.staging.session");
-          var ok = false;
-
-          if (raw) {
-            var session = JSON.parse(raw);
-            ok = !!(session && session.v === "v3");
-          }
-
-          if (!ok) {
-            window.location.replace("/gate.html?next=" + encodeURIComponent(target));
-            return;
-          }
-
-          var veil = document.querySelector("[data-staging-gate-veil]");
-          if (veil) {
-            veil.remove();
-          }
-
-          window.location.replace(target);
-        } catch (error) {
-          window.location.replace("/gate.html?next=" + encodeURIComponent(target));
-        }
-      })();
+      window.__idvStagingGuard &&
+        window.__idvStagingGuard.protectPage({
+          next: "/de/guided/",
+          redirectOnPass: "/de/guided/"
+        });
     </script>
     <noscript>
       <meta http-equiv="refresh" content="0;url=/gate.html" />

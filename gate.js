@@ -1,61 +1,7 @@
 (function () {
-  const SESSION_KEY = "idv.staging.session";
-  const SESSION_VERSION = "v3";
-  const GATE_PATH = "/gate.html";
-  const SALT = "idv:staging:v2";
-  const ALLOWED = [
-    {
-      label: "temporary",
-      sha256: "f33c92eace1a5497870986ba832cc1583273a3c2e2d15fbc08d28cebbc85e5bb"
-    }
-  ];
-
-  function readSession() {
-    try {
-      const raw = window.sessionStorage.getItem(SESSION_KEY);
-      if (!raw) return null;
-      const session = JSON.parse(raw);
-      if (!session || session.v !== SESSION_VERSION) return null;
-      return session;
-    } catch {
-      return null;
-    }
-  }
-
-  function saveSession() {
-    const session = {
-      v: SESSION_VERSION
-    };
-    window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
-    try {
-      window.localStorage.removeItem(SESSION_KEY);
-    } catch {}
-  }
-
-  function nextTarget() {
-    const url = new URL(window.location.href);
-    const candidate = url.searchParams.get("next");
-    if (!candidate || !candidate.startsWith("/")) return "/de/guided/";
-    if (candidate === "/") return "/de/guided/";
-    return candidate;
-  }
-
-  async function sha256Hex(value) {
-    const encoded = new TextEncoder().encode(value);
-    const buffer = await window.crypto.subtle.digest("SHA-256", encoded);
-    return Array.from(new Uint8Array(buffer))
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-  }
-
-  if (window.location.pathname !== GATE_PATH) {
-    return;
-  }
-
-  if (readSession()) {
-    window.location.replace(nextTarget());
-    return;
-  }
+  const guard = window.__idvStagingGuard;
+  if (!guard) return;
+  if (window.location.pathname !== guard.GATE_PATH) return;
 
   const form = document.getElementById("staging-gate-form");
   const input = document.getElementById("staging-passphrase");
@@ -63,6 +9,13 @@
   const message = document.getElementById("staging-gate-message");
 
   if (!(form instanceof HTMLFormElement) || !(input instanceof HTMLInputElement) || !(toggle instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  const target = guard.nextTarget(window.location.href);
+
+  if (guard.readSession()) {
+    guard.protectPage({ next: target, redirectOnPass: target });
     return;
   }
 
@@ -84,8 +37,8 @@
       return;
     }
 
-    const digest = await sha256Hex(SALT + ":" + value);
-    const isAllowed = ALLOWED.some((entry) => entry.sha256 === digest);
+    const digest = await guard.sha256Hex("idv:staging:v2" + ":" + value);
+    const isAllowed = digest === "f33c92eace1a5497870986ba832cc1583273a3c2e2d15fbc08d28cebbc85e5bb";
 
     if (!isAllowed) {
       if (message) {
@@ -95,13 +48,13 @@
       return;
     }
 
-    saveSession();
+    guard.saveSession();
 
     if (message) {
       message.textContent = "Weiterleitung ...";
       message.classList.add("is-ok");
     }
 
-    window.location.replace(nextTarget());
+    window.location.replace(target);
   });
 })();
