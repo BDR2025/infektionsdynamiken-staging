@@ -20,12 +20,12 @@
         var target = "/de/guided/";
 
         try {
-          var raw = window.localStorage.getItem("idv.staging.session");
+          var raw = window.sessionStorage.getItem("idv.staging.session");
           var ok = false;
 
           if (raw) {
             var session = JSON.parse(raw);
-            ok = !!(session && session.v === "v2" && session.exp > Date.now());
+            ok = !!(session && session.v === "v3");
           }
 
           if (!ok) {

@@ -1,7 +1,6 @@
 (function () {
   const SESSION_KEY = "idv.staging.session";
-  const SESSION_VERSION = "v2";
-  const SESSION_DAYS = 7;
+  const SESSION_VERSION = "v3";
   const GATE_PATH = "/gate.html";
   const SALT = "idv:staging:v2";
   const ALLOWED = [
@@ -11,20 +10,12 @@
     }
   ];
 
-  function now() {
-    return Date.now();
-  }
-
-  function days(value) {
-    return value * 24 * 60 * 60 * 1000;
-  }
-
   function readSession() {
     try {
-      const raw = window.localStorage.getItem(SESSION_KEY);
+      const raw = window.sessionStorage.getItem(SESSION_KEY);
       if (!raw) return null;
       const session = JSON.parse(raw);
-      if (!session || session.v !== SESSION_VERSION || session.exp < now()) return null;
+      if (!session || session.v !== SESSION_VERSION) return null;
       return session;
     } catch {
       return null;
@@ -33,10 +24,12 @@
 
   function saveSession() {
     const session = {
-      v: SESSION_VERSION,
-      exp: now() + days(SESSION_DAYS)
+      v: SESSION_VERSION
     };
-    window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    try {
+      window.localStorage.removeItem(SESSION_KEY);
+    } catch {}
   }
 
   function nextTarget() {
