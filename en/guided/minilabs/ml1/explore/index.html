@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="en"> <head><script data-staging-gate-bootstrap>(function(){try{if(location.pathname==="/gate.html")return;var raw=localStorage.getItem("idv.staging.session");var ok=false;if(raw){var s=JSON.parse(raw);ok=!!(s&&s.v==="v2"&&s.exp>Date.now());}if(!ok){var next=location.pathname+location.search+location.hash;location.replace("/gate.html?next="+encodeURIComponent(next));}}catch(e){var next=location.pathname+location.search+location.hash;location.replace("/gate.html?next="+encodeURIComponent(next));}})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="First explore workbench for the SIR lab in the English guided track."><title>MiniLab 1 Explore | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/CoachEdgeVideoEntry.BPBOWZ_Z.css">
+<style>.coach-overlay-shell[data-astro-cid-v4wgx27a]{transform-origin:top left}.coach-overlay-shell[data-astro-cid-v4wgx27a][data-morphing=true]{will-change:transform,opacity,filter;pointer-events:none}
+.coach-text-overlay[data-astro-cid-hmge62u3]{position:fixed;inset:0;z-index:calc(var(--layer-overlay, 40) + 8)}.coach-text-overlay[data-astro-cid-hmge62u3][hidden]{display:none}.coach-text-overlay__backdrop[data-astro-cid-hmge62u3]{position:absolute;inset:0;border:0;background:#0c121c2e;backdrop-filter:blur(16px);cursor:pointer}.coach-text-overlay__dialog[data-astro-cid-hmge62u3]{--object-card-padding: 0;--object-card-border-color: color-mix(in srgb, var(--coach-accent) 22%, var(--color-line));--object-card-background: radial-gradient(circle at top left, color-mix(in srgb, var(--coach-accent) 12%, white), transparent 36%), color-mix(in srgb, var(--color-surface-elevated) 99%, transparent);position:relative;z-index:1;display:grid;grid-template-columns:minmax(14rem,18rem) minmax(0,1fr);width:min(66rem,calc(100vw - 2rem));max-height:min(44rem,calc(100vh - 2rem));margin:1rem auto;overflow:hidden}.coach-text-overlay__rail[data-astro-cid-hmge62u3],.coach-text-overlay__content[data-astro-cid-hmge62u3]{padding:1.2rem 1.25rem}.coach-text-overlay__rail[data-astro-cid-hmge62u3]{display:grid;align-content:start;gap:.75rem;background:color-mix(in srgb,var(--coach-accent) 7%,var(--color-surface-elevated));border-right:1px solid color-mix(in srgb,var(--coach-accent) 16%,var(--color-line))}.coach-text-overlay__coin[data-astro-cid-hmge62u3]{position:relative;width:4.4rem;height:4.4rem;border-radius:999px;overflow:hidden;border:1px solid color-mix(in srgb,var(--coach-accent) 28%,var(--color-line));box-shadow:0 0 0 .38rem color-mix(in srgb,var(--coach-accent) 10%,transparent);background:linear-gradient(135deg,var(--coach-gradient-from),var(--coach-gradient-to))}.coach-text-overlay__coin[data-astro-cid-hmge62u3] img[data-astro-cid-hmge62u3]{width:100%;height:100%;object-fit:cover}.coach-text-overlay__coin-badge[data-astro-cid-hmge62u3]{position:absolute;right:.08rem;bottom:.08rem;display:inline-flex;align-items:center;justify-content:center;min-width:1.46rem;height:1.46rem;padding:0 .34rem;border-radius:999px;background:linear-gradient(135deg,var(--coach-accent),var(--coach-accent-strong));box-shadow:0 10px 22px color-mix(in srgb,var(--coach-accent) 22%,transparent);color:#fff;font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.coach-text-overlay__rail[data-astro-cid-hmge62u3] h2[data-astro-cid-hmge62u3],.coach-text-overlay__head[data-astro-cid-hmge62u3] h2[data-astro-cid-hmge62u3],.coach-text-overlay__rail[data-astro-cid-hmge62u3] p[data-astro-cid-hmge62u3],.coach-text-overlay__body[data-astro-cid-hmge62u3] p[data-astro-cid-hmge62u3]{margin:0}.coach-text-overlay__head[data-astro-cid-hmge62u3]{display:grid;gap:.4rem;margin-bottom:1rem}.coach-text-overlay__lead[data-astro-cid-hmge62u3]{color:var(--color-text-strong);font-size:1.06rem;line-height:1.5}.coach-text-overlay__body[data-astro-cid-hmge62u3]{display:grid;gap:.8rem;color:var(--color-text)}.coach-text-overlay__actions[data-astro-cid-hmge62u3]{display:flex;justify-content:flex-end;margin-top:1.2rem}@media(max-width:900px){.coach-text-overlay__dialog[data-astro-cid-hmge62u3]{grid-template-columns:1fr;width:min(42rem,calc(100vw - 1rem));max-height:min(46rem,calc(100vh - 1rem));margin:.5rem auto}.coach-text-overlay__rail[data-astro-cid-hmge62u3]{border-right:0;border-bottom:1px solid color-mix(in srgb,var(--coach-accent) 16%,var(--color-line))}}.coach-text-feature--edge[data-astro-cid-5djhq3bw]{display:contents}.coach-text-feature__mobile-inline[data-astro-cid-5djhq3bw]{display:none}@media(max-width:900px)and (hover:none),(max-width:900px)and (pointer:coarse){.coach-text-feature__mobile-inline[data-astro-cid-5djhq3bw]{display:block}}
+</style>
+<link rel="stylesheet" href="/_astro/BaseLayout.B_CoGThw.css"></head> <body data-coach="chloe" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="default" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="default" data-edge-shell> <header class="site-header site-header--track" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/en/guided"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-6847d859-aa5b-428b-a1a1-a58940961e4a" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-6847d859-aa5b-428b-a1a1-a58940961e4a" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-6847d859-aa5b-428b-a1a1-a58940961e4a)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-6847d859-aa5b-428b-a1a1-a58940961e4a)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-6847d859-aa5b-428b-a1a1-a58940961e4a)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> </div> <p class="brand-subtitle brand-claim" lang="en"> guided. playful. clear. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-en-guided-ml1-explore" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Context · EN · Guided</span> <span class="track-context-switch__label track-context-switch__label--expanded">Context</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-en-guided-ml1-explore" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Language"> <a class="track-context-switch__segment" href="/de/guided/minilabs/ml1/explore" data-track-context-link> DE </a><span class="track-context-switch__segment is-active" aria-current="page"> EN </span> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Mode"> <span class="track-context-switch__segment is-active" aria-current="page"> Guided </span><a class="track-context-switch__segment" href="/en/academic/minilabs/ml1/explore" data-track-context-link> Academic </a><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Coming soon"> Scientific </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script> <div class="coach-assist coach-assist--header-coin" data-coach-assist data-endpoint="https://api.infektionsdynamiken.de/api/coach" data-assistant-id="chloe-global" data-assist-fallback-assistant-id="chloe-local" data-assist-thinking-label="Chloé is thinking" data-context="{&#34;pageKey&#34;:&#34;journey&#34;,&#34;pageLabel&#34;:&#34;Learning journey&#34;,&#34;legalPageHref&#34;:&#34;/en/guided/legal&#34;,&#34;isContactPage&#34;:false,&#34;siteIdentity&#34;:&#34;Infektionsdynamiken verstehen&#34;,&#34;operatorHint&#34;:&#34;This is the project platform. Internal labels and URL segments are not part of the user-facing explanation.&#34;,&#34;minilabId&#34;:&#34;ml1&#34;,&#34;phase&#34;:&#34;explore&#34;,&#34;coachId&#34;:&#34;chloe&#34;,&#34;coachLabel&#34;:&#34;Chloé&#34;,&#34;audience&#34;:&#34;Guided&#34;,&#34;language&#34;:&#34;EN&#34;}" data-open="false" aria-busy="false" data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" data-ring-light="rgba(217, 70, 239, 0.35)" data-ring-dark="rgba(232, 121, 249, 0.35)" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff; --coach-ring: rgba(217, 70, 239, 0.35)"> <button class="coach-assist__trigger coach-assist__trigger--header coach-assist__trigger--header-coin" type="button" aria-expanded="false" aria-controls="coach-assist-panel-chloe-global-header-coin" aria-label="Open AI coach Chloé" data-assist-toggle> <span class="coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async"> </span> <span class="coach-assist__trigger-badge" aria-hidden="true">AI</span> <span class="coach-assist__trigger-copy"> <span class="coach-assist__trigger-label">Coach Chloé</span> <span class="coach-assist__trigger-text">Open AI coach Chloé</span> </span> </button> <section class="coach-assist__panel card" id="coach-assist-panel-chloe-global-header-coin" data-assist-panel hidden aria-hidden="true"> <div class="coach-assist__panel-head"> <div class="coach-assist__panel-copy"> <p class="coach-assist__panel-label">Coach Chloé</p> <h3>Ask Chloé</h3> <p class="coach-assist__panel-intro">This page. Key point. Next step.</p> </div> <button class="coach-assist__close" type="button" aria-label="Coach-Fenster schließen" data-assist-close> <span aria-hidden="true">×</span> </button> </div> <div class="coach-assist__quick-list"> <button class="coach-assist__quick" type="button" data-assist-quick-prompt="Where am I?"> Where am I? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="What matters?"> What matters? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="What next?"> What next? </button> </div> <div class="coach-assist__thread" data-assist-thread> <article class="coach-assist__message is-assistant"> <p>I stay with this page.</p> </article> </div> <form class="coach-assist__form" data-assist-form> <label class="coach-assist__input-shell"> <span class="coach-assist__sr-only">Frage an Coach Chloé</span> <textarea class="coach-assist__textarea" name="question" rows="3" placeholder="Ask Chloé about this page." data-assist-input></textarea> </label> <div class="coach-assist__form-footer"> <p class="coach-assist__status" data-assist-status>Context-aware help for this page.</p> <button class="card-cta" type="submit" data-assist-submit>
+Senden
+</button> </div> </form> </section> </div> <script type="module" src="/_astro/CoachAssistShell.astro_astro_type_script_index_0_lang.kj8QLL_X.js"></script> </div> <div class="header-action-cluster"> <div class="header-canvas-shell" data-header-canvas-root data-header-canvas-id="site-header-canvas-en-guided-journey-ml1-explore" data-open="false"> <button class="header-canvas-toggle" type="button" aria-expanded="false" aria-controls="site-header-canvas-en-guided-journey-ml1-explore" aria-label="Open navigation menu" data-header-canvas-toggle> <span class="header-canvas-toggle__lines" aria-hidden="true"> <span></span> <span></span> <span></span> </span> </button> </div> </div>  </div> </div> </header> <div class="header-canvas-overlay" data-header-canvas-overlay data-header-canvas-id="site-header-canvas-en-guided-journey-ml1-explore" data-open="false"> <div class="header-canvas-backdrop" data-header-canvas-close hidden></div> <aside class="header-canvas-panel" id="site-header-canvas-en-guided-journey-ml1-explore" aria-hidden="true" aria-label="Navigation" tabindex="-1" data-header-canvas-panel hidden> <div class="header-canvas-panel__head"> <div class="header-canvas-panel__copy"> <p class="header-canvas-panel__eyebrow">Navigation</p> <h2 class="header-canvas-panel__title">Everything with more context</h2> <p class="header-canvas-panel__intro">Jump to the MiniLab Hub, the Lab Hub, project pages, and display settings from one place.</p> </div> <button class="header-canvas-panel__close" type="button" aria-label="Close navigation menu" data-header-canvas-close> <span aria-hidden="true">×</span> </button> </div> <div class="header-canvas-panel__meta" aria-label="Current track context"> <span class="tag">EN</span> <span class="tag">Guided</span> <span class="tag">Coach Chloé</span> <span class="tag" data-header-canvas-surface-label>Surface · Light</span> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Continue</p> <div class="header-canvas-panel__links" aria-label="Continue"> <a class="header-canvas-panel__link header-canvas-panel__link--context is-active" href="/en/guided/minilabs/ml1/explore" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">ML1 · Explore</span> <span class="header-canvas-panel__link-meta">Learning journey</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">Now</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Hubs</p> <div class="header-canvas-panel__links header-canvas-panel__links--hubs" aria-label="Hubs"> <a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/en/guided/learning-journey" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">MiniLab Hub</span> <span class="header-canvas-panel__link-meta">Structured overview across the six MiniLabs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">6 MiniLabs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a><a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/en/scientific/labs" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Lab Hub</span> <span class="header-canvas-panel__link-meta">Direct access to the two larger labs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">2 Labs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Project</p> <nav class="header-canvas-panel__links" aria-label="Project"> <a class="header-canvas-panel__link" href="/en/guided/about" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">About</span> <span class="header-canvas-panel__link-meta">Project framing and contributors</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/guided/contact" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Contact</span> <span class="header-canvas-panel__link-meta">Contact and support</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/guided/legal" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Legal</span> <span class="header-canvas-panel__link-meta">Legal and data protection</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a> </nav> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Display</p> <div class="header-canvas-panel__surface"> <div class="header-canvas-panel__surface-group" role="group" aria-label="Display"> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="light" aria-pressed="false"> Light </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="dark" aria-pressed="false"> Dark </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="system" aria-pressed="false"> System </button> </div> </div> </div> </aside> </div> <script>
+    (() => {
+      const roots = Array.from(document.querySelectorAll('[data-header-canvas-root]'));
+      const overlays = Array.from(document.querySelectorAll('[data-header-canvas-overlay]'));
+      if (!roots.length) return;
+
+      const findOverlay = (root) => {
+        if (!(root instanceof HTMLElement)) return null;
+        const overlayId = root.dataset.headerCanvasId;
+        if (!overlayId) return null;
+        return overlays.find(
+          (overlay) => overlay instanceof HTMLElement && overlay.dataset.headerCanvasId === overlayId
+        ) ?? null;
+      };
+
+      const mountOverlayToBody = (overlay) => {
+        if (!(overlay instanceof HTMLElement)) return null;
+        if (overlay.parentElement !== document.body) {
+          document.body.appendChild(overlay);
+        }
+        return overlay;
+      };
+
+      const syncBodyState = () => {
+        const hasOpenRoot = roots.some((root) => root instanceof HTMLElement && root.dataset.open === 'true');
+        document.body.dataset.headerCanvasOpen = hasOpenRoot ? 'true' : 'false';
+      };
+
+      const setOpen = (root, nextOpen) => {
+        if (!(root instanceof HTMLElement)) return;
+        const overlay = mountOverlayToBody(findOverlay(root));
+        const trigger = root.querySelector('[data-header-canvas-toggle]');
+        const backdrop = overlay?.querySelector('.header-canvas-backdrop');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        root.dataset.open = nextOpen ? 'true' : 'false';
+        if (overlay instanceof HTMLElement) {
+          overlay.dataset.open = nextOpen ? 'true' : 'false';
+        }
+        if (trigger instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        }
+        if (backdrop instanceof HTMLElement) {
+          backdrop.hidden = !nextOpen;
+        }
+        if (panel instanceof HTMLElement) {
+          panel.hidden = !nextOpen;
+          panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+          if (nextOpen) {
+            window.setTimeout(() => panel.focus(), 30);
+          }
+        }
+        syncBodyState();
+      };
+
+      const closeAll = (except) => {
+        roots.forEach((root) => {
+          if (!(root instanceof HTMLElement) || root === except) return;
+          setOpen(root, false);
+        });
+      };
+
+      const readSurfaceState = () => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.getState === 'function') {
+          try {
+            return controller.getState();
+          } catch {}
+        }
+
+        const body = document.body;
+        return {
+          preference: body instanceof HTMLElement ? body.dataset.surfacePreference ?? 'light' : 'light',
+          surface: body instanceof HTMLElement ? body.dataset.surface ?? 'light' : 'light'
+        };
+      };
+
+      const applySurfacePreference = (preference) => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.applyPreference === 'function') {
+          controller.applyPreference(preference);
+          return;
+        }
+
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizedPreference = preference === 'dark' || preference === 'system' ? preference : 'light';
+        const nextSurface =
+          normalizedPreference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : normalizedPreference;
+
+        body.dataset.surfacePreference = normalizedPreference;
+        body.dataset.surface = nextSurface;
+        window.dispatchEvent(
+          new CustomEvent('id:surfacechange', {
+            detail: {
+              preference: normalizedPreference,
+              surface: nextSurface
+            }
+          })
+        );
+      };
+
+      const syncSurfaceTag = (overlay, surface) => {
+        const tag = overlay?.querySelector('[data-header-canvas-surface-label]');
+        if (!(tag instanceof HTMLElement)) return;
+
+        const prefix = document.documentElement.lang === 'en' ? 'Surface' : 'Darstellung';
+        const label =
+          surface === 'dark'
+            ? document.documentElement.lang === 'en'
+              ? 'Dark'
+              : 'Dunkel'
+            : document.documentElement.lang === 'en'
+              ? 'Light'
+              : 'Hell';
+        tag.textContent = `${prefix} · ${label}`;
+      };
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root.dataset.mounted === 'true') return;
+        root.dataset.mounted = 'true';
+
+        const overlay = findOverlay(root);
+        mountOverlayToBody(overlay);
+        const toggle = root.querySelector('[data-header-canvas-toggle]');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        const closeButtons = Array.from(overlay?.querySelectorAll('[data-header-canvas-close]') ?? []);
+        const navLinks = Array.from(overlay?.querySelectorAll('[data-header-canvas-link]') ?? []);
+        const surfaceButtons = Array.from(overlay?.querySelectorAll('[data-surface-preference]') ?? []);
+
+        if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+        const syncSurfaceButtons = () => {
+          const state = readSurfaceState();
+          surfaceButtons.forEach((button) => {
+            if (!(button instanceof HTMLButtonElement)) return;
+            const preference = button.dataset.surfacePreference ?? 'light';
+            const isActive = preference === state.preference;
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            button.toggleAttribute('data-active', isActive);
+          });
+          syncSurfaceTag(overlay, state.surface);
+        };
+
+        toggle.addEventListener('click', () => {
+          const nextOpen = root.dataset.open !== 'true';
+          closeAll(root);
+          setOpen(root, nextOpen);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setOpen(root, false);
+            toggle.focus();
+          });
+        });
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            setOpen(root, false);
+          });
+        });
+
+        surfaceButtons.forEach((button) => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          button.addEventListener('click', () => {
+            applySurfacePreference(button.dataset.surfacePreference ?? 'light');
+            syncSurfaceButtons();
+          });
+        });
+
+        const handleEscape = (event) => {
+          if (event.key !== 'Escape') return;
+          setOpen(root, false);
+          toggle.focus();
+        };
+
+        root.addEventListener('keydown', handleEscape);
+        overlay?.addEventListener('keydown', handleEscape);
+        window.addEventListener('id:surfacechange', syncSurfaceButtons);
+        syncSurfaceButtons();
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        if (event.target.closest('[data-header-canvas-root]') || event.target.closest('[data-header-canvas-overlay]')) return;
+        closeAll(null);
+      });
+    })();
+  </script> <nav class="journey-local-rail" data-edge-subrail aria-label="Local page navigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/en/guided"> <span>Home</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-context" href="/en/guided/learning-journey"> <span>Learning journey</span> </a> <a class="journey-local-rail__link is-module" href="/en/guided/minilabs/ml1/explore"> <span>ML1</span> </a> <a class="journey-local-rail__link is-child" href="/en/guided/minilabs/ml1/intro"> <span>Intro</span> </a> <a class="journey-local-rail__link is-active" href="/en/guided/minilabs/ml1/explore" aria-current="page"> <span>Explore</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-parent" href="/en/guided/about"> <span>About</span> </a>  </div> </div> </nav> <script>
+                (() => {
+                  const root = document.documentElement;
+                  const header = document.querySelector('[data-edge-header]');
+                  if (!(header instanceof HTMLElement)) return;
+
+                  const syncStickyOffset = () => {
+                    root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+                  };
+
+                  syncStickyOffset();
+
+                  if ('ResizeObserver' in window) {
+                    const observer = new ResizeObserver(syncStickyOffset);
+                    observer.observe(header);
+                  } else {
+                    window.addEventListener('resize', syncStickyOffset, { passive: true });
+                  }
+                })();
+              </script> <main class="site-main site-main--with-subrail" data-edge-main>   <section class="minilab-grid phase-explore-layout">  <div class="runtime-column"> <div class="coach-text-feature coach-text-feature--edge" data-astro-cid-5djhq3bw>  <div class="coach-edge-video-entry" data-coach-edge-video-entry-root data-anchor-id="en-guided:ml1:explore:text-edge" data-overlay-id="en-guided:ml1:explore:text" data-kind="text" data-placement="shell" data-shell-top-offset="84" data-astro-cid-umkspsdm>  <div class="coach-edge-video-entry__layer" data-coach-edge-layer="en-guided:ml1:explore:text-edge" data-visible="false" data-open="false" data-rail-open="false" aria-hidden="true" data-astro-cid-umkspsdm> <div class="coach-edge-video-entry__rail" aria-hidden="true" data-astro-cid-umkspsdm> <span class="coach-edge-video-entry__rail-kicker" data-astro-cid-umkspsdm>coach_text</span> <span class="coach-edge-video-entry__rail-title" data-astro-cid-umkspsdm>Explore goals</span> <span class="coach-edge-video-entry__rail-note" data-astro-cid-umkspsdm>What matters here</span> </div> <div class="coach-edge-video-entry__coin" data-astro-cid-umkspsdm> <button class="coach-feature-trigger coach-feature-trigger--text coach-feature-trigger--coin" type="button" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff" data-coach-feature-surface data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" aria-controls="en-guided:ml1:explore:text" aria-expanded="false" aria-label="Open coach text for this Explore step" data-coach-feature-trigger-id="en-guided:ml1:explore:text" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__avatar" aria-hidden="true" data-astro-cid-2a3ibvej> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-2a3ibvej> </span> <span class="coach-feature-trigger__badge" aria-hidden="true" data-astro-cid-2a3ibvej> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" data-astro-cid-2a3ibvej> <path d="M6 8h12" data-astro-cid-2a3ibvej></path> <path d="M6 12h12" data-astro-cid-2a3ibvej></path> <path d="M6 16h8" data-astro-cid-2a3ibvej></path> </svg> </span> <span class="coach-feature-trigger__body" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__kicker" data-astro-cid-2a3ibvej>coach_text</span> <span class="coach-feature-trigger__label" data-astro-cid-2a3ibvej>Explore goals</span> <span class="coach-feature-trigger__note" data-astro-cid-2a3ibvej>What matters here</span> </span> </button> <script>
+  (() => {
+    const applySurface = () => {
+      const roots = Array.from(document.querySelectorAll('[data-coach-feature-surface]')).filter(
+        (node) => node instanceof HTMLElement
+      );
+      if (!roots.length) return;
+
+      const isDark = document.body instanceof HTMLElement && document.body.dataset.surface === 'dark';
+      const suffix = isDark ? 'Dark' : 'Light';
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement)) return;
+        const avatar = root.querySelector('.coach-feature-trigger__avatar img');
+        const accent = root.dataset[`accent${suffix}`];
+        const accentStrong = root.dataset[`accentStrong${suffix}`];
+        const gradientFrom = root.dataset[`gradientFrom${suffix}`];
+        const gradientTo = root.dataset[`gradientTo${suffix}`];
+        const avatarSrc = root.dataset[`avatar${suffix}`];
+
+        if (accent) root.style.setProperty('--coach-accent', accent);
+        if (accentStrong) root.style.setProperty('--coach-accent-strong', accentStrong);
+        if (gradientFrom) root.style.setProperty('--coach-gradient-from', gradientFrom);
+        if (gradientTo) root.style.setProperty('--coach-gradient-to', gradientTo);
+        if (avatar instanceof HTMLImageElement && avatarSrc) avatar.src = avatarSrc;
+      });
+    };
+
+    applySurface();
+
+    if (document.documentElement.dataset.coachFeatureSurfaceMounted === 'true') return;
+    document.documentElement.dataset.coachFeatureSurfaceMounted = 'true';
+    window.addEventListener('id:surfacechange', applySurface);
+  })();
+</script> </div> </div> </div> <script type="module" src="/_astro/CoachEdgeVideoEntry.astro_astro_type_script_index_0_lang.DKm5GthD.js"></script> <div class="coach-text-feature__mobile-inline" data-astro-cid-5djhq3bw> <button class="coach-feature-trigger coach-feature-trigger--text" type="button" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff" data-coach-feature-surface data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" aria-controls="en-guided:ml1:explore:text" aria-expanded="false" aria-label="Open coach text for this Explore step" data-coach-feature-trigger-id="en-guided:ml1:explore:text" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__avatar" aria-hidden="true" data-astro-cid-2a3ibvej> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-2a3ibvej> </span> <span class="coach-feature-trigger__badge" aria-hidden="true" data-astro-cid-2a3ibvej> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" data-astro-cid-2a3ibvej> <path d="M6 8h12" data-astro-cid-2a3ibvej></path> <path d="M6 12h12" data-astro-cid-2a3ibvej></path> <path d="M6 16h8" data-astro-cid-2a3ibvej></path> </svg> </span> <span class="coach-feature-trigger__body" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__kicker" data-astro-cid-2a3ibvej>coach_text</span> <span class="coach-feature-trigger__label" data-astro-cid-2a3ibvej>Explore goals</span> <span class="coach-feature-trigger__note" data-astro-cid-2a3ibvej>What matters here</span> </span> </button> <script>
+  (() => {
+    const applySurface = () => {
+      const roots = Array.from(document.querySelectorAll('[data-coach-feature-surface]')).filter(
+        (node) => node instanceof HTMLElement
+      );
+      if (!roots.length) return;
+
+      const isDark = document.body instanceof HTMLElement && document.body.dataset.surface === 'dark';
+      const suffix = isDark ? 'Dark' : 'Light';
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement)) return;
+        const avatar = root.querySelector('.coach-feature-trigger__avatar img');
+        const accent = root.dataset[`accent${suffix}`];
+        const accentStrong = root.dataset[`accentStrong${suffix}`];
+        const gradientFrom = root.dataset[`gradientFrom${suffix}`];
+        const gradientTo = root.dataset[`gradientTo${suffix}`];
+        const avatarSrc = root.dataset[`avatar${suffix}`];
+
+        if (accent) root.style.setProperty('--coach-accent', accent);
+        if (accentStrong) root.style.setProperty('--coach-accent-strong', accentStrong);
+        if (gradientFrom) root.style.setProperty('--coach-gradient-from', gradientFrom);
+        if (gradientTo) root.style.setProperty('--coach-gradient-to', gradientTo);
+        if (avatar instanceof HTMLImageElement && avatarSrc) avatar.src = avatarSrc;
+      });
+    };
+
+    applySurface();
+
+    if (document.documentElement.dataset.coachFeatureSurfaceMounted === 'true') return;
+    document.documentElement.dataset.coachFeatureSurfaceMounted = 'true';
+    window.addEventListener('id:surfacechange', applySurface);
+  })();
+</script> </div>  </div> <div class="coach-text-overlay" data-coach-text-overlay="en-guided:ml1:explore:text" hidden aria-hidden="true" data-astro-cid-hmge62u3> <button class="coach-text-overlay__backdrop" type="button" data-coach-text-close="en-guided:ml1:explore:text" aria-label="Close text panel" data-astro-cid-hmge62u3></button> <section class="coach-text-overlay__dialog card" id="en-guided:ml1:explore:text" role="dialog" aria-modal="true" aria-labelledby="en-guided:ml1:explore:text-title" data-astro-cid-hmge62u3> <aside class="coach-text-overlay__rail" data-astro-cid-hmge62u3> <div class="coach-text-overlay__coin" aria-hidden="true" data-astro-cid-hmge62u3> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-hmge62u3> <span class="coach-text-overlay__coin-badge" data-astro-cid-hmge62u3>TXT</span> </div> <p class="meta-label" data-astro-cid-hmge62u3>coach_text / Coach Chloé</p> <h2 data-astro-cid-hmge62u3>Chloé</h2> <p data-astro-cid-hmge62u3>Goals, focus and the next sensible step in Explore.</p> </aside> <div class="coach-text-overlay__content" data-astro-cid-hmge62u3> <div class="coach-text-overlay__head" data-astro-cid-hmge62u3> <p class="meta-label" data-astro-cid-hmge62u3>Explore / reading goal</p> <h2 id="en-guided:ml1:explore:text-title" data-astro-cid-hmge62u3>Read the basic wave before moving on</h2> <p class="coach-text-overlay__lead" data-astro-cid-hmge62u3>This Explore step is for understanding how the curve reacts when you change the few free controls.</p> </div> <div class="coach-text-overlay__body" data-astro-cid-hmge62u3> <p data-astro-cid-hmge62u3>Move the available controls and watch how peak, timing and the overall height of the wave shift together. The goal is not speed, but making the logic of the SIR wave readable.</p><p data-astro-cid-hmge62u3>Do not read the chart alone. Use the KPI cards as a second lens: peak, peak day and reproduction values tell you whether the wave becomes earlier, flatter or more persistent.</p><p data-astro-cid-hmge62u3>Once the pattern feels legible, the next step can later become Challenge. Until then, Explore should make the model feel graspable rather than finished.</p> </div> <div class="coach-text-overlay__actions" data-astro-cid-hmge62u3> <button class="card-cta" type="button" data-coach-text-close="en-guided:ml1:explore:text" data-astro-cid-hmge62u3>Close</button> </div> </div> </section> </div> <script type="module">(()=>{const o=()=>Array.from(document.querySelectorAll("[data-coach-text-overlay]")).filter(e=>e instanceof HTMLElement);if(o().forEach(e=>{e.parentElement!==document.body&&document.body.appendChild(e)}),document.documentElement.dataset.coachTextOverlayMounted==="true")return;document.documentElement.dataset.coachTextOverlayMounted="true";const l=()=>Array.from(document.querySelectorAll("[data-coach-feature-trigger-id]")).filter(e=>e instanceof HTMLButtonElement),d=e=>{l().forEach(a=>{const t=a.dataset.coachFeatureTriggerId??"";o().some(n=>n.dataset.coachTextOverlay===t)&&a.setAttribute("aria-expanded",e===t?"true":"false")})},s=(e,a)=>{let t=null;o().forEach(r=>{const n=r.dataset.coachTextOverlay===e,c=!!(a&&n);r.hidden=!c,r.setAttribute("aria-hidden",c?"false":"true"),c&&(t=e)}),document.body.dataset.coachTextOverlayOpen=t?"true":"false",d(t)};document.addEventListener("click",e=>{if(!(e.target instanceof HTMLElement))return;const a=e.target.closest("[data-coach-text-close]");if(a instanceof HTMLElement){s(a.dataset.coachTextClose??"",!1);return}const t=e.target.closest("[data-coach-feature-trigger-id]");if(!(t instanceof HTMLButtonElement))return;const r=t.dataset.coachFeatureTriggerId??"",n=o().find(c=>c.dataset.coachTextOverlay===r);n&&s(r,n.hidden)}),document.addEventListener("keydown",e=>{e.key==="Escape"&&s("",!1)}),d(null)})();</script> <section class="explore-workbench" data-explore-workbench data-model="sir" data-track="en-guided" data-minilab="ml1" data-explore-unlock-params="mitigation">  <div class="explore-shell"> <section class="explore-stage-panel"> <div class="explore-chart-shell"> <div class="explore-chart-topline"> <p class="meta-label"> Wellenverlauf </p> <div class="explore-legend" aria-label="Legende"> <span class="explore-legend-item is-s">S</span>  <span class="explore-legend-item is-i">I</span> <span class="explore-legend-item is-r">R</span>  </div> </div> <div class="explore-chart-stage" data-live-cursor="false" data-playhead-button="false"> <canvas class="explore-chart-canvas" data-explore-canvas width="960" height="540"></canvas>    </div> </div>   <div class="explore-kpis">  <article class="explore-kpi" data-kpi-note="Maximaler Anteil gleichzeitig infektiöser Personen."> <p class="meta-label">Peak I</p> <p class="explore-kpi-value" data-kpi="peak-i">0.0 %</p> </article> <article class="explore-kpi" data-kpi-note="Wann die Welle ihren höchsten Punkt erreicht."> <p class="meta-label">Peak-Tag</p> <p class="explore-kpi-value" data-kpi="peak-day">0</p> </article> <article class="explore-kpi" data-kpi-note="Startwert nach Kontaktbremse und noch voller Suszeptibilität."> <p class="meta-label">R_eff Start</p> <p class="explore-kpi-value" data-kpi="reff-start">0.00</p> </article> <article class="explore-kpi" data-kpi-note="Effektive Reproduktionszahl am Ende des gewählten Horizonts."> <p class="meta-label">Reff Ende</p> <p class="explore-kpi-value" data-kpi="reff-end">0.00</p> </article>  </div> </section> <aside class="explore-controls-panel"> <div class="explore-controls-head"> <div> <p class="meta-label">Parameterpanel</p> <h3>Direkt an der Welle drehen.</h3> </div> <button class="phase-link explore-reset" type="button" data-action="reset"> Basiswerte </button> </div> <div class="explore-controls-grid">  <label class="explore-control is-disabled"> <span class="explore-control-head"> <span>R0</span> <output data-output="r0">2.50</output> </span> <input data-param="r0" type="range" min="0.8" max="4.8" step="0.05" value="2.5" disabled> </label> <label class="explore-control is-disabled"> <span class="explore-control-head"> <span>Dauer D</span> <output data-output="duration">7.0 Tage</output> </span> <input data-param="duration" type="range" min="3" max="14" step="0.5" value="7" disabled> </label> <label class="explore-control is-disabled"> <span class="explore-control-head"> <span>Startinfektion</span> <output data-output="seed">1 person</output> </span> <input data-param="seed" type="range" min="0.01" max="2" step="0.01" value="0.1" disabled> </label> <label class="explore-control"> <span class="explore-control-head"> <span>Kontaktbremse</span> <output data-output="mitigation">0 %</output> </span> <input data-param="mitigation" type="range" min="0" max="70" step="1" value="0"> </label> <label class="explore-control is-disabled"> <span class="explore-control-head"> <span>Horizont</span> <output data-output="horizon">300 days</output> </span> <input data-param="horizon" type="range" min="80" max="300" step="10" value="300" disabled> </label>  </div>  <div class="explore-note-card"> <p class="meta-label">Warum das schon wichtig ist</p> <p data-kpi="wave-note"> Dieses erste Workbench-Modul ist noch nicht die finale Engine, aber schon die richtige Produktlogik: Rechnen, visualisieren, vergleichen. </p> </div> </aside> </div> <div class="explore-progress-row"> <a class="phase-link explore-progress-cta" href="/en/guided/learning-journey" data-explore-next data-state="locked" aria-hidden="true" tabindex="-1"> Continue in Learning Journey </a> </div> </section> <script type="module" src="/_astro/ExploreWorkbench.astro_astro_type_script_index_0_lang.C2qFJQBs.js"></script> </div> </section>   </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-9778745d-c5e4-4b33-ac2d-38be7043e550" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-9778745d-c5e4-4b33-ac2d-38be7043e550" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-9778745d-c5e4-4b33-ac2d-38be7043e550)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-9778745d-c5e4-4b33-ac2d-38be7043e550)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-9778745d-c5e4-4b33-ac2d-38be7043e550)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> <p class="site-footer-brand__lead" lang="en"> <span class="site-brand-responsive-copy is-long">A bilingual learning environment that makes infection dynamics easier to understand.</span> <span class="site-brand-responsive-copy is-short">A bilingual learning environment.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Learn</p> <a href="/en/guided">Home</a><a href="/en/guided/learning-journey">Learning journey</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Project</p> <a href="/en/guided/about">About</a><a href="/en/guided/contact">Contact</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Frame</p> <a href="/en/guided/legal">Legal</a> <p class="site-footer-note">Start, coaches, MiniLabs and Labs now share one common system logic.</p> </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/en/guided" aria-label="Understanding Infection Dynamics"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-e8c7d7d0-59e9-4fa9-9784-93f447e707b7" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-e8c7d7d0-59e9-4fa9-9784-93f447e707b7" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-e8c7d7d0-59e9-4fa9-9784-93f447e707b7)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-e8c7d7d0-59e9-4fa9-9784-93f447e707b7)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-e8c7d7d0-59e9-4fa9-9784-93f447e707b7)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="en">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </span> </a> <div class="micro-footer__links"> <a href="/en/guided/contact">Contact</a> <a href="/en/guided/legal">Legal</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>

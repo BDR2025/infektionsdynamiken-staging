@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="de"> <head><script data-staging-gate-bootstrap>(function(){try{if(location.pathname==="/gate.html")return;var raw=localStorage.getItem("idv.staging.session");var ok=false;if(raw){var s=JSON.parse(raw);ok=!!(s&&s.v==="v2"&&s.exp>Date.now());}if(!ok){var next=location.pathname+location.search+location.hash;location.replace("/gate.html?next="+encodeURIComponent(next));}}catch(e){var next=location.pathname+location.search+location.hash;location.replace("/gate.html?next="+encodeURIComponent(next));}})();</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Impressum, Datenschutz, Hinweise zum Kontaktformular, zu KI-Funktionen und zur Lizenz."><title>Rechtliches | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/BaseLayout.B_CoGThw.css"></head> <body data-coach="mila" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="landing-project"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="default" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="default" data-edge-shell> <header class="site-header site-header--track" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/landing-project/de/academic/"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-0a677145-e0b7-4f54-a0ed-4bdccf58d796" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-0a677145-e0b7-4f54-a0ed-4bdccf58d796" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-0a677145-e0b7-4f54-a0ed-4bdccf58d796)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-0a677145-e0b7-4f54-a0ed-4bdccf58d796)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-0a677145-e0b7-4f54-a0ed-4bdccf58d796)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> präzise. fundiert. klar. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-de-academic" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Kontext · DE · Akademisch</span> <span class="track-context-switch__label track-context-switch__label--expanded">Kontext</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-de-academic" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Sprache"> <span class="track-context-switch__segment is-active" aria-current="page"> DE </span><a class="track-context-switch__segment" href="/landing-project/en/academic/legal/" data-track-context-link> EN </a> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Modus"> <a class="track-context-switch__segment" href="/landing-project/de/guided/rechtliches/" data-track-context-link> Geführt </a><span class="track-context-switch__segment is-active" aria-current="page"> Akademisch </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script>  </div> <div class="header-action-cluster">  </div>  </div> </div> </header>   <nav class="journey-local-rail" data-edge-subrail aria-label="Lokale Seitennavigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/landing-project/de/academic/"> <span>Start</span> </a> <a class="journey-local-rail__link is-parent" href="/landing-project/de/academic/about/"> <span>Über das Projekt</span> </a> <a class="journey-local-rail__link is-active" href="/landing-project/de/academic/rechtliches/" aria-current="page"> <span>Rechtliches</span> </a>  </div> </div> </nav> <script>
+                (() => {
+                  const root = document.documentElement;
+                  const header = document.querySelector('[data-edge-header]');
+                  if (!(header instanceof HTMLElement)) return;
+
+                  const syncStickyOffset = () => {
+                    root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+                  };
+
+                  syncStickyOffset();
+
+                  if ('ResizeObserver' in window) {
+                    const observer = new ResizeObserver(syncStickyOffset);
+                    observer.observe(header);
+                  } else {
+                    window.addEventListener('resize', syncStickyOffset, { passive: true });
+                  }
+                })();
+              </script> <main class="site-main site-main--with-subrail" data-edge-main>   <section class="content-panel content-panel--plain"> <div class="legal-sections"> <article class="content-panel prose legal-section-card"> <h2 id="impressum">Impressum</h2> <p><strong>Diensteanbieter</strong><br>
+Infektionsdynamiken verstehen<br>
+Wissenschaftsnahe Informations- und Lernseite</p>
+<p><strong>Verantwortlich für den Inhalt</strong><br>
+Boris D. Rausch<br>
+c/o flexdienst #10910<br>
+Kurt-Schumacher-Straße 76<br>
+67663 Kaiserslautern<br>
+Deutschland</p>
+<p><strong>Kontakt</strong><br>
+E-Mail: <a href="mailto:info@infektionsdynamiken.de">info@infektionsdynamiken.de</a></p>
+<p><strong>Sprachen des Angebots</strong><br>
+Deutsch und Englisch</p> </article><article class="content-panel prose legal-section-card"> <h2 id="datenschutz">Datenschutz</h2> <h3 id="1-verantwortlicher">1. Verantwortlicher</h3>
+<p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
+<p>Boris D. Rausch<br>
+c/o flexdienst #10910<br>
+Kurt-Schumacher-Straße 76<br>
+67663 Kaiserslautern<br>
+Deutschland<br>
+E-Mail: <a href="mailto:info@infektionsdynamiken.de">info@infektionsdynamiken.de</a></p>
+<h3 id="2-zwecke-und-rechtsgrundlagen">2. Zwecke und Rechtsgrundlagen</h3>
+<p>Personenbezogene Daten werden nur verarbeitet, soweit dies für die technische Bereitstellung der Website, die Bearbeitung von Anfragen, die Nutzung interaktiver Funktionen und den Betrieb optionaler KI-Hilfen erforderlich ist.</p>
+<p>Je nach Verarbeitung stützen wir uns insbesondere auf:</p>
+<ul>
+<li>Art. 6 Abs. 1 lit. b DSGVO für vertragsbezogene oder vorvertragliche Kommunikation</li>
+<li>Art. 6 Abs. 1 lit. f DSGVO für den sicheren und funktionsfähigen Betrieb der Website sowie für die Bearbeitung allgemeiner Anfragen</li>
+<li>Art. 6 Abs. 1 lit. a DSGVO, soweit ausnahmsweise ausdrücklich eine Einwilligung eingeholt wird</li>
+</ul>
+<h3 id="3-aufruf-der-website">3. Aufruf der Website</h3>
+<p>Beim Aufruf der Website verarbeitet der jeweils eingesetzte Hosting- oder CDN-Provider technische Verbindungsdaten. Dazu können insbesondere IP-Adresse, Datum und Uhrzeit des Abrufs, angeforderte Ressource, Referrer, Browsertyp, Betriebssystem und HTTP-Status gehören.</p>
+<p>Die Verarbeitung erfolgt zum Zweck der Auslieferung der Website, der Stabilität und der Sicherheit. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+<p>Nach heutigem Stand der Implementierung setzen wir keine Analyse- oder Marketing-Tracker ein.</p>
+<h3 id="4-lokale-browser-speicherung-für-funktionszwecke">4. Lokale Browser-Speicherung für Funktionszwecke</h3>
+<p>Interaktive Bereiche können lokale Browser-Speicher wie <code>localStorage</code> verwenden, um ausdrücklich gewünschte Oberflächenzustände zu sichern, etwa den Zustand von Overlays oder bestimmte Arbeitsflächen-Einstellungen.</p>
+<p>Diese Informationen bleiben auf dem Endgerät, bis sie im Browser gelöscht werden oder die jeweilige Funktion sie überschreibt. Soweit der Zugriff auf Endgeräteinformationen für die vom Nutzer gewünschte Funktion unbedingt erforderlich ist, erfolgt er auf Grundlage von Paragraf 25 Abs. 2 Nr. 2 TDDDG. Die begleitende personenbezogene Datenverarbeitung stützen wir auf Art. 6 Abs. 1 lit. f DSGVO.</p>
+<h3 id="5-kontaktformular-via-formspree">5. Kontaktformular via Formspree</h3>
+<p>Für das Kontaktformular nutzen wir <code>Formspree</code>. Bei einer Übermittlung werden die eingegebenen Daten, insbesondere Name, E-Mail-Adresse, Institution oder Kontext, Thema, Betreff und Nachricht, direkt an <code>Formspree</code> übertragen und von dort an uns weitergeleitet.</p>
+<p>Die Verarbeitung dient der Bearbeitung der Anfrage. Rechtsgrundlage ist bei vertragsbezogenen oder vorvertraglichen Anfragen Art. 6 Abs. 1 lit. b DSGVO, im Übrigen Art. 6 Abs. 1 lit. f DSGVO. Soweit eine gesonderte Einwilligung erklärt wird, ist zusätzlich Art. 6 Abs. 1 lit. a DSGVO einschlägig.</p>
+<p>Empfänger sind <code>Formspree</code> sowie die für den Nachrichteneingang eingesetzten Mail-Dienste. Nach Anbieterangaben kann eine Verarbeitung auch in den USA oder anderen Drittstaaten stattfinden. <code>Formspree</code> verweist für internationale Übermittlungen auf Standardvertragsklauseln. Weitere Informationen: <a href="https://formspree.io/legal/privacy-policy/">Formspree Privacy Policy</a> und <a href="https://formspree.io/security/">Formspree Security</a>.</p>
+<p>Kontaktanfragen speichern wir nur so lange, wie dies für die Bearbeitung und für etwaige gesetzliche Aufbewahrungspflichten erforderlich ist. Die Speicherdauer innerhalb von <code>Formspree</code> richtet sich zusätzlich nach der dortigen Account-Konfiguration und den Anbieter-Richtlinien.</p>
+<p>Bitte keine sensiblen Gesundheitsdaten oder sonstige besonders vertrauliche Informationen über das Kontaktformular senden.</p>
+<h3 id="6-ki-funktionen-via-openai">6. KI-Funktionen via OpenAI</h3>
+<p>Soweit auf einer Seite eine KI-Hilfe oder ein AI-Coach aktiviert ist, werden die eingegebenen Fragen zunächst an unseren eigenen KI-Endpunkt unter <code>api.infektionsdynamiken.de</code> übermittelt. Dieser Endpunkt wird derzeit technisch über unsere eigene Server- bzw. NAS-Infrastruktur bereitgestellt und leitet die Anfrage serverseitig an <code>OpenAI</code> weiter. Dabei können insbesondere die Frage selbst, der jüngere Dialogverlauf, Seitenkontext und technische Request-Daten verarbeitet werden.</p>
+<p>Die Verarbeitung dient der kontextbezogenen Beantwortung von Fragen und der Bereitstellung interaktiver Lernhilfe. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+<p>Empfänger bzw. Kategorien von Empfängern sind zunächst unsere eigene technische Infrastruktur für den KI-Endpunkt und anschließend <code>OpenAI</code> einschließlich eingesetzter verbundener Unternehmen und Unterauftragsverarbeiter. Für Kunden mit Sitz im EWR nennt das aktuelle OpenAI-DPA <code>OpenAI Ireland Ltd.</code> als Vertragspartner. Eine Verarbeitung außerhalb des EWR ist möglich; OpenAI verweist dafür auf Standardvertragsklauseln und Angemessenheitsbeschlüsse. Weitere Informationen: <a href="https://openai.com/policies/data-processing-addendum">OpenAI Data Processing Addendum</a>, <a href="https://platform.openai.com/docs/guides/your-data">OpenAI Data Controls</a> und <a href="https://openai.com/policies/sub-processor-list/">OpenAI Sub-processor List</a>.</p>
+<p>Nach den aktuellen OpenAI-Angaben werden über die API übermittelte Daten standardmäßig nicht zum Training der Modelle verwendet. OpenAI nennt für die API außerdem Abuse-Monitoring-Logs, die bis zu 30 Tage aufbewahrt werden können. Bitte daher auch hier keine besonderen Kategorien personenbezogener Daten oder sonstige vertrauliche Inhalte eingeben.</p>
+<p>Soweit die KI-Funktion ausschließlich Antworten auf Nutzerfragen erzeugt, ist keine ausschließlich automatisierte Entscheidung mit rechtlicher oder ähnlich erheblicher Wirkung im Sinne von Art. 22 DSGVO beabsichtigt.</p>
+<h3 id="7-speicherdauer">7. Speicherdauer</h3>
+<p>Soweit in den einzelnen Abschnitten keine speziellere Dauer genannt ist, speichern wir personenbezogene Daten nur so lange, wie dies für den jeweiligen Zweck erforderlich ist, und löschen sie anschließend vorbehaltlich gesetzlicher Aufbewahrungspflichten.</p>
+<h3 id="8-ihre-rechte">8. Ihre Rechte</h3>
+<p>Betroffene Personen haben nach Maßgabe der DSGVO insbesondere das Recht auf:</p>
+<ul>
+<li>Auskunft</li>
+<li>Berichtigung</li>
+<li>Löschung</li>
+<li>Einschränkung der Verarbeitung</li>
+<li>Datenübertragbarkeit</li>
+<li>Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO</li>
+<li>Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft</li>
+</ul>
+<h3 id="9-beschwerderecht">9. Beschwerderecht</h3>
+<p>Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Für den Standort Kaiserslautern ist insbesondere zuständig:</p>
+<p>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz<br>
+Hintere Bleiche 34<br>
+55116 Mainz<br>
+E-Mail: <a href="mailto:poststelle@datenschutz.rlp.de">poststelle@datenschutz.rlp.de</a><br>
+Web: <a href="https://www.datenschutz.rlp.de/">datenschutz.rlp.de</a></p> </article><article class="content-panel prose legal-section-card"> <h2 id="open-educational-resources">Open Educational Resources</h2> <p>Soweit nicht anders gekennzeichnet, stehen Inhalte dieser Website unter <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>. Bitte bei einer Weiterverwendung die Quelle <code>Infektionsdynamiken verstehen</code> nennen.</p>
+<p>Stand: 20.04.2026</p> </article> </div> </section>  </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-41fb001b-00c2-45b3-9834-1136a37ac40d" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-41fb001b-00c2-45b3-9834-1136a37ac40d" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-41fb001b-00c2-45b3-9834-1136a37ac40d)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-41fb001b-00c2-45b3-9834-1136a37ac40d)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-41fb001b-00c2-45b3-9834-1136a37ac40d)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> <p class="site-footer-brand__lead" lang="de"> <span class="site-brand-responsive-copy is-long">Eine zweisprachige Lernumgebung für analytisches Denken und fundiertes Verstehen.</span> <span class="site-brand-responsive-copy is-short">Eine zweisprachige Lernumgebung.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Lernen</p> <a href="/landing-project/de/academic/">Start</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Projekt</p> <a href="/landing-project/de/academic/about/">Über das Projekt</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Rahmen</p> <a href="/landing-project/de/academic/rechtliches/">Rechtliches</a>  </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/landing-project/de/academic/" aria-label="Infektionsdynamiken verstehen"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-d16f0a00-032a-47f2-a3b9-1c212be8c693" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-d16f0a00-032a-47f2-a3b9-1c212be8c693" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-d16f0a00-032a-47f2-a3b9-1c212be8c693)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-d16f0a00-032a-47f2-a3b9-1c212be8c693)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-d16f0a00-032a-47f2-a3b9-1c212be8c693)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="de">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </span> </a> <div class="micro-footer__links">  <a href="/landing-project/de/academic/rechtliches/">Rechtliches</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>
