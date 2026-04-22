@@ -1,4 +1,62 @@
-<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Direkter Spike für SIR links und ein einfaches Agentenmodell rechts."><title>Vergleichslabor | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/vergleichslabor@_@astro.mw6fjjFy.css">
+<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Direkter Spike für SIR links und ein einfaches Agentenmodell rechts."><title>Vergleichslabor | Infektionsdynamiken verstehen</title><style>
+      html[data-staging-lock='pending'] body {
+        visibility: hidden;
+      }
+    </style><script>
+      (() => {
+        const STAGING_HOST = 'staging.infektionsdynamiken.de';
+        const SESSION_KEY = 'idv.staging.session';
+        const SESSION_VERSION = 'v4';
+        const GATE_PATH = '/gate.html';
+        const html = document.documentElement;
+
+        if (window.location.hostname !== STAGING_HOST) {
+          html.setAttribute('data-staging-lock', 'passed');
+          return;
+        }
+
+        if (window.location.pathname === GATE_PATH) {
+          html.setAttribute('data-staging-lock', 'passed');
+          return;
+        }
+
+        html.setAttribute('data-staging-lock', 'pending');
+
+        try {
+          const raw = window.sessionStorage.getItem(SESSION_KEY);
+          if (!raw) {
+            const next = window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            return;
+          }
+
+          const session = JSON.parse(raw);
+          if (
+            !session ||
+            session.v !== SESSION_VERSION ||
+            typeof session.tabId !== 'string' ||
+            session.tabId.trim() === ''
+          ) {
+            window.sessionStorage.removeItem(SESSION_KEY);
+            const next = window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+          }
+        } catch {
+          try {
+            window.sessionStorage.removeItem(SESSION_KEY);
+          } catch {}
+
+          const next = window.location.pathname + window.location.search + window.location.hash;
+          window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+        }
+      })();
+    </script><script src="/gate-guard.js"></script><script>
+      (() => {
+        const guard = window.__idvStagingGuard;
+        if (!guard) return;
+        void guard.protectPage();
+      })();
+    </script><link rel="stylesheet" href="/_astro/vergleichslabor@_@astro.mw6fjjFy.css">
 <link rel="stylesheet" href="/_astro/BaseLayout.sVOp664o.css"></head> <body data-coach="rausch" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="wide" data-routing-scope="default" data-page-shell="default"> <script>
       (() => {
         const body = document.body;
@@ -86,7 +144,7 @@
           applyPreference(latestPreference, { persist: false });
         });
       })();
-    </script> <div class="site-shell" data-shell-mode="wide" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="wide" data-edge-shell> <header class="site-header compact" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/lab/vergleichslabor/"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-07aea6db-c86b-4b8d-86fe-92c43694e97e" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-07aea6db-c86b-4b8d-86fe-92c43694e97e" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-07aea6db-c86b-4b8d-86fe-92c43694e97e)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-07aea6db-c86b-4b8d-86fe-92c43694e97e)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-07aea6db-c86b-4b8d-86fe-92c43694e97e)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> Vergleichslabor / Spike </p> </div> </div>  <div class="site-header-utility"> <div class="header-meta">  </div> </div> </div> </header>     <main class="site-main" data-edge-main>  <section class="compare-lab-shell" data-compare-lab data-astro-cid-p7e33mcm> <header class="compare-lab-hero card" data-astro-cid-p7e33mcm> <div class="compare-lab-hero__copy" data-astro-cid-p7e33mcm> <p class="eyebrow" data-astro-cid-p7e33mcm>Dritter großer Versuch / V0.1</p> <h1 data-astro-cid-p7e33mcm>SIR links. Agenten rechts. Gleiche Startlage, andere Welt.</h1> <p class="lead" data-astro-cid-p7e33mcm>
+    </script> <div class="site-shell" data-shell-mode="wide" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="wide" data-edge-shell> <header class="site-header compact" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/lab/vergleichslabor/"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-f60d54b0-e2db-4a9a-9c94-8f4b815c151e" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-f60d54b0-e2db-4a9a-9c94-8f4b815c151e" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-f60d54b0-e2db-4a9a-9c94-8f4b815c151e)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-f60d54b0-e2db-4a9a-9c94-8f4b815c151e)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-f60d54b0-e2db-4a9a-9c94-8f4b815c151e)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> Vergleichslabor / Spike </p> </div> </div>  <div class="site-header-utility"> <div class="header-meta">  </div> </div> </div> </header>     <main class="site-main" data-edge-main>  <section class="compare-lab-shell" data-compare-lab data-astro-cid-p7e33mcm> <header class="compare-lab-hero card" data-astro-cid-p7e33mcm> <div class="compare-lab-hero__copy" data-astro-cid-p7e33mcm> <p class="eyebrow" data-astro-cid-p7e33mcm>Dritter großer Versuch / V0.1</p> <h1 data-astro-cid-p7e33mcm>SIR links. Agenten rechts. Gleiche Startlage, andere Welt.</h1> <p class="lead" data-astro-cid-p7e33mcm>
 Dieser Spike soll nicht schon das fertige dritte Labor sein, sondern den Gedanken sichtbar machen:
           Oben zwei Raumlesarten, unten zwei direkt vergleichbare Zeitachsen. Interessant wird die Stelle, an der
           beide noch ähnlich starten und dann sichtbar auseinanderlaufen.

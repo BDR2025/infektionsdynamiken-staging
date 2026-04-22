@@ -15,7 +15,7 @@
   const target = guard.nextTarget(window.location.href);
 
   if (guard.readSession()) {
-    guard.protectPage({ next: target, redirectOnPass: target });
+    void guard.protectPage({ next: target, redirectOnPass: target });
     return;
   }
 

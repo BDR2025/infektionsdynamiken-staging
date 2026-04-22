@@ -1,4 +1,62 @@
-<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Akademische Challenge-Oberfläche für den SIRV-Prototyp mit Live-Druck statt automatischer Fensterpausen."><title>Minilab 1 Challenge Vollbild | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/BaseLayout.sVOp664o.css"></head> <body data-coach="mila" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default" data-page-shell="default"> <script>
+<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Akademische Challenge-Oberfläche für den SIRV-Prototyp mit Live-Druck statt automatischer Fensterpausen."><title>Minilab 1 Challenge Vollbild | Infektionsdynamiken verstehen</title><style>
+      html[data-staging-lock='pending'] body {
+        visibility: hidden;
+      }
+    </style><script>
+      (() => {
+        const STAGING_HOST = 'staging.infektionsdynamiken.de';
+        const SESSION_KEY = 'idv.staging.session';
+        const SESSION_VERSION = 'v4';
+        const GATE_PATH = '/gate.html';
+        const html = document.documentElement;
+
+        if (window.location.hostname !== STAGING_HOST) {
+          html.setAttribute('data-staging-lock', 'passed');
+          return;
+        }
+
+        if (window.location.pathname === GATE_PATH) {
+          html.setAttribute('data-staging-lock', 'passed');
+          return;
+        }
+
+        html.setAttribute('data-staging-lock', 'pending');
+
+        try {
+          const raw = window.sessionStorage.getItem(SESSION_KEY);
+          if (!raw) {
+            const next = window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            return;
+          }
+
+          const session = JSON.parse(raw);
+          if (
+            !session ||
+            session.v !== SESSION_VERSION ||
+            typeof session.tabId !== 'string' ||
+            session.tabId.trim() === ''
+          ) {
+            window.sessionStorage.removeItem(SESSION_KEY);
+            const next = window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+          }
+        } catch {
+          try {
+            window.sessionStorage.removeItem(SESSION_KEY);
+          } catch {}
+
+          const next = window.location.pathname + window.location.search + window.location.hash;
+          window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+        }
+      })();
+    </script><script src="/gate-guard.js"></script><script>
+      (() => {
+        const guard = window.__idvStagingGuard;
+        if (!guard) return;
+        void guard.protectPage();
+      })();
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.sVOp664o.css"></head> <body data-coach="mila" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default" data-page-shell="default"> <script>
       (() => {
         const body = document.body;
         if (!(body instanceof HTMLElement)) return;

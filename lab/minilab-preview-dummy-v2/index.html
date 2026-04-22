@@ -1,4 +1,62 @@
-<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ruhigere Referenz für sechs code-native Minilab-Previews in den Coach-Farbmodi."><title>Minilab Preview Dummy V2 | Infektionsdynamiken verstehen</title><link rel="stylesheet" href="/_astro/minilab-preview-dummy-v2@_@astro.Cln8sXLn.css">
+<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ruhigere Referenz für sechs code-native Minilab-Previews in den Coach-Farbmodi."><title>Minilab Preview Dummy V2 | Infektionsdynamiken verstehen</title><style>
+      html[data-staging-lock='pending'] body {
+        visibility: hidden;
+      }
+    </style><script>
+      (() => {
+        const STAGING_HOST = 'staging.infektionsdynamiken.de';
+        const SESSION_KEY = 'idv.staging.session';
+        const SESSION_VERSION = 'v4';
+        const GATE_PATH = '/gate.html';
+        const html = document.documentElement;
+
+        if (window.location.hostname !== STAGING_HOST) {
+          html.setAttribute('data-staging-lock', 'passed');
+          return;
+        }
+
+        if (window.location.pathname === GATE_PATH) {
+          html.setAttribute('data-staging-lock', 'passed');
+          return;
+        }
+
+        html.setAttribute('data-staging-lock', 'pending');
+
+        try {
+          const raw = window.sessionStorage.getItem(SESSION_KEY);
+          if (!raw) {
+            const next = window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            return;
+          }
+
+          const session = JSON.parse(raw);
+          if (
+            !session ||
+            session.v !== SESSION_VERSION ||
+            typeof session.tabId !== 'string' ||
+            session.tabId.trim() === ''
+          ) {
+            window.sessionStorage.removeItem(SESSION_KEY);
+            const next = window.location.pathname + window.location.search + window.location.hash;
+            window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+          }
+        } catch {
+          try {
+            window.sessionStorage.removeItem(SESSION_KEY);
+          } catch {}
+
+          const next = window.location.pathname + window.location.search + window.location.hash;
+          window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+        }
+      })();
+    </script><script src="/gate-guard.js"></script><script>
+      (() => {
+        const guard = window.__idvStagingGuard;
+        if (!guard) return;
+        void guard.protectPage();
+      })();
+    </script><link rel="stylesheet" href="/_astro/minilab-preview-dummy-v2@_@astro.Cln8sXLn.css">
 <link rel="stylesheet" href="/_astro/BaseLayout.sVOp664o.css"></head> <body data-coach="neutral" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="wide" data-routing-scope="default" data-page-shell="default"> <script>
       (() => {
         const body = document.body;
@@ -86,7 +144,7 @@
           applyPreference(latestPreference, { persist: false });
         });
       })();
-    </script> <div class="site-shell" data-shell-mode="wide" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="wide" data-edge-shell> <header class="site-header compact" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/lab/minilab-preview-dummy-v2/"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-5a99d465-b81b-4fda-9120-3fe2341285b4" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-5a99d465-b81b-4fda-9120-3fe2341285b4" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-5a99d465-b81b-4fda-9120-3fe2341285b4)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-5a99d465-b81b-4fda-9120-3fe2341285b4)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-5a99d465-b81b-4fda-9120-3fe2341285b4)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> Minilab preview dummy / V2 </p> </div> </div>  <div class="site-header-utility"> <div class="header-meta">  </div> </div> </div> </header>     <main class="site-main" data-edge-main>  <section class="hero-panel" data-astro-cid-p3iu5law> <div class="hero-copy" data-astro-cid-p3iu5law> <p class="eyebrow" data-astro-cid-p3iu5law>Lab / Preview Dummy / V2</p> <h1 data-astro-cid-p3iu5law>Ruhigere Diagramm-Version für die sechs Minilabs</h1> <p class="lead" data-astro-cid-p3iu5law>
+    </script> <div class="site-shell" data-shell-mode="wide" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="wide" data-edge-shell> <header class="site-header compact" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/lab/minilab-preview-dummy-v2/"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-ee4c4bb0-77ea-4757-8417-baebcf03ce7a" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-ee4c4bb0-77ea-4757-8417-baebcf03ce7a" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-ee4c4bb0-77ea-4757-8417-baebcf03ce7a)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-ee4c4bb0-77ea-4757-8417-baebcf03ce7a)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-ee4c4bb0-77ea-4757-8417-baebcf03ce7a)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> Minilab preview dummy / V2 </p> </div> </div>  <div class="site-header-utility"> <div class="header-meta">  </div> </div> </div> </header>     <main class="site-main" data-edge-main>  <section class="hero-panel" data-astro-cid-p3iu5law> <div class="hero-copy" data-astro-cid-p3iu5law> <p class="eyebrow" data-astro-cid-p3iu5law>Lab / Preview Dummy / V2</p> <h1 data-astro-cid-p3iu5law>Ruhigere Diagramm-Version für die sechs Minilabs</h1> <p class="lead" data-astro-cid-p3iu5law>
 Diese zweite Runde reduziert die Bildsprache deutlich: weniger Linien, klarere Hauptrichtung und mehr
         Diagrammcharakter. Die Farben bleiben coach-spezifisch, aber die Formen werden strenger und ruhiger.
 </p> </div> <aside class="hero-meta card" data-astro-cid-p3iu5law> <p class="meta-label" data-astro-cid-p3iu5law>Was sich in V2 ändert</p> <ul class="meta-list" data-astro-cid-p3iu5law> <li data-astro-cid-p3iu5law>Eine deutlich ruhigere, geordnetere Formensprache pro Modell.</li> <li data-astro-cid-p3iu5law>Weniger Kreuzungen und weniger gleich laute Nebenmotive.</li> <li data-astro-cid-p3iu5law>Stärkerer Eindruck von Diagramm statt Kritzel-Skizze.</li> </ul> </aside> </section> <section class="card minilab-preview-lab" data-preview-root data-initial-coach="ben" data-astro-cid-p3iu5law> <div class="minilab-preview-lab__head" data-astro-cid-p3iu5law> <div data-astro-cid-p3iu5law> <p class="eyebrow" data-astro-cid-p3iu5law>Coach-Farbmodi</p> <h2 data-astro-cid-p3iu5law>Ein Modellset, vier Atmosphären</h2> <p class="lead" data-astro-cid-p3iu5law>

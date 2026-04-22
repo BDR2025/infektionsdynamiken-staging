@@ -5,6 +5,11 @@
   const DEFAULT_TARGET = "/de/guided/";
   const CHANNEL_NAME = "idv-staging-tabs";
   const PROBE_TIMEOUT_MS = 140;
+  const STAGING_HOST = "staging.infektionsdynamiken.de";
+
+  function isEnabled() {
+    return window.location.hostname === STAGING_HOST;
+  }
 
   function randomId() {
     try {
@@ -32,14 +37,18 @@
     }
   }
 
+  function clearLegacyLocalSession() {
+    try {
+      window.localStorage.removeItem(SESSION_KEY);
+    } catch {}
+  }
+
   function clearSession() {
     try {
       window.sessionStorage.removeItem(SESSION_KEY);
     } catch {}
 
-    try {
-      window.localStorage.removeItem(SESSION_KEY);
-    } catch {}
+    clearLegacyLocalSession();
   }
 
   function saveSession() {
@@ -53,10 +62,8 @@
     return session;
   }
 
-  function clearLegacyLocalSession() {
-    try {
-      window.localStorage.removeItem(SESSION_KEY);
-    } catch {}
+  function currentTarget() {
+    return window.location.pathname + window.location.search + window.location.hash;
   }
 
   function nextTarget(href) {
@@ -67,12 +74,9 @@
     return candidate;
   }
 
-  function currentTarget() {
-    return window.location.pathname + window.location.search + window.location.hash;
-  }
-
   function redirectToGate(next) {
-    window.location.replace(GATE_PATH + "?next=" + encodeURIComponent(next || DEFAULT_TARGET));
+    const target = next || DEFAULT_TARGET;
+    window.location.replace(GATE_PATH + "?next=" + encodeURIComponent(target));
   }
 
   function unveilPage() {
@@ -80,6 +84,8 @@
     if (veil) {
       veil.remove();
     }
+
+    document.documentElement.setAttribute("data-staging-lock", "passed");
     document.documentElement.setAttribute("data-staging-unlocked", "true");
   }
 
@@ -142,6 +148,11 @@
   }
 
   async function protectPage(options) {
+    if (!isEnabled()) {
+      unveilPage();
+      return true;
+    }
+
     if (window.location.pathname === GATE_PATH) {
       unveilPage();
       return true;
@@ -186,6 +197,7 @@
     SESSION_VERSION,
     GATE_PATH,
     DEFAULT_TARGET,
+    STAGING_HOST,
     readSession,
     saveSession,
     clearSession,
