@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Leere Quiz-Shell für das erste SIR-Minilab."><title>Minilab 1 Quiz | Infektionsdynamiken verstehen</title><style>
+          html[data-staging-lock='pending'] body {
+            visibility: hidden;
+          }
+        </style><script>
+          (() => {
+            const STAGING_HOST = 'staging.infektionsdynamiken.de';
+            const SESSION_KEY = 'idv.staging.session';
+            const SESSION_VERSION = 'v4';
+            const GATE_PATH = '/gate.html';
+            const html = document.documentElement;
+
+            if (window.location.hostname !== STAGING_HOST) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            if (window.location.pathname === GATE_PATH) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            html.setAttribute('data-staging-lock', 'pending');
+
+            try {
+              const raw = window.sessionStorage.getItem(SESSION_KEY);
+              if (!raw) {
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+                return;
+              }
+
+              const session = JSON.parse(raw);
+              if (
+                !session ||
+                session.v !== SESSION_VERSION ||
+                typeof session.tabId !== 'string' ||
+                session.tabId.trim() === ''
+              ) {
+                window.sessionStorage.removeItem(SESSION_KEY);
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+              }
+            } catch {
+              try {
+                window.sessionStorage.removeItem(SESSION_KEY);
+              } catch {}
+
+              const next = window.location.pathname + window.location.search + window.location.hash;
+              window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            }
+          })();
+        </script><script src="/gate-guard.js"></script><script>
+          (() => {
+            const guard = window.__idvStagingGuard;
+            if (!guard) return;
+            void guard.protectPage();
+          })();
+        </script><link rel="stylesheet" href="/_astro/CoachEdgeVideoEntry.BqjU3oMl.css">
+<style>.coach-overlay-shell[data-astro-cid-v4wgx27a]{transform-origin:top left}.coach-overlay-shell[data-astro-cid-v4wgx27a][data-morphing=true]{will-change:transform,opacity,filter;pointer-events:none}
+</style>
+<link rel="stylesheet" href="/_astro/CoachTextFeature.C9FOP-Wv.css">
+<link rel="stylesheet" href="/_astro/BaseLayout.DRTPAc68.css"></head> <body data-coach="ben" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default" data-page-shell="default"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        if (body.dataset.routingScope === 'landing-project') {
+          body.dataset.surfacePreference = 'light';
+          body.dataset.surface = 'light';
+
+          window.__idSurfaceController = {
+            storageKey,
+            applyPreference: () => ({
+              preference: 'light',
+              surface: 'light'
+            }),
+            getState: () => ({
+              preference: 'light',
+              surface: 'light'
+            })
+          };
+
+          return;
+        }
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="default" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="default" data-edge-shell> <header class="site-header site-header--track" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/de/guided"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-629c70ac-10d9-4065-ad91-1c789218d972" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-629c70ac-10d9-4065-ad91-1c789218d972" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-629c70ac-10d9-4065-ad91-1c789218d972)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-629c70ac-10d9-4065-ad91-1c789218d972)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-629c70ac-10d9-4065-ad91-1c789218d972)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> didaktisch. reduziert. verständlich. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-de-guided-ml1-quiz" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Kontext · DE · Geführt</span> <span class="track-context-switch__label track-context-switch__label--expanded">Kontext</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-de-guided-ml1-quiz" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Sprache"> <span class="track-context-switch__segment is-active" aria-current="page"> DE </span><a class="track-context-switch__segment" href="/en/guided/minilabs/ml1/quiz" data-track-context-link> EN </a> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Modus"> <span class="track-context-switch__segment is-active" aria-current="page"> Geführt </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Folgt später"> Akademisch </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Folgt später"> Wissenschaftlich </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script> <div class="coach-assist coach-assist--header-coin" data-coach-assist data-endpoint="https://ai.infektionsdynamiken.de/api/coach" data-assistant-id="ben-quiz" data-coach-id="ben" data-assist-fallback-assistant-id="ben-global" data-assist-thinking-label="Ben denkt nach" data-context="{&#34;pageKey&#34;:&#34;minilab-phase&#34;,&#34;pageLabel&#34;:&#34;MiniLab 1 · SIR · Quiz&#34;,&#34;legalPageHref&#34;:&#34;/de/guided/rechtliches&#34;,&#34;isContactPage&#34;:false,&#34;siteIdentity&#34;:&#34;Infektionsdynamiken verstehen&#34;,&#34;operatorHint&#34;:&#34;Dies ist die Projektplattform. Interne Labels und URL-Segmente gehören nicht in die nutzerseitige Erklärung.&#34;,&#34;minilabId&#34;:&#34;ml1&#34;,&#34;phase&#34;:&#34;quiz&#34;,&#34;coachId&#34;:&#34;ben&#34;,&#34;coachLabel&#34;:&#34;Ben&#34;,&#34;audience&#34;:&#34;Geführt&#34;,&#34;language&#34;:&#34;DE&#34;,&#34;minilabTitle&#34;:&#34;MiniLab 1 · SIR&#34;,&#34;phaseLabel&#34;:&#34;Quiz&#34;,&#34;isMinilabPhasePage&#34;:true,&#34;phaseSpecificCoachBriefing&#34;:&#34;Seitenmodus: Quiz. Spielerische Verständnischecks, Zuordnung und Transfer stehen im Vordergrund.&#34;}" data-context-source="de-guided:ml1:quiz:header-coach" data-open="false" aria-busy="false" data-avatar-light="/media/coaches/avatars/ben-small.png" data-avatar-dark="/media/coaches/avatars/ben-small.png" data-accent-light="#2ec27e" data-accent-dark="#4ade80" data-accent-strong-light="#157f58" data-accent-strong-dark="#22c55e" data-gradient-from-light="#effbf5" data-gradient-from-dark="#0f1c17" data-gradient-to-light="#dff8ec" data-gradient-to-dark="#143425" data-ring-light="rgba(46, 194, 126, 0.35)" data-ring-dark="rgba(74, 222, 128, 0.35)" style="--coach-accent: #2ec27e; --coach-accent-strong: #157f58; --coach-gradient-from: #effbf5; --coach-gradient-to: #dff8ec; --coach-ring: rgba(46, 194, 126, 0.35)"> <button class="coach-assist__trigger coach-assist__trigger--header coach-assist__trigger--header-coin" type="button" aria-expanded="false" aria-controls="coach-assist-panel-ben-quiz-header-coin" aria-label="Ben zu Quiz fragen" data-assist-toggle> <span class="coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/ben-small.png" alt="" loading="lazy" decoding="async"> </span> <span class="coach-assist__trigger-badge" aria-hidden="true">AI</span> <span class="coach-assist__trigger-copy"> <span class="coach-assist__trigger-label">Coach Ben</span> <span class="coach-assist__trigger-text">Ben zu Quiz fragen</span> </span> </button> <section class="coach-assist__panel card" id="coach-assist-panel-ben-quiz-header-coin" data-assist-panel hidden aria-hidden="true"> <div class="coach-assist__panel-head"> <div class="coach-assist__panel-copy"> <p class="coach-assist__panel-label">Coach Ben</p> <h3>Ben für Quiz</h3> <p class="coach-assist__panel-intro">Ben hilft hier beim spielerischen Prüfen der Kernideen in diesem Minilab.</p> </div> <button class="coach-assist__close" type="button" aria-label="Coach-Fenster schließen" data-assist-close> <span aria-hidden="true">×</span> </button> </div> <div class="coach-assist__quick-list"> <button class="coach-assist__quick" type="button" data-assist-quick-prompt="Was soll ich hier prüfen?"> Was soll ich hier prüfen? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="Worin liegt der Unterschied?"> Worin liegt der Unterschied? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="Was sollte ich mir merken?"> Was sollte ich mir merken? </button> </div> <div class="coach-assist__thread" data-assist-thread> <article class="coach-assist__message is-assistant"> <p>Ich bleibe bei diesem Quiz.</p> </article> </div> <form class="coach-assist__form" data-assist-form> <label class="coach-assist__input-shell"> <span class="coach-assist__sr-only">Frage an Coach Ben</span> <textarea class="coach-assist__textarea" name="question" rows="3" placeholder="Frag Ben, wenn eine Quiz-Frage unklar ist." data-assist-input></textarea> </label> <div class="coach-assist__form-footer"> <p class="coach-assist__status" data-assist-status>Quiz-Hilfe für dieses Minilab.</p> <button class="card-cta" type="submit" data-assist-submit>
+Senden
+</button> </div> </form> </section> </div> <script type="module" src="/_astro/CoachAssistShell.astro_astro_type_script_index_0_lang.BFnJU2IQ.js"></script> </div> <div class="header-action-cluster"> <div class="header-canvas-shell" data-header-canvas-root data-header-canvas-id="site-header-canvas-de-guided-journey-ml1-quiz" data-open="false"> <button class="header-canvas-toggle" type="button" aria-expanded="false" aria-controls="site-header-canvas-de-guided-journey-ml1-quiz" aria-label="Navigationsmenü öffnen" data-header-canvas-toggle> <span class="header-canvas-toggle__lines" aria-hidden="true"> <span></span> <span></span> <span></span> </span> </button> </div> </div>  </div> </div> </header> <div class="header-canvas-overlay" data-header-canvas-overlay data-header-canvas-id="site-header-canvas-de-guided-journey-ml1-quiz" data-open="false"> <div class="header-canvas-backdrop" data-header-canvas-close hidden></div> <aside class="header-canvas-panel" id="site-header-canvas-de-guided-journey-ml1-quiz" aria-hidden="true" aria-label="Navigation" tabindex="-1" data-header-canvas-panel hidden> <div class="header-canvas-panel__head"> <div class="header-canvas-panel__copy"> <p class="header-canvas-panel__eyebrow">Navigation</p> <h2 class="header-canvas-panel__title">Alles mit mehr Kontext</h2> <p class="header-canvas-panel__intro">Spring von einem Ort aus in den MiniLab-Hub, den Lab-Hub, die Projektseiten und die Darstellung.</p> </div> <button class="header-canvas-panel__close" type="button" aria-label="Navigationsmenü schließen" data-header-canvas-close> <span aria-hidden="true">×</span> </button> </div> <div class="header-canvas-panel__meta" aria-label="Aktueller Kontext"> <span class="tag">DE</span> <span class="tag">Geführt</span> <span class="tag">Coach Ben</span> <span class="tag" data-header-canvas-surface-label>Darstellung · Hell</span> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Weiter hier</p> <div class="header-canvas-panel__links" aria-label="Weiter hier"> <a class="header-canvas-panel__link header-canvas-panel__link--context is-active" href="/de/guided/minilabs/ml1/quiz" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">ML1 · Quiz</span> <span class="header-canvas-panel__link-meta">Lernreise</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">Jetzt</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Hubs</p> <div class="header-canvas-panel__links header-canvas-panel__links--hubs" aria-label="Hubs"> <a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/de/guided/lernreise" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">MiniLab-Hub</span> <span class="header-canvas-panel__link-meta">Strukturierter Überblick über die sechs MiniLabs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">6 MiniLabs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a><a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/de/scientific/labs" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Lab-Hub</span> <span class="header-canvas-panel__link-meta">Direkter Zugang zu den zwei großen Labs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">2 Labs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Projekt</p> <nav class="header-canvas-panel__links" aria-label="Projekt"> <a class="header-canvas-panel__link" href="/de/guided/about" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Über das Projekt</span> <span class="header-canvas-panel__link-meta">Projekt, Einordnung und Beteiligte</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/guided/kontakt" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Kontakt</span> <span class="header-canvas-panel__link-meta">Kontakt und Rückmeldung</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/de/guided/rechtliches" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Rechtliches</span> <span class="header-canvas-panel__link-meta">Rechtliches und Datenschutz</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a> </nav> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Darstellung</p> <div class="header-canvas-panel__surface"> <div class="header-canvas-panel__surface-group" role="group" aria-label="Darstellung"> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="light" aria-pressed="false"> Hell </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="dark" aria-pressed="false"> Dunkel </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="system" aria-pressed="false"> System </button> </div> </div> </div> </aside> </div> <script>
+    (() => {
+      const roots = Array.from(document.querySelectorAll('[data-header-canvas-root]'));
+      const overlays = Array.from(document.querySelectorAll('[data-header-canvas-overlay]'));
+      if (!roots.length) return;
+
+      const findOverlay = (root) => {
+        if (!(root instanceof HTMLElement)) return null;
+        const overlayId = root.dataset.headerCanvasId;
+        if (!overlayId) return null;
+        return overlays.find(
+          (overlay) => overlay instanceof HTMLElement && overlay.dataset.headerCanvasId === overlayId
+        ) ?? null;
+      };
+
+      const mountOverlayToBody = (overlay) => {
+        if (!(overlay instanceof HTMLElement)) return null;
+        if (overlay.parentElement !== document.body) {
+          document.body.appendChild(overlay);
+        }
+        return overlay;
+      };
+
+      const syncBodyState = () => {
+        const hasOpenRoot = roots.some((root) => root instanceof HTMLElement && root.dataset.open === 'true');
+        document.body.dataset.headerCanvasOpen = hasOpenRoot ? 'true' : 'false';
+      };
+
+      const setOpen = (root, nextOpen) => {
+        if (!(root instanceof HTMLElement)) return;
+        const overlay = mountOverlayToBody(findOverlay(root));
+        const trigger = root.querySelector('[data-header-canvas-toggle]');
+        const backdrop = overlay?.querySelector('.header-canvas-backdrop');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        root.dataset.open = nextOpen ? 'true' : 'false';
+        if (overlay instanceof HTMLElement) {
+          overlay.dataset.open = nextOpen ? 'true' : 'false';
+        }
+        if (trigger instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        }
+        if (backdrop instanceof HTMLElement) {
+          backdrop.hidden = !nextOpen;
+        }
+        if (panel instanceof HTMLElement) {
+          panel.hidden = !nextOpen;
+          panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+          if (nextOpen) {
+            window.setTimeout(() => panel.focus(), 30);
+          }
+        }
+        syncBodyState();
+      };
+
+      const closeAll = (except) => {
+        roots.forEach((root) => {
+          if (!(root instanceof HTMLElement) || root === except) return;
+          setOpen(root, false);
+        });
+      };
+
+      const readSurfaceState = () => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.getState === 'function') {
+          try {
+            return controller.getState();
+          } catch {}
+        }
+
+        const body = document.body;
+        return {
+          preference: body instanceof HTMLElement ? body.dataset.surfacePreference ?? 'light' : 'light',
+          surface: body instanceof HTMLElement ? body.dataset.surface ?? 'light' : 'light'
+        };
+      };
+
+      const applySurfacePreference = (preference) => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.applyPreference === 'function') {
+          controller.applyPreference(preference);
+          return;
+        }
+
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizedPreference = preference === 'dark' || preference === 'system' ? preference : 'light';
+        const nextSurface =
+          normalizedPreference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : normalizedPreference;
+
+        body.dataset.surfacePreference = normalizedPreference;
+        body.dataset.surface = nextSurface;
+        window.dispatchEvent(
+          new CustomEvent('id:surfacechange', {
+            detail: {
+              preference: normalizedPreference,
+              surface: nextSurface
+            }
+          })
+        );
+      };
+
+      const syncSurfaceTag = (overlay, surface) => {
+        const tag = overlay?.querySelector('[data-header-canvas-surface-label]');
+        if (!(tag instanceof HTMLElement)) return;
+
+        const prefix = document.documentElement.lang === 'en' ? 'Surface' : 'Darstellung';
+        const label =
+          surface === 'dark'
+            ? document.documentElement.lang === 'en'
+              ? 'Dark'
+              : 'Dunkel'
+            : document.documentElement.lang === 'en'
+              ? 'Light'
+              : 'Hell';
+        tag.textContent = `${prefix} · ${label}`;
+      };
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root.dataset.mounted === 'true') return;
+        root.dataset.mounted = 'true';
+
+        const overlay = findOverlay(root);
+        mountOverlayToBody(overlay);
+        const toggle = root.querySelector('[data-header-canvas-toggle]');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        const closeButtons = Array.from(overlay?.querySelectorAll('[data-header-canvas-close]') ?? []);
+        const navLinks = Array.from(overlay?.querySelectorAll('[data-header-canvas-link]') ?? []);
+        const surfaceButtons = Array.from(overlay?.querySelectorAll('[data-surface-preference]') ?? []);
+
+        if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+        const syncSurfaceButtons = () => {
+          const state = readSurfaceState();
+          surfaceButtons.forEach((button) => {
+            if (!(button instanceof HTMLButtonElement)) return;
+            const preference = button.dataset.surfacePreference ?? 'light';
+            const isActive = preference === state.preference;
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            button.toggleAttribute('data-active', isActive);
+          });
+          syncSurfaceTag(overlay, state.surface);
+        };
+
+        toggle.addEventListener('click', () => {
+          const nextOpen = root.dataset.open !== 'true';
+          closeAll(root);
+          setOpen(root, nextOpen);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setOpen(root, false);
+            toggle.focus();
+          });
+        });
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            setOpen(root, false);
+          });
+        });
+
+        surfaceButtons.forEach((button) => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          button.addEventListener('click', () => {
+            applySurfacePreference(button.dataset.surfacePreference ?? 'light');
+            syncSurfaceButtons();
+          });
+        });
+
+        const handleEscape = (event) => {
+          if (event.key !== 'Escape') return;
+          setOpen(root, false);
+          toggle.focus();
+        };
+
+        root.addEventListener('keydown', handleEscape);
+        overlay?.addEventListener('keydown', handleEscape);
+        window.addEventListener('id:surfacechange', syncSurfaceButtons);
+        syncSurfaceButtons();
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        if (event.target.closest('[data-header-canvas-root]') || event.target.closest('[data-header-canvas-overlay]')) return;
+        closeAll(null);
+      });
+    })();
+  </script> <nav class="journey-local-rail" data-edge-subrail aria-label="Lokale Seitennavigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/de/guided"> <span>Start</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-context" href="/de/guided/lernreise"> <span>Lernreise</span> </a> <a class="journey-local-rail__link is-module" href="/de/guided/minilabs/ml1/quiz"> <span>ML1</span> </a> <a class="journey-local-rail__link is-child" href="/de/guided/minilabs/ml1/intro"> <span>Intro</span> </a> <a class="journey-local-rail__link is-child" href="/de/guided/minilabs/ml1/explore"> <span>Explore</span> </a> <a class="journey-local-rail__link is-child" href="/de/guided/minilabs/ml1/challenge"> <span>Challenge</span> </a> <a class="journey-local-rail__link is-active" href="/de/guided/minilabs/ml1/quiz" aria-current="page"> <span>Quiz</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-parent" href="/de/guided/about"> <span>Über das Projekt</span> </a>  </div> </div> </nav> <script>
+                (() => {
+                  const root = document.documentElement;
+                  const header = document.querySelector('[data-edge-header]');
+                  if (!(header instanceof HTMLElement)) return;
+
+                  const syncStickyOffset = () => {
+                    root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+                  };
+
+                  syncStickyOffset();
+
+                  if ('ResizeObserver' in window) {
+                    const observer = new ResizeObserver(syncStickyOffset);
+                    observer.observe(header);
+                  } else {
+                    window.addEventListener('resize', syncStickyOffset, { passive: true });
+                  }
+                })();
+              </script> <main class="site-main site-main--with-subrail" data-edge-main>   <section class="minilab-grid phase-quiz-layout"> <div class="content-panel prose"> <div class="quiz-shell" aria-label="Quiz">
+  <section class="quiz-stage" aria-label="Quiz">
+    <div class="quiz-stage__surface" aria-hidden="true"></div>
+  </section>
+</div> </div>  </section>   </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-c1535bd4-91fe-4fb7-9ea2-e4c946cf266d" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-c1535bd4-91fe-4fb7-9ea2-e4c946cf266d" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-c1535bd4-91fe-4fb7-9ea2-e4c946cf266d)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-c1535bd4-91fe-4fb7-9ea2-e4c946cf266d)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-c1535bd4-91fe-4fb7-9ea2-e4c946cf266d)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="de"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </p> <p class="site-footer-brand__lead" lang="de"> <span class="site-brand-responsive-copy is-long">Eine zweisprachige Lernumgebung, die Infektionsdynamiken verständlich macht.</span> <span class="site-brand-responsive-copy is-short">Eine zweisprachige Lernumgebung.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Lernen</p> <a href="/de/guided">Start</a><a href="/de/guided/lernreise">Lernreise</a><a href="/de/guided/bedienhinweise">Bedienhinweise</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Projekt</p> <a href="/de/guided/about">Über das Projekt</a><a href="/de/guided/kontakt">Kontakt</a><a href="/de/guided/sammlung">Repository</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Rahmen</p> <a href="/de/guided/rechtliches">Rechtliches</a>  </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/de/guided" aria-label="Infektionsdynamiken verstehen"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-32edacad-1b29-4c7d-85a1-375fd0fef84a" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-32edacad-1b29-4c7d-85a1-375fd0fef84a" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-32edacad-1b29-4c7d-85a1-375fd0fef84a)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-32edacad-1b29-4c7d-85a1-375fd0fef84a)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-32edacad-1b29-4c7d-85a1-375fd0fef84a)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="de">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> </span> </a> <div class="micro-footer__links"> <a href="/de/guided/kontakt">Kontakt</a> <a href="/de/guided/rechtliches">Rechtliches</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>

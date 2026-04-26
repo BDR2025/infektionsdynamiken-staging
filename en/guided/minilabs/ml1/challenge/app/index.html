@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guided SIR challenge with fixed decision windows, a capacity notice and a peak-delay objective."><title>MiniLab 1 Challenge Vollbild | Infektionsdynamiken verstehen</title><style>
+          html[data-staging-lock='pending'] body {
+            visibility: hidden;
+          }
+        </style><script>
+          (() => {
+            const STAGING_HOST = 'staging.infektionsdynamiken.de';
+            const SESSION_KEY = 'idv.staging.session';
+            const SESSION_VERSION = 'v4';
+            const GATE_PATH = '/gate.html';
+            const html = document.documentElement;
+
+            if (window.location.hostname !== STAGING_HOST) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            if (window.location.pathname === GATE_PATH) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            html.setAttribute('data-staging-lock', 'pending');
+
+            try {
+              const raw = window.sessionStorage.getItem(SESSION_KEY);
+              if (!raw) {
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+                return;
+              }
+
+              const session = JSON.parse(raw);
+              if (
+                !session ||
+                session.v !== SESSION_VERSION ||
+                typeof session.tabId !== 'string' ||
+                session.tabId.trim() === ''
+              ) {
+                window.sessionStorage.removeItem(SESSION_KEY);
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+              }
+            } catch {
+              try {
+                window.sessionStorage.removeItem(SESSION_KEY);
+              } catch {}
+
+              const next = window.location.pathname + window.location.search + window.location.hash;
+              window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            }
+          })();
+        </script><script src="/gate-guard.js"></script><script>
+          (() => {
+            const guard = window.__idvStagingGuard;
+            if (!guard) return;
+            void guard.protectPage();
+          })();
+        </script><link rel="stylesheet" href="/_astro/CoachEdgeVideoEntry.BqjU3oMl.css">
+<link rel="stylesheet" href="/_astro/CoachTextFeature.C9FOP-Wv.css">
+<link rel="stylesheet" href="/_astro/BaseLayout.DRTPAc68.css"></head> <body data-coach="chloe" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default" data-page-shell="default"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        if (body.dataset.routingScope === 'landing-project') {
+          body.dataset.surfacePreference = 'light';
+          body.dataset.surface = 'light';
+
+          window.__idSurfaceController = {
+            storageKey,
+            applyPreference: () => ({
+              preference: 'light',
+              surface: 'light'
+            }),
+            getState: () => ({
+              preference: 'light',
+              surface: 'light'
+            })
+          };
+
+          return;
+        }
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="default" data-shell-chrome="none"> <main class="site-main site-main--chromeless" data-edge-main data-edge-shell>  <section class="challenge-board" data-challenge-board data-challenge-id="en-guided-chloe-ml1" data-model="sir" data-track="en-guided" data-mode="guided-windows" data-evaluation-mode="open-protection" data-experience-mode="guided" data-detail-level="compact" data-shell-view="app" data-decision-open="false" data-window-kind="none" data-challenge-state="intro" data-finished="false" data-history-visible="false" data-crisis-visible="false" data-focus-mode="window" data-minister-unlocked="false" data-escalation-stage="minister" data-base-r0="2.05" data-base-population="350000" data-base-duration="7" data-base-latency="0" data-base-seed="0.1" data-base-exposed-seed="0" data-base-mitigation="6" data-base-vaccination-rate="0" data-base-vaccinated-share="0" data-horizon="120" data-dt="0.25" data-speed="1.35" data-guided-carry-over-interventions="true" data-guided-fast-forward-speed="5" data-fixed-window-schedule="true" data-target-peak="6" data-target-total="32" data-target-burden="30" data-crisis-trigger-metric="infectiousPct" data-crisis-threshold="6" data-system-event-enabled="true" data-system-event-trigger-metric="infectiousPct" data-system-event-threshold="1.2" data-system-event-day="34" data-system-event-label="Capacity notice" data-system-event-cta-label="Notice understood" data-system-event-title="Hospitals need lead time" data-system-event-intro-note="As soon as the wave visibly rises, the hospital association reports a capacity assessment." data-system-event-active-note="The hospital association reports that the four hospitals in the service area are preparing additional beds, staffing plans and admission pathways. The hospital network needs time. Prevent as many infections as possible and shift the peak as far to the right as possible." data-burden-metric-label="Currently ill" data-burden-threshold-label="Capacity threshold" data-authority-label="Everytown Health Department" data-jurisdiction-label="Everytown"><div class="challenge-board-head"><div class="challenge-board-copy"><p class="eyebrow">Challenge / Chloé / ML1 SIR</p><h2>Keep the SIR wave early and proportionate.</h2></div><div class="challenge-board-actions"><div class="coach-text-feature coach-text-feature--edge challenge-knowledge-feature" data-astro-cid-5djhq3bw>  <div class="coach-edge-video-entry" data-coach-edge-video-entry-root data-anchor-id="en-guided:ml1:challenge:text-edge" data-overlay-id="en-guided:ml1:challenge:knowledge" data-kind="text" data-placement="shell" data-shell-top-offset="84" data-astro-cid-umkspsdm>  <div class="coach-edge-video-entry__layer" data-coach-edge-layer="en-guided:ml1:challenge:text-edge" data-visible="false" data-open="false" data-rail-open="false" aria-hidden="true" data-astro-cid-umkspsdm> <div class="coach-edge-video-entry__rail" aria-hidden="true" data-astro-cid-umkspsdm> <span class="coach-edge-video-entry__rail-kicker" data-astro-cid-umkspsdm>coach_text</span> <span class="coach-edge-video-entry__rail-title" data-astro-cid-umkspsdm>Model view</span> <span class="coach-edge-video-entry__rail-note" data-astro-cid-umkspsdm>Start parameters, registry and assumptions</span> </div> <div class="coach-edge-video-entry__coin" data-astro-cid-umkspsdm> <button class="coach-feature-trigger coach-feature-trigger--text coach-feature-trigger--coin" type="button" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff" data-coach-feature-surface data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" aria-controls="en-guided:ml1:challenge:knowledge" aria-expanded="false" aria-label="Open model view for this challenge" data-coach-feature-trigger-id="en-guided:ml1:challenge:knowledge" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__avatar" aria-hidden="true" data-astro-cid-2a3ibvej> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-2a3ibvej> </span> <span class="coach-feature-trigger__badge" aria-hidden="true" data-astro-cid-2a3ibvej> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" data-astro-cid-2a3ibvej> <path d="M6 8h12" data-astro-cid-2a3ibvej></path> <path d="M6 12h12" data-astro-cid-2a3ibvej></path> <path d="M6 16h8" data-astro-cid-2a3ibvej></path> </svg> </span> <span class="coach-feature-trigger__body" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__kicker" data-astro-cid-2a3ibvej>coach_text</span> <span class="coach-feature-trigger__label" data-astro-cid-2a3ibvej>Model view</span> <span class="coach-feature-trigger__note" data-astro-cid-2a3ibvej>Start parameters, registry and assumptions</span> </span> </button> <script>
+  (() => {
+    const applySurface = () => {
+      const roots = Array.from(document.querySelectorAll('[data-coach-feature-surface]')).filter(
+        (node) => node instanceof HTMLElement
+      );
+      if (!roots.length) return;
+
+      const isDark = document.body instanceof HTMLElement && document.body.dataset.surface === 'dark';
+      const suffix = isDark ? 'Dark' : 'Light';
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement)) return;
+        const avatar = root.querySelector('.coach-feature-trigger__avatar img');
+        const accent = root.dataset[`accent${suffix}`];
+        const accentStrong = root.dataset[`accentStrong${suffix}`];
+        const gradientFrom = root.dataset[`gradientFrom${suffix}`];
+        const gradientTo = root.dataset[`gradientTo${suffix}`];
+        const avatarSrc = root.dataset[`avatar${suffix}`];
+
+        if (accent) root.style.setProperty('--coach-accent', accent);
+        if (accentStrong) root.style.setProperty('--coach-accent-strong', accentStrong);
+        if (gradientFrom) root.style.setProperty('--coach-gradient-from', gradientFrom);
+        if (gradientTo) root.style.setProperty('--coach-gradient-to', gradientTo);
+        if (avatar instanceof HTMLImageElement && avatarSrc) avatar.src = avatarSrc;
+      });
+    };
+
+    applySurface();
+
+    if (document.documentElement.dataset.coachFeatureSurfaceMounted === 'true') return;
+    document.documentElement.dataset.coachFeatureSurfaceMounted = 'true';
+    window.addEventListener('id:surfacechange', applySurface);
+  })();
+</script> </div> <button class="coach-edge-video-entry__restore" type="button" data-coach-edge-restore hidden data-astro-cid-umkspsdm> Maximize </button> </div> </div> <script type="module" src="/_astro/CoachEdgeVideoEntry.astro_astro_type_script_index_0_lang.Dn1-XKZ6.js"></script> <div class="coach-text-feature__mobile-inline" data-astro-cid-5djhq3bw> <button class="coach-feature-trigger coach-feature-trigger--text" type="button" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff" data-coach-feature-surface data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" aria-controls="en-guided:ml1:challenge:knowledge" aria-expanded="false" aria-label="Open model view for this challenge" data-coach-feature-trigger-id="en-guided:ml1:challenge:knowledge" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__avatar" aria-hidden="true" data-astro-cid-2a3ibvej> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-2a3ibvej> </span> <span class="coach-feature-trigger__badge" aria-hidden="true" data-astro-cid-2a3ibvej> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" data-astro-cid-2a3ibvej> <path d="M6 8h12" data-astro-cid-2a3ibvej></path> <path d="M6 12h12" data-astro-cid-2a3ibvej></path> <path d="M6 16h8" data-astro-cid-2a3ibvej></path> </svg> </span> <span class="coach-feature-trigger__body" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__kicker" data-astro-cid-2a3ibvej>coach_text</span> <span class="coach-feature-trigger__label" data-astro-cid-2a3ibvej>Model view</span> <span class="coach-feature-trigger__note" data-astro-cid-2a3ibvej>Start parameters, registry and assumptions</span> </span> </button> <script>
+  (() => {
+    const applySurface = () => {
+      const roots = Array.from(document.querySelectorAll('[data-coach-feature-surface]')).filter(
+        (node) => node instanceof HTMLElement
+      );
+      if (!roots.length) return;
+
+      const isDark = document.body instanceof HTMLElement && document.body.dataset.surface === 'dark';
+      const suffix = isDark ? 'Dark' : 'Light';
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement)) return;
+        const avatar = root.querySelector('.coach-feature-trigger__avatar img');
+        const accent = root.dataset[`accent${suffix}`];
+        const accentStrong = root.dataset[`accentStrong${suffix}`];
+        const gradientFrom = root.dataset[`gradientFrom${suffix}`];
+        const gradientTo = root.dataset[`gradientTo${suffix}`];
+        const avatarSrc = root.dataset[`avatar${suffix}`];
+
+        if (accent) root.style.setProperty('--coach-accent', accent);
+        if (accentStrong) root.style.setProperty('--coach-accent-strong', accentStrong);
+        if (gradientFrom) root.style.setProperty('--coach-gradient-from', gradientFrom);
+        if (gradientTo) root.style.setProperty('--coach-gradient-to', gradientTo);
+        if (avatar instanceof HTMLImageElement && avatarSrc) avatar.src = avatarSrc;
+      });
+    };
+
+    applySurface();
+
+    if (document.documentElement.dataset.coachFeatureSurfaceMounted === 'true') return;
+    document.documentElement.dataset.coachFeatureSurfaceMounted = 'true';
+    window.addEventListener('id:surfacechange', applySurface);
+  })();
+</script> </div>  </div> <div class="coach-knowledge-overlay" data-coach-text-overlay="en-guided:ml1:challenge:knowledge" data-coach-knowledge-shell="en-guided:ml1:challenge:knowledge" data-coach-knowledge-initial="mission" data-lang="en" hidden aria-hidden="true" data-astro-cid-ssxqtbcx> <button class="coach-knowledge-overlay__backdrop" type="button" data-coach-text-close="en-guided:ml1:challenge:knowledge" aria-label="Close text panel" data-astro-cid-ssxqtbcx></button> <section class="coach-knowledge-overlay__dialog card" id="en-guided:ml1:challenge:knowledge" role="dialog" aria-modal="true" aria-labelledby="en-guided:ml1:challenge:knowledge-shell-title" data-astro-cid-ssxqtbcx> <aside class="coach-knowledge-overlay__rail" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__portrait" aria-hidden="true" data-astro-cid-ssxqtbcx> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-ssxqtbcx> </div> <div class="coach-knowledge-overlay__persona" data-astro-cid-ssxqtbcx> <h2 id="en-guided:ml1:challenge:knowledge-shell-title" data-astro-cid-ssxqtbcx>Chloé</h2> <p class="coach-knowledge-overlay__persona-lead" data-astro-cid-ssxqtbcx>SIR frame, intervention logic and result horizon for this Challenge.</p> <p data-astro-cid-ssxqtbcx>This panel reads the Challenge from its mission data, not from the Explore copy.</p> </div> <nav class="coach-knowledge-overlay__nav" aria-label="Challenge topics" role="tablist" data-astro-cid-ssxqtbcx> <button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml1:challenge:knowledge-mission-tab" data-coach-knowledge-tab="mission" role="tab" aria-controls="en-guided:ml1:challenge:knowledge-mission" aria-selected="true" tabindex="0" data-astro-cid-ssxqtbcx> Mission </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml1:challenge:knowledge-frame-tab" data-coach-knowledge-tab="frame" role="tab" aria-controls="en-guided:ml1:challenge:knowledge-frame" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Start parameters </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml1:challenge:knowledge-targets-tab" data-coach-knowledge-tab="targets" role="tab" aria-controls="en-guided:ml1:challenge:knowledge-targets" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Effect targets </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml1:challenge:knowledge-instruments-tab" data-coach-knowledge-tab="instruments" role="tab" aria-controls="en-guided:ml1:challenge:knowledge-instruments" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Instruments </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml1:challenge:knowledge-horizon-tab" data-coach-knowledge-tab="horizon" role="tab" aria-controls="en-guided:ml1:challenge:knowledge-horizon" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Horizon </button> </nav> </aside> <div class="coach-knowledge-overlay__content" data-astro-cid-ssxqtbcx> <section class="coach-knowledge-overlay__panel" id="en-guided:ml1:challenge:knowledge-mission" data-coach-knowledge-panel="mission" data-layout="flow" role="tabpanel" aria-labelledby="en-guided:ml1:challenge:knowledge-mission-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx> <p class="meta-label" data-astro-cid-ssxqtbcx>SIR / Challenge</p> <h2 data-astro-cid-ssxqtbcx>Keep the SIR wave early and proportionate.</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>You are working for the Everytown Health Department. In Everytown, with around 350,000 residents, a new respiratory wave is beginning to rise.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__copy" data-astro-cid-ssxqtbcx> <p data-astro-cid-ssxqtbcx>The reference curve shows the outbreak without your Challenge decisions. Your mission curve changes only through the interventions you select.</p><p data-astro-cid-ssxqtbcx>The important comparison is not only the visible peak. The review also reads timing, total infections, pressure and the model state at the result horizon.</p> </div> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml1:challenge:knowledge-frame" data-coach-knowledge-panel="frame" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml1:challenge:knowledge-frame-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>Read the outbreak trace</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>At the start this panel is locked to day 0. Later it opens at the current simulation day and lets you review only the observed past.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__rich" data-astro-cid-ssxqtbcx><section class="challenge-trace-panel" data-challenge-trace-panel>
+    <div class="challenge-trace-panel__head">
+      <span class="challenge-trace-panel__day" data-challenge-trace-day>Day 0</span>
+      <span class="challenge-trace-panel__limit" data-challenge-trace-limit>observed up to day 0</span>
+    </div>
+    <input data-challenge-trace-range type="range" min="0" max="0" step="1" value="0" disabled aria-label="Trace day" />
+    <div class="challenge-trace-panel__meta">
+      <span class="challenge-trace-panel__active" data-challenge-trace-active>No intervention active.</span>
+      <span data-challenge-trace-reff>Rₑff will appear here.</span>
+    </div>
+  </section></div><section class="coach-knowledge-overlay__control-board is-compact is-trace-linked" data-challenge-trace-control-board="true" data-astro-cid-ssxqtbcx>  <div class="explore-controls-grid explore-controls-grid--shared explore-controls-grid--readonly explore-controls-grid--compact" data-explore-control-board="en-guided:ml1:challenge:knowledge-frame" data-board-mode="readonly" data-astro-cid-uaq34ulb> <article class="explore-control-card is-locked" data-control-key="population" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="population" data-control-tone="locked" data-control-explainer="Reference population for all people counts in this mission." data-value-format="people-0" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Population</span> <output data-output="population" data-astro-cid-uaq34ulb>350,000</output> </span> <input data-param="population" type="range" min="0" max="420000" step="3500" value="350000" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="r0" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="r0" data-control-tone="locked" data-control-explainer="Fixed outbreak reference. Interventions do not directly change R₀." data-value-format="number-2" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>R₀</span> <output data-output="r0" data-astro-cid-uaq34ulb>2.05</output> </span> <input data-param="r0" type="range" min="0" max="5" step="0.05" value="2.05" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked is-open" data-control-key="beta" data-control-tone="open" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="beta" data-control-tone="open" data-control-explainer="Transmission strength derived from R₀ and γ." data-value-format="number-3" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>β</span> <output data-output="beta" data-astro-cid-uaq34ulb>0.275</output> </span> <input data-param="beta" type="range" min="0" max="1" step="0.01" value="0.27528571428571424" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="duration" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="duration" data-control-tone="locked" data-control-explainer="Defines γ = 0.1429." data-value-format="days-1" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Duration D</span> <output data-output="duration" data-astro-cid-uaq34ulb>7.0 days</output> </span> <input data-param="duration" type="range" min="1" max="30" step="0.5" value="7" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked is-open" data-control-key="mitigation" data-control-tone="open" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="mitigation" data-control-tone="open" data-control-explainer="Fixed at mission start. Later interventions add temporary effect on this pathway." data-value-format="percent-0" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Baseline mitigation</span> <output data-output="mitigation" data-astro-cid-uaq34ulb>6 %</output> </span> <input data-param="mitigation" type="range" min="0" max="85" step="1" value="6" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="gamma" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="gamma" data-control-tone="locked" data-control-explainer="Rate at which people leave the I state." data-value-format="number-3" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>γ</span> <output data-output="gamma" data-astro-cid-uaq34ulb>0.143</output> </span> <input data-param="gamma" type="range" min="0" max="1" step="0.01" value="0.14285714285714285" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="seed" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="seed" data-control-tone="locked" data-control-explainer="Visible infectious start share." data-value-format="percent-1" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Initial I</span> <output data-output="seed" data-astro-cid-uaq34ulb>0.1 %</output> </span> <input data-param="seed" type="range" min="0" max="2" step="0.01" value="0.1" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="horizon" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="horizon" data-control-tone="locked" data-control-explainer="The mission may run longer if the live curve is delayed." data-value-format="days-0" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Minimum horizon</span> <output data-output="horizon" data-astro-cid-uaq34ulb>120 days</output> </span> <input data-param="horizon" type="range" min="0" max="180" step="1" value="120" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article> </div> </section><section class="coach-knowledge-overlay__takeaway" aria-label="Important distinction" data-astro-cid-ssxqtbcx> <h3 data-astro-cid-ssxqtbcx>Important distinction</h3> <div class="coach-knowledge-overlay__takeaway-copy" data-astro-cid-ssxqtbcx> <p data-astro-cid-ssxqtbcx>R₀ is fixed as the reference. The open levers act on effective pathways such as beta_eff, vaccination_rate or E isolation.</p> </div> </section> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml1:challenge:knowledge-targets" data-coach-knowledge-panel="targets" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml1:challenge:knowledge-targets-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>What can change, what stays fixed?</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>The registry separates fixed model references from actual intervention pathways.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__rich" data-astro-cid-ssxqtbcx><div class="coach-knowledge-overlay__cluster"><article class="coach-knowledge-overlay__mini-card" data-target-status="locked">
+        <div>
+          <p class="meta-label">fixed</p>
+          <h3>R₀ as fixed reference</h3>
+          <p>The basic reproduction value describes the outbreak without intervention. It stays fixed as the reference in Challenge.</p>
+        </div>
+        <code>R₀ = β / γ</code>
+        <p>Interventions do not change R₀ itself; they change effective pathways such as β_eff, γ_eff or isolation.</p>
+      </article><article class="coach-knowledge-overlay__mini-card" data-target-status="mutable">
+        <div>
+          <p class="meta-label">can be changed</p>
+          <h3>Effective transmission</h3>
+          <p>Contact and protection measures lower effective transmission and therefore indirectly lower Rₑff.</p>
+        </div>
+        <code>β_eff = β * (1 - mitigation_eff / 100)</code>
+        <p>Contact and protection measures lower effective transmission and therefore indirectly lower Rₑff.</p>
+      </article><article class="coach-knowledge-overlay__mini-card" data-target-status="locked">
+        <div>
+          <p class="meta-label">fixed</p>
+          <h3>Capacity threshold</h3>
+          <p>Evaluation and event target: the threshold controls warning, escalation and review.</p>
+        </div>
+        <code>threshold = mission.targets.peakMax</code>
+        <p>Evaluation and event target: the threshold controls warning, escalation and review.</p>
+      </article></div></div> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml1:challenge:knowledge-instruments" data-coach-knowledge-panel="instruments" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml1:challenge:knowledge-instruments-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>The available intervention set</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>Each card resolves to a duration, pressure value and one or more effect pathways.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__rich" data-astro-cid-ssxqtbcx><div class="coach-knowledge-overlay__cluster"><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Contact rules</h3>
+          <p>Fewer close contacts in everyday life. A light lever that works well as an early response.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 4</p>
+        <p>beta_eff -8%</p>
+      </article><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Protection phase</h3>
+          <p>Masks, distance and protection in risk settings. A solid 21-day lever with moderate pressure.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 9</p>
+        <p>beta_eff -16%</p>
+      </article><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Emergency brake</h3>
+          <p>A harder contact intervention for acute overload risk. Effective, but quickly disproportionate.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 17</p>
+        <p>beta_eff -34%</p>
+      </article></div></div> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml1:challenge:knowledge-horizon" data-coach-knowledge-panel="horizon" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml1:challenge:knowledge-horizon-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>The end of the run is derived from your curve</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>The scenario has a minimum horizon, but the actual result horizon can move when interventions delay the wave.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__copy" data-astro-cid-ssxqtbcx> <p data-astro-cid-ssxqtbcx>The minimum horizon starts at 120 days. The runtime keeps a technical buffer up to about 480 days, so delayed waves can still settle.</p><p data-astro-cid-ssxqtbcx>After each decision, the live curve is simulated again. The result horizon is then derived from that live curve: the run ends only once the relevant compartments have settled enough for review.</p><p data-astro-cid-ssxqtbcx>This is why a successful delay may also make the run longer. Reference and mission are compared at the same result horizon.</p> </div> </div> </section> <div class="coach-knowledge-overlay__actions" data-astro-cid-ssxqtbcx> <button class="card-cta" type="button" data-coach-text-close="en-guided:ml1:challenge:knowledge" data-astro-cid-ssxqtbcx>Close</button> </div> </div> </section> </div> <script type="module" src="/_astro/CoachKnowledgeOverlayShell.astro_astro_type_script_index_0_lang.DtXKzoqD.js"></script><a class="phase-link challenge-focus-button" href="/en/guided/minilabs/ml1/challenge" data-shell-link="window" aria-label="Switch to this challenge in the learning journey"><span class="challenge-focus-button__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4H4v4"></path><path d="M16 4h4v4"></path><path d="M20 16v4h-4"></path><path d="M4 16v4h4"></path></svg></span><span>To learning journey</span></a><div class="coach-player-meta"><span class="tag">Chloé</span><span class="tag">EN</span><span class="tag">guided</span><span class="tag">guided</span></div></div></div><section class="challenge-stage-shell challenge-stage-shell--hero"><div class="challenge-stage-frame"><div class="challenge-chart-scroll" data-challenge-chart-scroll><canvas class="challenge-chart-canvas" data-challenge-canvas width="1200" height="640"></canvas></div><div class="challenge-intro-overlay" data-intro-overlay><article class="challenge-intro-card"><p class="eyebrow">Chloé / Situation brief</p><h3>The Everytown Health Department needs an early situation assessment.</h3><p>Everytown has around 350,000 residents. Reports of a new respiratory virus have been rising for several days. Many affected people report fever, coughing and severe exhaustion.</p><p>Your task at the health department: protect as many people as possible from infection and give hospitals time before the wave reaches its peak.</p><div class="challenge-intro-actions"><div class="challenge-audio-choice"><p class="mini-note">Play the threshold directive automatically when the crisis window opens?</p><div class="challenge-audio-choice__actions"><button class="phase-link challenge-start-button" type="button" data-action="start-mission" data-audio-mode="sound">Start with audio</button><button class="phase-link challenge-start-button" type="button" data-action="start-mission" data-audio-mode="muted">Start muted</button></div></div></div></article></div><div class="challenge-stage-overlay"><div class="challenge-stage-top"><article class="challenge-directive-card challenge-directive-card--overlay"><div class="challenge-directive-topline"><h3 data-live-window>Ready</h3><span class="challenge-time-badge" data-kpi="current-day">Day 0 / 120</span></div><p data-live-directive>Start the mission and respond when a window opens. The goal is to protect people and buy time before the peak.</p><div class="challenge-decision-snapshot" data-decision-snapshot hidden><article class="challenge-decision-snapshot-card" data-role="current"><p class="meta-label">Currently ill</p><p class="challenge-decision-snapshot-value" data-decision-metric="current-sick">0</p></article><article class="challenge-decision-snapshot-card" data-role="week"><p class="meta-label">New cases 7 days</p><p class="challenge-decision-snapshot-value" data-decision-metric="incidence-7">0</p></article><article class="challenge-decision-snapshot-card" data-role="gap"><p class="meta-label">Until threshold</p><p class="challenge-decision-snapshot-value" data-decision-metric="to-threshold">0</p></article><p class="challenge-decision-snapshot-note" data-decision-snapshot-note>Before each decision, the health department task becomes readable in numbers here.</p></div><div class="challenge-finish-summary" data-finish-summary> <p class="meta-label" data-finish-title>Your result</p> <p data-finish-note>At the end, you see how many people your plan protected from infection, how far the peak shifted to the right and how much breathing room you created for hospitals and the health department.</p> <div class="challenge-final-impact"> <p class="challenge-final-impact-value" data-finish-impact>0</p> <p class="challenge-final-impact-note" data-finish-impact-note> At the end you see what your plan changed. </p> </div> <div class="challenge-final-score-block"> <div class="challenge-final-score-head"> <p class="meta-label">Score</p> <p class="challenge-final-score-value" data-finish-score>0 / 100</p> </div> <div class="challenge-final-compare-grid"> <article class="challenge-final-compare-card challenge-final-compare-card--reference"> <p class="meta-label">Without measures</p> <p class="challenge-final-compare-value" data-finish-reference-cases>0</p> <p class="mini-note" data-finish-reference-peak>Peak 0</p> </article> <article class="challenge-final-compare-card challenge-final-compare-card--live"> <p class="meta-label">With your plan</p> <p class="challenge-final-compare-value" data-finish-live-cases>0</p> <p class="mini-note" data-finish-live-peak>Peak 0</p> </article> </div> </div> <div class="challenge-final-model" aria-label="Final model state"><article class="challenge-final-model-item" data-compartment="S"><p class="meta-label">S Susceptible</p><p class="challenge-final-model-value" data-finish-model="S">0.0 %</p></article><article class="challenge-final-model-item" data-compartment="I"><p class="meta-label">I Infectious</p><p class="challenge-final-model-value" data-finish-model="I">0.0 %</p></article><article class="challenge-final-model-item" data-compartment="R"><p class="meta-label">R Recovered</p><p class="challenge-final-model-value" data-finish-model="R">0.0 %</p></article></div> </div><div class="challenge-run-actions"> <button class="phase-link challenge-start-button" type="button" data-action="toggle-play">
+Mission starten
+</button> <button class="phase-link challenge-review-chart" type="button" data-action="review-chart" hidden> View curve </button> <button class="phase-link challenge-reset" type="button" data-action="reset">
+Neu beginnen
+</button> <a class="phase-link challenge-quiz-link" href="/en/guided/minilabs/ml1/quiz"> Continue to Quiz </a> </div></article><article class="challenge-situation-panel challenge-situation-panel--ring challenge-situation-panel--overlay" data-situation-panel data-situation-visual="ring"><div class="challenge-situation-head"><div><p class="meta-label">Situation before you decide</p><p class="mini-note">This shows how many people are affected right now, not just abstract percentages.</p></div></div><div class="challenge-situation-ring-layout"><div class="challenge-situation-ring" data-situation-ring><div class="challenge-situation-ring-core"><p class="meta-label">Currently sick</p><p class="challenge-situation-ring-value" data-situation-value="current-infectious-people" data-situation-format="people">
+0
+</p></div></div><div class="challenge-situation-metric-list"><div class="challenge-situation-metric-row"><p class="meta-label">Sick so far</p><p class="challenge-situation-metric-value" data-situation-value="cumulative-infected-people" data-situation-format="people">
+0
+</p></div><div class="challenge-situation-metric-row"><p class="meta-label">Recovered</p><p class="challenge-situation-metric-value" data-situation-value="recovered-people" data-situation-format="people">
+0
+</p></div><div class="challenge-situation-metric-row"><p class="meta-label">Residents</p><p class="challenge-situation-metric-value" data-situation-value="population" data-situation-format="people">
+0
+</p></div></div></div></article></div><div class="challenge-stage-bottom"><div class="challenge-stage-bottom-layout"><div class="challenge-tool-dock"><div class="challenge-tool-stack"><article class="challenge-goal-card challenge-goal-card--inline"><p class="meta-label">What matters?</p><h3>Protect people and shift the peak to the right</h3><p>You decide for Everytown Health Department. A good plan protects early, flattens the peak and gives hospitals time.</p><div class="challenge-goal-grid"><div><p class="meta-label">Goal</p><p>Keep as few people ill at the same time as possible.</p></div><div><p class="meta-label">End</p><p>The run ends only once the situation visibly calms after the peak.</p></div></div></article><section class="challenge-tool-group challenge-tool-group-initial"> <div class="challenge-tool-group-head"> <div> <p class="meta-label">Available now</p> <h4>Interventions</h4> </div>  </div>   <div class="challenge-tool-grid challenge-tool-grid--compact"> <button class="challenge-tool challenge-tool-skip challenge-tool-skip--compact" type="button" data-action="skip-window"> <span class="challenge-tool-head"> <span class="challenge-tool-label">No new measure</span> </span> <span class="mini-note">Continue without a new intervention.</span> <div class="challenge-tool-actions"> <span class="challenge-tool-select challenge-tool-select--muted">Continue without measure</span> </div> </button> <article class="challenge-tool" data-intervention="contact-rules" data-label="Contact rules" data-summary="Fewer close contacts in everyday life. A light lever that works well as an early response." data-boost="8" data-vaccination-boost="0" data-e-isolation-boost="0" data-active-days="21" data-burden="4" data-max-uses="1" data-unlock-stage="initial" data-model-badge="Direct model intervention" data-model-target="Acts on beta_eff and therefore indirectly on Rₑff." data-model-rule="beta_eff = beta * (1 - mitigation_eff/100), mitigation_eff = baseline + 8 for 21 days" data-model-assumption="In the dummy model, contact rules stand for a uniform reduction in effective everyday contacts. The wave reacts with a delay through the changed contact term." data-category-id="contact-management" data-category-icon="network" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:8,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Containment management</span> <span class="challenge-tool-label">Contact rules</span> </span>  </span> <span class="mini-note">Fewer close contacts in everyday life. A light lever that works well as an early response.</span> <span class="challenge-tool-duration" data-tool-duration="contact-rules"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article><article class="challenge-tool" data-intervention="shield-week" data-label="Protection phase" data-summary="Masks, distance and protection in risk settings. A solid 21-day lever with moderate pressure." data-boost="16" data-vaccination-boost="0" data-e-isolation-boost="0" data-active-days="21" data-burden="9" data-max-uses="2" data-unlock-stage="initial" data-model-badge="Direct model intervention" data-model-target="Acts on beta_eff and therefore indirectly on Rₑff." data-model-rule="beta_eff = beta * (1 - mitigation_eff/100), mitigation_eff = baseline + 16 for 21 days" data-model-assumption="In the dummy model, the protection phase stands for fewer effective contacts in risk settings. I does not fall immediately, but through the changed contact term." data-category-id="contact-management" data-category-icon="network" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:16,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Containment management</span> <span class="challenge-tool-label">Protection phase</span> </span>  </span> <span class="mini-note">Masks, distance and protection in risk settings. A solid 21-day lever with moderate pressure.</span> <span class="challenge-tool-duration" data-tool-duration="shield-week"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article> </div> </section><section class="challenge-tool-group challenge-tool-group-minister"> <div class="challenge-tool-group-head"> <div> <p class="meta-label">After Situation briefing</p> <h4>Harder interventions</h4> </div> <p class="mini-note">This intervention unlocks only after the capacity threshold.</p> </div> <ul class="challenge-tool-preview-list"> <li class="challenge-tool-preview-item"> <span> <small>Containment management</small> Emergency brake </span>  </li> </ul> <div class="challenge-threshold-directive challenge-threshold-directive--inline" data-threshold-directive-inline> <div class="challenge-threshold-directive__copy"> <p class="meta-label">Capacity notice · Asher</p> <h4>Hospitals need lead time</h4> <p>The latest reports from the NHS indicate that hospitals are preparing to expand treatment capacity and make additional beds available where needed. This requires careful planning and sufficient lead time. Every day we can delay the peak of infections gives the health system valuable time and strengthens the ability of hospitals and care providers to respond effectively.</p> </div> <video class="challenge-threshold-directive__video" src="/media/challenge/ml1/threshold-en.mp4" controls playsinline preload="metadata" data-threshold-directive-video aria-label="Capacity notice: Asher"></video> </div> <div class="challenge-tool-grid challenge-tool-grid--compact">  <article class="challenge-tool" data-intervention="emergency-brake" data-label="Emergency brake" data-summary="A harder contact intervention for acute overload risk. Effective, but quickly disproportionate." data-boost="34" data-vaccination-boost="0" data-e-isolation-boost="0" data-active-days="21" data-burden="17" data-max-uses="1" data-unlock-stage="minister" data-model-badge="Direct model intervention" data-model-target="Acts strongly on beta_eff and therefore indirectly on Rₑff." data-model-rule="beta_eff = beta * (1 - mitigation_eff/100), mitigation_eff = baseline + 34 for 21 days" data-model-assumption="In the dummy model, the emergency brake stands for a strong uniform reduction in effective contacts. It is deliberately modelled as a heavy lever." data-category-id="contact-management" data-category-icon="network" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:34,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Containment management</span> <span class="challenge-tool-label">Emergency brake</span> </span>  </span> <span class="mini-note">A harder contact intervention for acute overload risk. Effective, but quickly disproportionate.</span> <span class="challenge-tool-duration" data-tool-duration="emergency-brake"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article> </div> </section></div></div><div class="challenge-side-rail"><article class="challenge-context-card challenge-context-card--compact" data-context-card><p class="meta-label">Task</p><h3>The health department expects an early response</h3><p class="challenge-context-facts">Everytown Health Department · 350,000 residents</p><p>You are working at the Everytown Health Department. Everytown has around 350,000 residents, and reports of a new respiratory virus have been increasing over the past few days.</p><p>Your task is to read the situation early and slow the wave so that as many people as possible are not infected in the first place.</p><p>The red line remains important as background reference: beyond it, so many people are ill at the same time that the health department comes under heavy pressure. In this mission, it is just as important whether you shift the peak to the right and gain time.</p></article><article class="challenge-goal-card challenge-goal-card--compact"><p class="meta-label">What matters?</p><h3>Protect people and shift the peak to the right</h3><p>You decide for Everytown Health Department. A good plan protects early, flattens the peak and gives hospitals time.</p><div class="challenge-goal-grid"><div><p class="meta-label">Goal</p><p>Protect as many people as possible from infection and shift the peak to the right.</p></div><div><p class="meta-label">End</p><p>The run ends only once the situation visibly calms after the peak.</p></div></div></article><article class="challenge-event-card challenge-event-card--compact" data-crisis-card data-label="Situation briefing" data-cta-label="Open situation briefing" data-title="Situation briefing at the health department" data-intro-note="As long as fewer than 6.0% are ill at the same time, the harder tool remains locked. If this capacity threshold is crossed, leadership requests a new situation briefing." data-active-note="The number of people currently ill is now above the capacity threshold. This is not an automatic failure: in Guided mode, a harder measure is unlocked in the next regular window."><p class="meta-label">Situation briefing</p><h3 data-crisis-title>Situation briefing at the health department</h3><p data-crisis-note>As long as fewer than 6.0% are ill at the same time, the harder tool remains locked. If this capacity threshold is crossed, leadership requests a new situation briefing.</p><div class="challenge-threshold-directive" data-threshold-directive> <div class="challenge-threshold-directive__copy"> <p class="meta-label">Capacity notice · Asher</p> <h4>Hospitals need lead time</h4> <p>The latest reports from the NHS indicate that hospitals are preparing to expand treatment capacity and make additional beds available where needed. This requires careful planning and sufficient lead time. Every day we can delay the peak of infections gives the health system valuable time and strengthens the ability of hospitals and care providers to respond effectively.</p> </div> <video class="challenge-threshold-directive__video" src="/media/challenge/ml1/threshold-en.mp4" controls playsinline preload="metadata" data-threshold-directive-video aria-label="Capacity notice: Asher"></video> </div><button class="phase-link challenge-event-action" type="button" data-action="acknowledge-event">Open situation briefing</button></article><div class="challenge-objectives-panel challenge-objectives-panel--compact"><div class="challenge-objectives-head"><div><p class="meta-label">Mission status</p><h3 data-challenge-status>Mission ready</h3></div><p class="mini-note" data-challenge-note>Success is not about maximum force, but about balancing effect and proportionality.</p></div><div class="challenge-success-card"><p class="meta-label" data-verdict-title>Your result</p><p data-verdict-note>At the end, you see how many people your plan protected from infection, how far the peak shifted to the right and how much breathing room you created for hospitals and the health department.</p><div class="challenge-final-impact" data-final-impact><p class="challenge-final-impact-value" data-kpi="avoided-cases">0</p><p class="challenge-final-impact-note" data-kpi="impact-note">At the end you see what your plan changed.</p></div><div class="challenge-final-score-block" data-final-score-block><div class="challenge-final-score-head"><p class="meta-label">Score</p><p class="challenge-final-score-value" data-kpi="mission-score">0 / 100</p></div><div class="challenge-final-compare-grid"><article class="challenge-final-compare-card challenge-final-compare-card--reference"><p class="meta-label">Without measures</p><p class="challenge-final-compare-value" data-kpi="reference-cases">0</p><p class="mini-note" data-kpi="reference-peak-cases">Peak 0</p></article><article class="challenge-final-compare-card challenge-final-compare-card--live"><p class="meta-label">With your plan</p><p class="challenge-final-compare-value" data-kpi="live-cases">0</p><p class="mini-note" data-kpi="live-peak-cases">Peak 0</p></article></div></div></div></div><article class="challenge-history-card challenge-history-card--compact"><div class="challenge-history-head"><div><p class="meta-label">Decisions</p><h3>What you have chosen so far</h3></div></div><ol class="challenge-history-list" data-history-list><li class="challenge-history-empty">No decision yet.</li></ol></article></div></div></div></div></div><div class="challenge-runway" aria-label="Mission timeline"><div class="challenge-runway-track"><div hidden data-run-track-anchor></div><div class="challenge-runway-progress" data-run-progress></div><div class="challenge-runway-playhead" data-run-playhead></div><div class="challenge-runway-signals" data-run-signals></div><div class="challenge-runway-events" data-run-events></div><div class="challenge-runway-marker" data-window-marker data-window="w1" data-window-day="12" data-window-open-day="12" data-window-close-day="33" data-window-span-days="21" data-window-label="Window 1" data-window-note="The wave is visibly rising. This is where early counteraction starts to matter." style="left: 10%"><span>Window 1</span></div><div class="challenge-runway-marker" data-window-marker data-window="w2" data-window-day="34" data-window-open-day="34" data-window-close-day="55" data-window-span-days="21" data-window-label="Window 2" data-window-note="The capacity notice arrives early. You can now set the next 21-day phase before the peak is reached." style="left: 28.333333333333332%"><span>Window 2</span></div><div class="challenge-runway-marker" data-window-marker data-window="w3" data-window-day="62" data-window-open-day="62" data-window-close-day="83" data-window-span-days="21" data-window-label="Window 3" data-window-note="Last correction before the expected peak: if the situation tips, a harder tool is now available." style="left: 51.66666666666667%"><span>Window 3</span></div></div><div class="challenge-runway-labels"><span>Day 0</span><span data-run-end-label>Day 120</span></div></div></section></section><script type="module" src="/_astro/ChallengeBoard.astro_astro_type_script_index_0_lang.Dc5ifL9e.js"></script>  </main> </div> </body></html>

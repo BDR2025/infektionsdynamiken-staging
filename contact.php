@@ -77,7 +77,7 @@ $encodedSubject = function_exists('mb_encode_mimeheader')
     : $mailSubject;
 
 $bodyLines = [
-    'Neue Kontaktanfrage ueber infektionsdynamiken.de',
+    'Neue Kontaktanfrage über infektionsdynamiken.de',
     '',
     'Name: ' . $name,
     'E-Mail: ' . $email,

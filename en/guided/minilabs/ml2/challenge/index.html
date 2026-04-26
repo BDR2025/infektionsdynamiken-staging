@@ -1,0 +1,680 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guided SEIR challenge with the same hidden lead-wave logic, E-targeted interventions and escalation window as the German track."><title>MiniLab 2 Challenge | Infektionsdynamiken verstehen</title><style>
+          html[data-staging-lock='pending'] body {
+            visibility: hidden;
+          }
+        </style><script>
+          (() => {
+            const STAGING_HOST = 'staging.infektionsdynamiken.de';
+            const SESSION_KEY = 'idv.staging.session';
+            const SESSION_VERSION = 'v4';
+            const GATE_PATH = '/gate.html';
+            const html = document.documentElement;
+
+            if (window.location.hostname !== STAGING_HOST) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            if (window.location.pathname === GATE_PATH) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            html.setAttribute('data-staging-lock', 'pending');
+
+            try {
+              const raw = window.sessionStorage.getItem(SESSION_KEY);
+              if (!raw) {
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+                return;
+              }
+
+              const session = JSON.parse(raw);
+              if (
+                !session ||
+                session.v !== SESSION_VERSION ||
+                typeof session.tabId !== 'string' ||
+                session.tabId.trim() === ''
+              ) {
+                window.sessionStorage.removeItem(SESSION_KEY);
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+              }
+            } catch {
+              try {
+                window.sessionStorage.removeItem(SESSION_KEY);
+              } catch {}
+
+              const next = window.location.pathname + window.location.search + window.location.hash;
+              window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            }
+          })();
+        </script><script src="/gate-guard.js"></script><script>
+          (() => {
+            const guard = window.__idvStagingGuard;
+            if (!guard) return;
+            void guard.protectPage();
+          })();
+        </script><link rel="stylesheet" href="/_astro/CoachEdgeVideoEntry.BqjU3oMl.css">
+<style>.coach-overlay-shell[data-astro-cid-v4wgx27a]{transform-origin:top left}.coach-overlay-shell[data-astro-cid-v4wgx27a][data-morphing=true]{will-change:transform,opacity,filter;pointer-events:none}
+</style>
+<link rel="stylesheet" href="/_astro/CoachTextFeature.C9FOP-Wv.css">
+<link rel="stylesheet" href="/_astro/BaseLayout.DRTPAc68.css"></head> <body data-coach="chloe" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default" data-page-shell="default"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        if (body.dataset.routingScope === 'landing-project') {
+          body.dataset.surfacePreference = 'light';
+          body.dataset.surface = 'light';
+
+          window.__idSurfaceController = {
+            storageKey,
+            applyPreference: () => ({
+              preference: 'light',
+              surface: 'light'
+            }),
+            getState: () => ({
+              preference: 'light',
+              surface: 'light'
+            })
+          };
+
+          return;
+        }
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="default" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="default" data-edge-shell> <header class="site-header site-header--track" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/en/guided"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-9c5be829-0b79-47b2-aa58-a6b6a9728bec" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-9c5be829-0b79-47b2-aa58-a6b6a9728bec" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-9c5be829-0b79-47b2-aa58-a6b6a9728bec)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-9c5be829-0b79-47b2-aa58-a6b6a9728bec)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-9c5be829-0b79-47b2-aa58-a6b6a9728bec)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> </div> <p class="brand-subtitle brand-claim" lang="en"> guided. playful. clear. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-en-guided-ml2-challenge" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Context · EN · Guided</span> <span class="track-context-switch__label track-context-switch__label--expanded">Context</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-en-guided-ml2-challenge" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Language"> <a class="track-context-switch__segment" href="/de/guided/minilabs/ml2/challenge" data-track-context-link> DE </a><span class="track-context-switch__segment is-active" aria-current="page"> EN </span> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Mode"> <span class="track-context-switch__segment is-active" aria-current="page"> Guided </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Coming soon"> Academic </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Coming soon"> Scientific </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script> <div class="coach-assist coach-assist--header-coin" data-coach-assist data-endpoint="https://ai.infektionsdynamiken.de/api/coach" data-assistant-id="chloe-challenge" data-coach-id="chloe" data-assist-fallback-assistant-id="chloe-global" data-assist-thinking-label="Chloé is thinking" data-context="{&#34;pageKey&#34;:&#34;minilab-phase&#34;,&#34;pageLabel&#34;:&#34;MiniLab 2 · SEIR · Challenge&#34;,&#34;legalPageHref&#34;:&#34;/en/guided/legal&#34;,&#34;isContactPage&#34;:false,&#34;siteIdentity&#34;:&#34;Infektionsdynamiken verstehen&#34;,&#34;operatorHint&#34;:&#34;This is the project platform. Internal labels and URL segments are not part of the user-facing explanation.&#34;,&#34;minilabId&#34;:&#34;ml2&#34;,&#34;phase&#34;:&#34;challenge&#34;,&#34;coachId&#34;:&#34;chloe&#34;,&#34;coachLabel&#34;:&#34;Chloé&#34;,&#34;audience&#34;:&#34;Guided&#34;,&#34;language&#34;:&#34;EN&#34;,&#34;minilabTitle&#34;:&#34;MiniLab 2 · SEIR&#34;,&#34;phaseLabel&#34;:&#34;Challenge&#34;,&#34;isMinilabPhasePage&#34;:true,&#34;phaseSpecificCoachBriefing&#34;:&#34;Page mode: Challenge. Task logic, comparison, and the next working step come first.&#34;,&#34;challengeCoachKnowledge&#34;:{&#34;railLead&#34;:&#34;SEIR frame, intervention logic and result horizon for this Challenge.&#34;,&#34;railNote&#34;:&#34;This panel reads the Challenge from its mission data, not from the Explore copy.&#34;,&#34;sections&#34;:[{&#34;id&#34;:&#34;mission&#34;,&#34;label&#34;:&#34;Mission&#34;,&#34;title&#34;:&#34;Interrupt the hidden SEIR lead wave before it becomes visible as I.&#34;,&#34;lead&#34;:&#34;You are working for the Everytown Health Department. In Everytown, with around 350,000 residents, a wave is building that is already further along in E than on the visible I-curve.&#34;,&#34;body&#34;:[&#34;The reference curve shows the outbreak without your Challenge decisions. Your mission curve changes only through the interventions you select.&#34;,&#34;The important comparison is not only the visible peak. The review also reads timing, total infections, pressure and the model state at the result horizon.&#34;]},{&#34;id&#34;:&#34;frame&#34;,&#34;label&#34;:&#34;Start parameters&#34;,&#34;title&#34;:&#34;Read the outbreak trace&#34;,&#34;lead&#34;:&#34;At the start this panel is locked to day 0. Later it opens at the current simulation day and lets you review only the observed past.&#34;,&#34;body&#34;:[&#34;Day 0 observed up to day 0 No intervention active. Rₑff will appear here.&#34;,&#34;R₀ is fixed as the reference. The open levers act on effective pathways such as beta_eff, vaccination_rate or E isolation.&#34;]},{&#34;id&#34;:&#34;targets&#34;,&#34;label&#34;:&#34;Effect targets&#34;,&#34;title&#34;:&#34;What can change, what stays fixed?&#34;,&#34;lead&#34;:&#34;The registry separates fixed model references from actual intervention pathways.&#34;,&#34;body&#34;:[&#34;fixed R₀ as fixed reference The basic reproduction value describes the outbreak without intervention. It stays fixed as the reference in Challenge. R₀ = β / γ Interventions do not change R₀ itself; they change effective pathways such as β_eff, γ_eff or isolation. can be changed Effective transmission Contact and protection measures lower effective transmission and therefore indirectly lower Rₑff. β_eff = β * (1 - mitigation_eff / 100) Contact and protection measures lower effective transmission and therefore indirectly lower Rₑff. fixed Capacity threshold Evaluation and event target: the threshold controls warning, escalation and review. threshold = mission.targets.peakMax Evaluation and event target: the threshold controls warning, escalation and review. fixed Visibility and early warning Not a direct curve lever, but a later explanation layer for monitoring, testing and triggers. visibility = observed(model_state, trigger_metric) Not a direct curve lever, but a later explanation layer for monitoring, testing and triggers. can be changed E isolation SEIR-specific lever: part of the hidden lead wave is filtered before later onward contacts. isolated_new = sigma * E * isolation_eff SEIR-specific lever: part of the hidden lead wave is filtered before later onward contacts.&#34;]},{&#34;id&#34;:&#34;instruments&#34;,&#34;label&#34;:&#34;Instruments&#34;,&#34;title&#34;:&#34;The available intervention set&#34;,&#34;lead&#34;:&#34;Each card resolves to a duration, pressure value and one or more effect pathways.&#34;,&#34;body&#34;:[&#34;Hygiene campaign A light early slowdown through hygiene, communication and behaviour rules. Visible, but deliberately not enough on its own. 21 days · pressure 2 beta_eff -3% · E isolation +8% Isolate contact chains Isolate contacts from the E-trace early so later I generates fewer new contacts. 21 days · pressure 5 beta_eff -11% · E isolation +58% Shield E-clusters Temporarily shield risk groups and affected settings so fewer onward contacts arise from E. 21 days · pressure 7 beta_eff -14% · E isolation +42% Entry checks Broad testing and access checks in sensitive institutions. Effective, but much more burdensome than early targeted measures. 21 days · pressure 11 beta_eff -16% · E isolation +70% Expand isolation Stronger isolation in affected areas. Effective, but quickly disproportionate. 14 days · pressure 15 beta_eff -24% · E isolation +80%&#34;]},{&#34;id&#34;:&#34;horizon&#34;,&#34;label&#34;:&#34;Horizon&#34;,&#34;title&#34;:&#34;The end of the run is derived from your curve&#34;,&#34;lead&#34;:&#34;The scenario has a minimum horizon, but the actual result horizon can move when interventions delay the wave.&#34;,&#34;body&#34;:[&#34;The minimum horizon starts at 72 days. The runtime keeps a technical buffer up to about 972 days, so delayed waves can still settle.&#34;,&#34;After each decision, the live curve is simulated again. The result horizon is then derived from that live curve: the run ends only once the relevant compartments have settled enough for review.&#34;,&#34;This is why a successful delay may also make the run longer. Reference and mission are compared at the same result horizon.&#34;]}]}}" data-context-source="en-guided:ml2:challenge:header-coach" data-open="false" aria-busy="false" data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" data-ring-light="rgba(217, 70, 239, 0.35)" data-ring-dark="rgba(232, 121, 249, 0.35)" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff; --coach-ring: rgba(217, 70, 239, 0.35)"> <button class="coach-assist__trigger coach-assist__trigger--header coach-assist__trigger--header-coin" type="button" aria-expanded="false" aria-controls="coach-assist-panel-chloe-challenge-header-coin" aria-label="Ask Chloe about Challenge" data-assist-toggle> <span class="coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async"> </span> <span class="coach-assist__trigger-badge" aria-hidden="true">AI</span> <span class="coach-assist__trigger-copy"> <span class="coach-assist__trigger-label">Coach Chloé</span> <span class="coach-assist__trigger-text">Ask Chloe about Challenge</span> </span> </button> <section class="coach-assist__panel card" id="coach-assist-panel-chloe-challenge-header-coin" data-assist-panel hidden aria-hidden="true"> <div class="coach-assist__panel-head"> <div class="coach-assist__panel-copy"> <p class="coach-assist__panel-label">Coach Chloé</p> <h3>Chloe for Challenge</h3> <p class="coach-assist__panel-intro">Chloe helps sort the Challenge and identify the next sensible working step.</p> </div> <button class="coach-assist__close" type="button" aria-label="Coach-Fenster schließen" data-assist-close> <span aria-hidden="true">×</span> </button> </div> <div class="coach-assist__quick-list"> <button class="coach-assist__quick" type="button" data-assist-quick-prompt="What is the task here?"> What is the task here? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="How should I start?"> How should I start? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="What should I compare?"> What should I compare? </button> </div> <div class="coach-assist__thread" data-assist-thread> <article class="coach-assist__message is-assistant"> <p>I stay with this Challenge.</p> </article> </div> <form class="coach-assist__form" data-assist-form> <label class="coach-assist__input-shell"> <span class="coach-assist__sr-only">Frage an Coach Chloé</span> <textarea class="coach-assist__textarea" name="question" rows="3" placeholder="Ask Chloe about the task, the first move, or what to compare." data-assist-input></textarea> </label> <div class="coach-assist__form-footer"> <p class="coach-assist__status" data-assist-status>Challenge help for this MiniLab.</p> <button class="card-cta" type="submit" data-assist-submit>
+Senden
+</button> </div> </form> </section> </div> <script type="module" src="/_astro/CoachAssistShell.astro_astro_type_script_index_0_lang.BFnJU2IQ.js"></script> </div> <div class="header-action-cluster"> <div class="header-canvas-shell" data-header-canvas-root data-header-canvas-id="site-header-canvas-en-guided-journey-ml2-challenge" data-open="false"> <button class="header-canvas-toggle" type="button" aria-expanded="false" aria-controls="site-header-canvas-en-guided-journey-ml2-challenge" aria-label="Open navigation menu" data-header-canvas-toggle> <span class="header-canvas-toggle__lines" aria-hidden="true"> <span></span> <span></span> <span></span> </span> </button> </div> </div>  </div> </div> </header> <div class="header-canvas-overlay" data-header-canvas-overlay data-header-canvas-id="site-header-canvas-en-guided-journey-ml2-challenge" data-open="false"> <div class="header-canvas-backdrop" data-header-canvas-close hidden></div> <aside class="header-canvas-panel" id="site-header-canvas-en-guided-journey-ml2-challenge" aria-hidden="true" aria-label="Navigation" tabindex="-1" data-header-canvas-panel hidden> <div class="header-canvas-panel__head"> <div class="header-canvas-panel__copy"> <p class="header-canvas-panel__eyebrow">Navigation</p> <h2 class="header-canvas-panel__title">Everything with more context</h2> <p class="header-canvas-panel__intro">Jump to the MiniLab Hub, the Lab Hub, project pages, and display settings from one place.</p> </div> <button class="header-canvas-panel__close" type="button" aria-label="Close navigation menu" data-header-canvas-close> <span aria-hidden="true">×</span> </button> </div> <div class="header-canvas-panel__meta" aria-label="Current track context"> <span class="tag">EN</span> <span class="tag">Guided</span> <span class="tag">Coach Chloé</span> <span class="tag" data-header-canvas-surface-label>Surface · Light</span> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Continue</p> <div class="header-canvas-panel__links" aria-label="Continue"> <a class="header-canvas-panel__link header-canvas-panel__link--context is-active" href="/en/guided/minilabs/ml2/challenge" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">ML2 · Challenge</span> <span class="header-canvas-panel__link-meta">Learning journey</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">Now</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Hubs</p> <div class="header-canvas-panel__links header-canvas-panel__links--hubs" aria-label="Hubs"> <a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/en/guided/learning-journey" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">MiniLab Hub</span> <span class="header-canvas-panel__link-meta">Structured overview across the six MiniLabs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">6 MiniLabs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a><a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/en/scientific/labs" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Lab Hub</span> <span class="header-canvas-panel__link-meta">Direct access to the two larger labs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">2 Labs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Project</p> <nav class="header-canvas-panel__links" aria-label="Project"> <a class="header-canvas-panel__link" href="/en/guided/about" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">About</span> <span class="header-canvas-panel__link-meta">Project framing and contributors</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/guided/contact" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Contact</span> <span class="header-canvas-panel__link-meta">Contact and support</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/guided/legal" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Legal</span> <span class="header-canvas-panel__link-meta">Legal and data protection</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a> </nav> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Display</p> <div class="header-canvas-panel__surface"> <div class="header-canvas-panel__surface-group" role="group" aria-label="Display"> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="light" aria-pressed="false"> Light </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="dark" aria-pressed="false"> Dark </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="system" aria-pressed="false"> System </button> </div> </div> </div> </aside> </div> <script>
+    (() => {
+      const roots = Array.from(document.querySelectorAll('[data-header-canvas-root]'));
+      const overlays = Array.from(document.querySelectorAll('[data-header-canvas-overlay]'));
+      if (!roots.length) return;
+
+      const findOverlay = (root) => {
+        if (!(root instanceof HTMLElement)) return null;
+        const overlayId = root.dataset.headerCanvasId;
+        if (!overlayId) return null;
+        return overlays.find(
+          (overlay) => overlay instanceof HTMLElement && overlay.dataset.headerCanvasId === overlayId
+        ) ?? null;
+      };
+
+      const mountOverlayToBody = (overlay) => {
+        if (!(overlay instanceof HTMLElement)) return null;
+        if (overlay.parentElement !== document.body) {
+          document.body.appendChild(overlay);
+        }
+        return overlay;
+      };
+
+      const syncBodyState = () => {
+        const hasOpenRoot = roots.some((root) => root instanceof HTMLElement && root.dataset.open === 'true');
+        document.body.dataset.headerCanvasOpen = hasOpenRoot ? 'true' : 'false';
+      };
+
+      const setOpen = (root, nextOpen) => {
+        if (!(root instanceof HTMLElement)) return;
+        const overlay = mountOverlayToBody(findOverlay(root));
+        const trigger = root.querySelector('[data-header-canvas-toggle]');
+        const backdrop = overlay?.querySelector('.header-canvas-backdrop');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        root.dataset.open = nextOpen ? 'true' : 'false';
+        if (overlay instanceof HTMLElement) {
+          overlay.dataset.open = nextOpen ? 'true' : 'false';
+        }
+        if (trigger instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        }
+        if (backdrop instanceof HTMLElement) {
+          backdrop.hidden = !nextOpen;
+        }
+        if (panel instanceof HTMLElement) {
+          panel.hidden = !nextOpen;
+          panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+          if (nextOpen) {
+            window.setTimeout(() => panel.focus(), 30);
+          }
+        }
+        syncBodyState();
+      };
+
+      const closeAll = (except) => {
+        roots.forEach((root) => {
+          if (!(root instanceof HTMLElement) || root === except) return;
+          setOpen(root, false);
+        });
+      };
+
+      const readSurfaceState = () => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.getState === 'function') {
+          try {
+            return controller.getState();
+          } catch {}
+        }
+
+        const body = document.body;
+        return {
+          preference: body instanceof HTMLElement ? body.dataset.surfacePreference ?? 'light' : 'light',
+          surface: body instanceof HTMLElement ? body.dataset.surface ?? 'light' : 'light'
+        };
+      };
+
+      const applySurfacePreference = (preference) => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.applyPreference === 'function') {
+          controller.applyPreference(preference);
+          return;
+        }
+
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizedPreference = preference === 'dark' || preference === 'system' ? preference : 'light';
+        const nextSurface =
+          normalizedPreference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : normalizedPreference;
+
+        body.dataset.surfacePreference = normalizedPreference;
+        body.dataset.surface = nextSurface;
+        window.dispatchEvent(
+          new CustomEvent('id:surfacechange', {
+            detail: {
+              preference: normalizedPreference,
+              surface: nextSurface
+            }
+          })
+        );
+      };
+
+      const syncSurfaceTag = (overlay, surface) => {
+        const tag = overlay?.querySelector('[data-header-canvas-surface-label]');
+        if (!(tag instanceof HTMLElement)) return;
+
+        const prefix = document.documentElement.lang === 'en' ? 'Surface' : 'Darstellung';
+        const label =
+          surface === 'dark'
+            ? document.documentElement.lang === 'en'
+              ? 'Dark'
+              : 'Dunkel'
+            : document.documentElement.lang === 'en'
+              ? 'Light'
+              : 'Hell';
+        tag.textContent = `${prefix} · ${label}`;
+      };
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root.dataset.mounted === 'true') return;
+        root.dataset.mounted = 'true';
+
+        const overlay = findOverlay(root);
+        mountOverlayToBody(overlay);
+        const toggle = root.querySelector('[data-header-canvas-toggle]');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        const closeButtons = Array.from(overlay?.querySelectorAll('[data-header-canvas-close]') ?? []);
+        const navLinks = Array.from(overlay?.querySelectorAll('[data-header-canvas-link]') ?? []);
+        const surfaceButtons = Array.from(overlay?.querySelectorAll('[data-surface-preference]') ?? []);
+
+        if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+        const syncSurfaceButtons = () => {
+          const state = readSurfaceState();
+          surfaceButtons.forEach((button) => {
+            if (!(button instanceof HTMLButtonElement)) return;
+            const preference = button.dataset.surfacePreference ?? 'light';
+            const isActive = preference === state.preference;
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            button.toggleAttribute('data-active', isActive);
+          });
+          syncSurfaceTag(overlay, state.surface);
+        };
+
+        toggle.addEventListener('click', () => {
+          const nextOpen = root.dataset.open !== 'true';
+          closeAll(root);
+          setOpen(root, nextOpen);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setOpen(root, false);
+            toggle.focus();
+          });
+        });
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            setOpen(root, false);
+          });
+        });
+
+        surfaceButtons.forEach((button) => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          button.addEventListener('click', () => {
+            applySurfacePreference(button.dataset.surfacePreference ?? 'light');
+            syncSurfaceButtons();
+          });
+        });
+
+        const handleEscape = (event) => {
+          if (event.key !== 'Escape') return;
+          setOpen(root, false);
+          toggle.focus();
+        };
+
+        root.addEventListener('keydown', handleEscape);
+        overlay?.addEventListener('keydown', handleEscape);
+        window.addEventListener('id:surfacechange', syncSurfaceButtons);
+        syncSurfaceButtons();
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        if (event.target.closest('[data-header-canvas-root]') || event.target.closest('[data-header-canvas-overlay]')) return;
+        closeAll(null);
+      });
+    })();
+  </script> <nav class="journey-local-rail" data-edge-subrail aria-label="Local page navigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/en/guided"> <span>Home</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-context" href="/en/guided/learning-journey"> <span>Learning journey</span> </a> <a class="journey-local-rail__link is-module" href="/en/guided/minilabs/ml2/challenge"> <span>ML2</span> </a> <a class="journey-local-rail__link is-child" href="/en/guided/minilabs/ml2/intro"> <span>Intro</span> </a> <a class="journey-local-rail__link is-child" href="/en/guided/minilabs/ml2/explore"> <span>Explore</span> </a> <a class="journey-local-rail__link is-active" href="/en/guided/minilabs/ml2/challenge" aria-current="page"> <span>Challenge</span> </a> <a class="journey-local-rail__link is-child" href="/en/guided/minilabs/ml2/quiz"> <span>Quiz</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-parent" href="/en/guided/about"> <span>About</span> </a>  </div> </div> </nav> <script>
+                (() => {
+                  const root = document.documentElement;
+                  const header = document.querySelector('[data-edge-header]');
+                  if (!(header instanceof HTMLElement)) return;
+
+                  const syncStickyOffset = () => {
+                    root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+                  };
+
+                  syncStickyOffset();
+
+                  if ('ResizeObserver' in window) {
+                    const observer = new ResizeObserver(syncStickyOffset);
+                    observer.observe(header);
+                  } else {
+                    window.addEventListener('resize', syncStickyOffset, { passive: true });
+                  }
+                })();
+              </script> <main class="site-main site-main--with-subrail" data-edge-main>   <section class="minilab-grid phase-challenge-layout">  <div class="runtime-column"> <section class="challenge-board" data-challenge-board data-challenge-id="en-guided-chloe-ml2" data-model="seir" data-track="en-guided" data-mode="guided-windows" data-evaluation-mode="e-wave-hybrid" data-experience-mode="guided" data-detail-level="compact" data-shell-view="window" data-decision-open="false" data-window-kind="none" data-challenge-state="intro" data-finished="false" data-history-visible="false" data-crisis-visible="false" data-focus-mode="window" data-minister-unlocked="false" data-escalation-stage="supervision" data-base-r0="2.1" data-base-population="350000" data-base-duration="13" data-base-latency="12" data-base-seed="0.08" data-base-exposed-seed="0.22" data-base-mitigation="5" data-base-vaccination-rate="0" data-base-vaccinated-share="0" data-horizon="72" data-dt="0.25" data-speed="1.1" data-guided-carry-over-interventions="true" data-guided-fast-forward-speed="12" data-escalation-window-enabled="true" data-escalation-window-metric="infectiousPlusExposedPct" data-escalation-window-threshold="6.45" data-escalation-window-label="Window E" data-escalation-window-note="The escalation line has been crossed. An additional crisis window with later, stronger interventions is now available." data-escalation-window-day-offset="2" data-target-peak="6.8" data-target-total="28" data-target-burden="17" data-crisis-trigger-metric="infectiousPlusExposedPct" data-crisis-threshold="7" data-burden-metric-label="Currently infectious" data-burden-threshold-label="Capacity threshold" data-authority-label="Everytown Health Department" data-jurisdiction-label="Everytown"><div class="challenge-board-head"><div class="challenge-board-copy"><p class="eyebrow">Challenge / Chloé / ML2 SEIR</p><h2>Interrupt the hidden SEIR lead wave before it becomes visible as I.</h2></div><div class="challenge-board-actions"><div class="coach-text-feature coach-text-feature--edge challenge-knowledge-feature" data-astro-cid-5djhq3bw>  <div class="coach-edge-video-entry" data-coach-edge-video-entry-root data-anchor-id="en-guided:ml2:challenge:text-edge" data-overlay-id="en-guided:ml2:challenge:knowledge" data-kind="text" data-placement="shell" data-shell-top-offset="84" data-astro-cid-umkspsdm>  <div class="coach-edge-video-entry__layer" data-coach-edge-layer="en-guided:ml2:challenge:text-edge" data-visible="false" data-open="false" data-rail-open="false" aria-hidden="true" data-astro-cid-umkspsdm> <div class="coach-edge-video-entry__rail" aria-hidden="true" data-astro-cid-umkspsdm> <span class="coach-edge-video-entry__rail-kicker" data-astro-cid-umkspsdm>coach_text</span> <span class="coach-edge-video-entry__rail-title" data-astro-cid-umkspsdm>Model view</span> <span class="coach-edge-video-entry__rail-note" data-astro-cid-umkspsdm>Start parameters, registry and assumptions</span> </div> <div class="coach-edge-video-entry__coin" data-astro-cid-umkspsdm> <button class="coach-feature-trigger coach-feature-trigger--text coach-feature-trigger--coin" type="button" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff" data-coach-feature-surface data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" aria-controls="en-guided:ml2:challenge:knowledge" aria-expanded="false" aria-label="Open model view for this challenge" data-coach-feature-trigger-id="en-guided:ml2:challenge:knowledge" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__avatar" aria-hidden="true" data-astro-cid-2a3ibvej> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-2a3ibvej> </span> <span class="coach-feature-trigger__badge" aria-hidden="true" data-astro-cid-2a3ibvej> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" data-astro-cid-2a3ibvej> <path d="M6 8h12" data-astro-cid-2a3ibvej></path> <path d="M6 12h12" data-astro-cid-2a3ibvej></path> <path d="M6 16h8" data-astro-cid-2a3ibvej></path> </svg> </span> <span class="coach-feature-trigger__body" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__kicker" data-astro-cid-2a3ibvej>coach_text</span> <span class="coach-feature-trigger__label" data-astro-cid-2a3ibvej>Model view</span> <span class="coach-feature-trigger__note" data-astro-cid-2a3ibvej>Start parameters, registry and assumptions</span> </span> </button> <script>
+  (() => {
+    const applySurface = () => {
+      const roots = Array.from(document.querySelectorAll('[data-coach-feature-surface]')).filter(
+        (node) => node instanceof HTMLElement
+      );
+      if (!roots.length) return;
+
+      const isDark = document.body instanceof HTMLElement && document.body.dataset.surface === 'dark';
+      const suffix = isDark ? 'Dark' : 'Light';
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement)) return;
+        const avatar = root.querySelector('.coach-feature-trigger__avatar img');
+        const accent = root.dataset[`accent${suffix}`];
+        const accentStrong = root.dataset[`accentStrong${suffix}`];
+        const gradientFrom = root.dataset[`gradientFrom${suffix}`];
+        const gradientTo = root.dataset[`gradientTo${suffix}`];
+        const avatarSrc = root.dataset[`avatar${suffix}`];
+
+        if (accent) root.style.setProperty('--coach-accent', accent);
+        if (accentStrong) root.style.setProperty('--coach-accent-strong', accentStrong);
+        if (gradientFrom) root.style.setProperty('--coach-gradient-from', gradientFrom);
+        if (gradientTo) root.style.setProperty('--coach-gradient-to', gradientTo);
+        if (avatar instanceof HTMLImageElement && avatarSrc) avatar.src = avatarSrc;
+      });
+    };
+
+    applySurface();
+
+    if (document.documentElement.dataset.coachFeatureSurfaceMounted === 'true') return;
+    document.documentElement.dataset.coachFeatureSurfaceMounted = 'true';
+    window.addEventListener('id:surfacechange', applySurface);
+  })();
+</script> </div> <button class="coach-edge-video-entry__restore" type="button" data-coach-edge-restore hidden data-astro-cid-umkspsdm> Maximize </button> </div> </div> <script type="module" src="/_astro/CoachEdgeVideoEntry.astro_astro_type_script_index_0_lang.Dn1-XKZ6.js"></script> <div class="coach-text-feature__mobile-inline" data-astro-cid-5djhq3bw> <button class="coach-feature-trigger coach-feature-trigger--text" type="button" style="--coach-accent: #d946ef; --coach-accent-strong: #a21caf; --coach-gradient-from: #fff2fd; --coach-gradient-to: #fde8ff" data-coach-feature-surface data-avatar-light="/media/coaches/avatars/chloe-small.png" data-avatar-dark="/media/coaches/avatars/chloe-small.png" data-accent-light="#d946ef" data-accent-dark="#e879f9" data-accent-strong-light="#a21caf" data-accent-strong-dark="#d946ef" data-gradient-from-light="#fff2fd" data-gradient-from-dark="#1b1020" data-gradient-to-light="#fde8ff" data-gradient-to-dark="#37143a" aria-controls="en-guided:ml2:challenge:knowledge" aria-expanded="false" aria-label="Open model view for this challenge" data-coach-feature-trigger-id="en-guided:ml2:challenge:knowledge" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__avatar" aria-hidden="true" data-astro-cid-2a3ibvej> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-2a3ibvej> </span> <span class="coach-feature-trigger__badge" aria-hidden="true" data-astro-cid-2a3ibvej> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" data-astro-cid-2a3ibvej> <path d="M6 8h12" data-astro-cid-2a3ibvej></path> <path d="M6 12h12" data-astro-cid-2a3ibvej></path> <path d="M6 16h8" data-astro-cid-2a3ibvej></path> </svg> </span> <span class="coach-feature-trigger__body" data-astro-cid-2a3ibvej> <span class="coach-feature-trigger__kicker" data-astro-cid-2a3ibvej>coach_text</span> <span class="coach-feature-trigger__label" data-astro-cid-2a3ibvej>Model view</span> <span class="coach-feature-trigger__note" data-astro-cid-2a3ibvej>Start parameters, registry and assumptions</span> </span> </button> <script>
+  (() => {
+    const applySurface = () => {
+      const roots = Array.from(document.querySelectorAll('[data-coach-feature-surface]')).filter(
+        (node) => node instanceof HTMLElement
+      );
+      if (!roots.length) return;
+
+      const isDark = document.body instanceof HTMLElement && document.body.dataset.surface === 'dark';
+      const suffix = isDark ? 'Dark' : 'Light';
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement)) return;
+        const avatar = root.querySelector('.coach-feature-trigger__avatar img');
+        const accent = root.dataset[`accent${suffix}`];
+        const accentStrong = root.dataset[`accentStrong${suffix}`];
+        const gradientFrom = root.dataset[`gradientFrom${suffix}`];
+        const gradientTo = root.dataset[`gradientTo${suffix}`];
+        const avatarSrc = root.dataset[`avatar${suffix}`];
+
+        if (accent) root.style.setProperty('--coach-accent', accent);
+        if (accentStrong) root.style.setProperty('--coach-accent-strong', accentStrong);
+        if (gradientFrom) root.style.setProperty('--coach-gradient-from', gradientFrom);
+        if (gradientTo) root.style.setProperty('--coach-gradient-to', gradientTo);
+        if (avatar instanceof HTMLImageElement && avatarSrc) avatar.src = avatarSrc;
+      });
+    };
+
+    applySurface();
+
+    if (document.documentElement.dataset.coachFeatureSurfaceMounted === 'true') return;
+    document.documentElement.dataset.coachFeatureSurfaceMounted = 'true';
+    window.addEventListener('id:surfacechange', applySurface);
+  })();
+</script> </div>  </div> <div class="coach-knowledge-overlay" data-coach-text-overlay="en-guided:ml2:challenge:knowledge" data-coach-knowledge-shell="en-guided:ml2:challenge:knowledge" data-coach-knowledge-initial="mission" data-lang="en" hidden aria-hidden="true" data-astro-cid-ssxqtbcx> <button class="coach-knowledge-overlay__backdrop" type="button" data-coach-text-close="en-guided:ml2:challenge:knowledge" aria-label="Close text panel" data-astro-cid-ssxqtbcx></button> <section class="coach-knowledge-overlay__dialog card" id="en-guided:ml2:challenge:knowledge" role="dialog" aria-modal="true" aria-labelledby="en-guided:ml2:challenge:knowledge-shell-title" data-astro-cid-ssxqtbcx> <aside class="coach-knowledge-overlay__rail" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__portrait" aria-hidden="true" data-astro-cid-ssxqtbcx> <img src="/media/coaches/avatars/chloe-small.png" alt="" loading="lazy" decoding="async" data-astro-cid-ssxqtbcx> </div> <div class="coach-knowledge-overlay__persona" data-astro-cid-ssxqtbcx> <h2 id="en-guided:ml2:challenge:knowledge-shell-title" data-astro-cid-ssxqtbcx>Chloé</h2> <p class="coach-knowledge-overlay__persona-lead" data-astro-cid-ssxqtbcx>SEIR frame, intervention logic and result horizon for this Challenge.</p> <p data-astro-cid-ssxqtbcx>This panel reads the Challenge from its mission data, not from the Explore copy.</p> </div> <nav class="coach-knowledge-overlay__nav" aria-label="Challenge topics" role="tablist" data-astro-cid-ssxqtbcx> <button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml2:challenge:knowledge-mission-tab" data-coach-knowledge-tab="mission" role="tab" aria-controls="en-guided:ml2:challenge:knowledge-mission" aria-selected="true" tabindex="0" data-astro-cid-ssxqtbcx> Mission </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml2:challenge:knowledge-frame-tab" data-coach-knowledge-tab="frame" role="tab" aria-controls="en-guided:ml2:challenge:knowledge-frame" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Start parameters </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml2:challenge:knowledge-targets-tab" data-coach-knowledge-tab="targets" role="tab" aria-controls="en-guided:ml2:challenge:knowledge-targets" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Effect targets </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml2:challenge:knowledge-instruments-tab" data-coach-knowledge-tab="instruments" role="tab" aria-controls="en-guided:ml2:challenge:knowledge-instruments" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Instruments </button><button class="coach-knowledge-overlay__nav-item" type="button" id="en-guided:ml2:challenge:knowledge-horizon-tab" data-coach-knowledge-tab="horizon" role="tab" aria-controls="en-guided:ml2:challenge:knowledge-horizon" aria-selected="false" tabindex="-1" data-astro-cid-ssxqtbcx> Horizon </button> </nav> </aside> <div class="coach-knowledge-overlay__content" data-astro-cid-ssxqtbcx> <section class="coach-knowledge-overlay__panel" id="en-guided:ml2:challenge:knowledge-mission" data-coach-knowledge-panel="mission" data-layout="flow" role="tabpanel" aria-labelledby="en-guided:ml2:challenge:knowledge-mission-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx> <p class="meta-label" data-astro-cid-ssxqtbcx>SEIR / Challenge</p> <h2 data-astro-cid-ssxqtbcx>Interrupt the hidden SEIR lead wave before it becomes visible as I.</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>You are working for the Everytown Health Department. In Everytown, with around 350,000 residents, a wave is building that is already further along in E than on the visible I-curve.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__copy" data-astro-cid-ssxqtbcx> <p data-astro-cid-ssxqtbcx>The reference curve shows the outbreak without your Challenge decisions. Your mission curve changes only through the interventions you select.</p><p data-astro-cid-ssxqtbcx>The important comparison is not only the visible peak. The review also reads timing, total infections, pressure and the model state at the result horizon.</p> </div> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml2:challenge:knowledge-frame" data-coach-knowledge-panel="frame" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml2:challenge:knowledge-frame-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>Read the outbreak trace</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>At the start this panel is locked to day 0. Later it opens at the current simulation day and lets you review only the observed past.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__rich" data-astro-cid-ssxqtbcx><section class="challenge-trace-panel" data-challenge-trace-panel>
+    <div class="challenge-trace-panel__head">
+      <span class="challenge-trace-panel__day" data-challenge-trace-day>Day 0</span>
+      <span class="challenge-trace-panel__limit" data-challenge-trace-limit>observed up to day 0</span>
+    </div>
+    <input data-challenge-trace-range type="range" min="0" max="0" step="1" value="0" disabled aria-label="Trace day" />
+    <div class="challenge-trace-panel__meta">
+      <span class="challenge-trace-panel__active" data-challenge-trace-active>No intervention active.</span>
+      <span data-challenge-trace-reff>Rₑff will appear here.</span>
+    </div>
+  </section></div><section class="coach-knowledge-overlay__control-board is-compact is-trace-linked" data-challenge-trace-control-board="true" data-astro-cid-ssxqtbcx>  <div class="explore-controls-grid explore-controls-grid--shared explore-controls-grid--readonly explore-controls-grid--compact" data-explore-control-board="en-guided:ml2:challenge:knowledge-frame" data-board-mode="readonly" data-astro-cid-uaq34ulb> <article class="explore-control-card is-locked" data-control-key="population" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="population" data-control-tone="locked" data-control-explainer="Reference population for all people counts in this mission." data-value-format="people-0" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Population</span> <output data-output="population" data-astro-cid-uaq34ulb>350,000</output> </span> <input data-param="population" type="range" min="0" max="420000" step="3500" value="350000" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="r0" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="r0" data-control-tone="locked" data-control-explainer="Fixed outbreak reference. Interventions do not directly change R₀." data-value-format="number-2" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>R₀</span> <output data-output="r0" data-astro-cid-uaq34ulb>2.10</output> </span> <input data-param="r0" type="range" min="0" max="5" step="0.05" value="2.1" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked is-open" data-control-key="beta" data-control-tone="open" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="beta" data-control-tone="open" data-control-explainer="Transmission strength derived from R₀ and γ." data-value-format="number-3" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>β</span> <output data-output="beta" data-astro-cid-uaq34ulb>0.153</output> </span> <input data-param="beta" type="range" min="0" max="1" step="0.01" value="0.15346153846153845" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="duration" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="duration" data-control-tone="locked" data-control-explainer="Defines γ = 0.0769." data-value-format="days-1" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Duration D</span> <output data-output="duration" data-astro-cid-uaq34ulb>13.0 days</output> </span> <input data-param="duration" type="range" min="1" max="30" step="0.5" value="13" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked is-open" data-control-key="mitigation" data-control-tone="open" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="mitigation" data-control-tone="open" data-control-explainer="Fixed at mission start. Later interventions add temporary effect on this pathway." data-value-format="percent-0" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Baseline mitigation</span> <output data-output="mitigation" data-astro-cid-uaq34ulb>5 %</output> </span> <input data-param="mitigation" type="range" min="0" max="85" step="1" value="5" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="gamma" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="gamma" data-control-tone="locked" data-control-explainer="Rate at which people leave the I state." data-value-format="number-3" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>γ</span> <output data-output="gamma" data-astro-cid-uaq34ulb>0.077</output> </span> <input data-param="gamma" type="range" min="0" max="1" step="0.01" value="0.07692307692307693" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="latency" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="latency" data-control-tone="locked" data-control-explainer="Defines σ = 0.0833." data-value-format="days-1" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Latency L</span> <output data-output="latency" data-astro-cid-uaq34ulb>12.0 days</output> </span> <input data-param="latency" type="range" min="1" max="30" step="0.5" value="12" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="sigma" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="sigma" data-control-tone="locked" data-control-explainer="Rate from hidden exposure into infectiousness." data-value-format="number-3" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>σ</span> <output data-output="sigma" data-astro-cid-uaq34ulb>0.083</output> </span> <input data-param="sigma" type="range" min="0" max="1" step="0.01" value="0.08333333333333333" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="seed" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="seed" data-control-tone="locked" data-control-explainer="Visible infectious start share." data-value-format="percent-1" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Initial I</span> <output data-output="seed" data-astro-cid-uaq34ulb>0.1 %</output> </span> <input data-param="seed" type="range" min="0" max="2" step="0.01" value="0.08" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article><article class="explore-control-card is-locked" data-control-key="horizon" data-control-tone="locked" data-astro-cid-uaq34ulb> <div class="explore-control-card__inner" data-astro-cid-uaq34ulb> <div class="explore-control-card__face explore-control-card__face--front" data-astro-cid-uaq34ulb> <label class="explore-control is-disabled is-readonly" data-control-key="horizon" data-control-tone="locked" data-control-explainer="The mission may run longer if the live curve is delayed." data-value-format="days-0" data-astro-cid-uaq34ulb> <span class="explore-control-head" data-astro-cid-uaq34ulb> <span data-astro-cid-uaq34ulb>Minimum horizon</span> <output data-output="horizon" data-astro-cid-uaq34ulb>72 days</output> </span> <input data-param="horizon" type="range" min="0" max="108" step="1" value="72" disabled data-astro-cid-uaq34ulb>   </label> </div>  </div> </article> </div> </section><section class="coach-knowledge-overlay__takeaway" aria-label="Important distinction" data-astro-cid-ssxqtbcx> <h3 data-astro-cid-ssxqtbcx>Important distinction</h3> <div class="coach-knowledge-overlay__takeaway-copy" data-astro-cid-ssxqtbcx> <p data-astro-cid-ssxqtbcx>R₀ is fixed as the reference. The open levers act on effective pathways such as beta_eff, vaccination_rate or E isolation.</p> </div> </section> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml2:challenge:knowledge-targets" data-coach-knowledge-panel="targets" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml2:challenge:knowledge-targets-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>What can change, what stays fixed?</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>The registry separates fixed model references from actual intervention pathways.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__rich" data-astro-cid-ssxqtbcx><div class="coach-knowledge-overlay__cluster"><article class="coach-knowledge-overlay__mini-card" data-target-status="locked">
+        <div>
+          <p class="meta-label">fixed</p>
+          <h3>R₀ as fixed reference</h3>
+          <p>The basic reproduction value describes the outbreak without intervention. It stays fixed as the reference in Challenge.</p>
+        </div>
+        <code>R₀ = β / γ</code>
+        <p>Interventions do not change R₀ itself; they change effective pathways such as β_eff, γ_eff or isolation.</p>
+      </article><article class="coach-knowledge-overlay__mini-card" data-target-status="mutable">
+        <div>
+          <p class="meta-label">can be changed</p>
+          <h3>Effective transmission</h3>
+          <p>Contact and protection measures lower effective transmission and therefore indirectly lower Rₑff.</p>
+        </div>
+        <code>β_eff = β * (1 - mitigation_eff / 100)</code>
+        <p>Contact and protection measures lower effective transmission and therefore indirectly lower Rₑff.</p>
+      </article><article class="coach-knowledge-overlay__mini-card" data-target-status="locked">
+        <div>
+          <p class="meta-label">fixed</p>
+          <h3>Capacity threshold</h3>
+          <p>Evaluation and event target: the threshold controls warning, escalation and review.</p>
+        </div>
+        <code>threshold = mission.targets.peakMax</code>
+        <p>Evaluation and event target: the threshold controls warning, escalation and review.</p>
+      </article><article class="coach-knowledge-overlay__mini-card" data-target-status="locked">
+        <div>
+          <p class="meta-label">fixed</p>
+          <h3>Visibility and early warning</h3>
+          <p>Not a direct curve lever, but a later explanation layer for monitoring, testing and triggers.</p>
+        </div>
+        <code>visibility = observed(model_state, trigger_metric)</code>
+        <p>Not a direct curve lever, but a later explanation layer for monitoring, testing and triggers.</p>
+      </article><article class="coach-knowledge-overlay__mini-card" data-target-status="mutable">
+        <div>
+          <p class="meta-label">can be changed</p>
+          <h3>E isolation</h3>
+          <p>SEIR-specific lever: part of the hidden lead wave is filtered before later onward contacts.</p>
+        </div>
+        <code>isolated_new = sigma * E * isolation_eff</code>
+        <p>SEIR-specific lever: part of the hidden lead wave is filtered before later onward contacts.</p>
+      </article></div></div> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml2:challenge:knowledge-instruments" data-coach-knowledge-panel="instruments" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml2:challenge:knowledge-instruments-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>The available intervention set</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>Each card resolves to a duration, pressure value and one or more effect pathways.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__rich" data-astro-cid-ssxqtbcx><div class="coach-knowledge-overlay__cluster"><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Hygiene campaign</h3>
+          <p>A light early slowdown through hygiene, communication and behaviour rules. Visible, but deliberately not enough on its own.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 2</p>
+        <p>beta_eff -3% · E isolation +8%</p>
+      </article><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Isolate contact chains</h3>
+          <p>Isolate contacts from the E-trace early so later I generates fewer new contacts.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 5</p>
+        <p>beta_eff -11% · E isolation +58%</p>
+      </article><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Shield E-clusters</h3>
+          <p>Temporarily shield risk groups and affected settings so fewer onward contacts arise from E.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 7</p>
+        <p>beta_eff -14% · E isolation +42%</p>
+      </article><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Entry checks</h3>
+          <p>Broad testing and access checks in sensitive institutions. Effective, but much more burdensome than early targeted measures.</p>
+        </div>
+        <p><strong>21 days</strong> · pressure 11</p>
+        <p>beta_eff -16% · E isolation +70%</p>
+      </article><article class="coach-knowledge-overlay__mini-card">
+        <div>
+          <h3>Expand isolation</h3>
+          <p>Stronger isolation in affected areas. Effective, but quickly disproportionate.</p>
+        </div>
+        <p><strong>14 days</strong> · pressure 15</p>
+        <p>beta_eff -24% · E isolation +80%</p>
+      </article></div></div> </div> </section><section class="coach-knowledge-overlay__panel" id="en-guided:ml2:challenge:knowledge-horizon" data-coach-knowledge-panel="horizon" data-layout="flow" role="tabpanel" hidden aria-labelledby="en-guided:ml2:challenge:knowledge-horizon-tab" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__head" data-astro-cid-ssxqtbcx>  <h2 data-astro-cid-ssxqtbcx>The end of the run is derived from your curve</h2> <p class="coach-knowledge-overlay__lead" data-astro-cid-ssxqtbcx>The scenario has a minimum horizon, but the actual result horizon can move when interventions delay the wave.</p> </div> <div class="coach-knowledge-overlay__body" data-astro-cid-ssxqtbcx> <div class="coach-knowledge-overlay__copy" data-astro-cid-ssxqtbcx> <p data-astro-cid-ssxqtbcx>The minimum horizon starts at 72 days. The runtime keeps a technical buffer up to about 972 days, so delayed waves can still settle.</p><p data-astro-cid-ssxqtbcx>After each decision, the live curve is simulated again. The result horizon is then derived from that live curve: the run ends only once the relevant compartments have settled enough for review.</p><p data-astro-cid-ssxqtbcx>This is why a successful delay may also make the run longer. Reference and mission are compared at the same result horizon.</p> </div> </div> </section> <div class="coach-knowledge-overlay__actions" data-astro-cid-ssxqtbcx> <button class="card-cta" type="button" data-coach-text-close="en-guided:ml2:challenge:knowledge" data-astro-cid-ssxqtbcx>Close</button> </div> </div> </section> </div> <script type="module" src="/_astro/CoachKnowledgeOverlayShell.astro_astro_type_script_index_0_lang.DtXKzoqD.js"></script><button class="phase-link challenge-focus-button challenge-focus-button--toggle" type="button" data-action="toggle-focus" data-focus-enter-label="Focus mode" data-focus-exit-label="Back to shell" aria-pressed="false"><span class="challenge-focus-button__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H4v5"></path><path d="M15 4h5v5"></path><path d="M20 15v5h-5"></path><path d="M4 15v5h5"></path><path d="M9.5 9.5h5v5h-5z"></path></svg></span><span data-focus-label>Focus mode</span></button><a class="phase-link challenge-focus-button" href="/en/guided/minilabs/ml2/challenge/app" data-shell-link="app" aria-label="Open challenge in full-screen mode"><span class="challenge-focus-button__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4H4v4"></path><path d="M16 4h4v4"></path><path d="M20 16v4h-4"></path><path d="M4 16v4h4"></path></svg></span><span>Full screen</span></a><div class="coach-player-meta"><span class="tag">Chloé</span><span class="tag">EN</span><span class="tag">guided</span><span class="tag">guided</span></div></div></div><section class="challenge-stage-shell challenge-stage-shell--hero"><div class="challenge-stage-frame"><div class="challenge-chart-scroll" data-challenge-chart-scroll><canvas class="challenge-chart-canvas" data-challenge-canvas width="1200" height="640"></canvas></div><div class="challenge-intro-overlay" data-intro-overlay><article class="challenge-intro-card"><p class="eyebrow">Chloé / Situation brief</p><h3>The health department now has to read the hidden lead wave.</h3><p>Everytown has around 350,000 residents. Reports of a new respiratory virus are increasing, but part of the spread has not yet arrived as a visible wave of illness.</p><p>Your task: read the E lead wave early enough so that later infectious cases generate as few new contacts as possible. A response that is too soft can buy time, but often forces harder interventions later.</p><div class="challenge-intro-actions"><div class="challenge-audio-choice"><p class="mini-note">Play the threshold directive automatically when the crisis window opens?</p><div class="challenge-audio-choice__actions"><button class="phase-link challenge-start-button" type="button" data-action="start-mission" data-audio-mode="sound">Start with audio</button><button class="phase-link challenge-start-button" type="button" data-action="start-mission" data-audio-mode="muted">Start muted</button></div></div></div></article></div><div class="challenge-stage-overlay"><div class="challenge-stage-top"><article class="challenge-directive-card challenge-directive-card--overlay"><div class="challenge-directive-topline"><h3 data-live-window>Ready</h3><span class="challenge-time-badge" data-kpi="current-day">Day 0 / 72</span></div><p data-live-directive>Start the mission and respond when a window opens.</p><div class="challenge-decision-snapshot" data-decision-snapshot hidden><article class="challenge-decision-snapshot-card" data-role="current"><p class="meta-label">Currently infectious</p><p class="challenge-decision-snapshot-value" data-decision-metric="current-sick">0</p></article><article class="challenge-decision-snapshot-card" data-role="week"><p class="meta-label">Currently exposed</p><p class="challenge-decision-snapshot-value" data-decision-metric="current-exposed">0</p></article><article class="challenge-decision-snapshot-card" data-role="gap"><p class="meta-label">Until threshold</p><p class="challenge-decision-snapshot-value" data-decision-metric="to-threshold">0</p></article><p class="challenge-decision-snapshot-note" data-decision-snapshot-note>Before each decision, the visible I situation and the hidden E lead wave can be read together here.</p></div><div class="challenge-finish-summary" data-finish-summary> <p class="meta-label" data-finish-title>Your result</p> <p data-finish-note>At the end, what matters is how strongly you influenced the later I-wave through the advantage of the yellow E lead wave, whether early measures kept the situation under control and whether later escalation was really necessary.</p> <div class="challenge-final-impact"> <p class="challenge-final-impact-value" data-finish-impact>0</p> <p class="challenge-final-impact-note" data-finish-impact-note> At the end you see what your plan changed. </p> </div> <div class="challenge-final-score-block"> <div class="challenge-final-score-head"> <p class="meta-label">Score</p> <p class="challenge-final-score-value" data-finish-score>0 / 100</p> </div> <div class="challenge-final-compare-grid"> <article class="challenge-final-compare-card challenge-final-compare-card--reference"> <p class="meta-label">Without measures</p> <p class="challenge-final-compare-value" data-finish-reference-cases>0</p> <p class="mini-note" data-finish-reference-peak>Peak 0</p> </article> <article class="challenge-final-compare-card challenge-final-compare-card--live"> <p class="meta-label">With your plan</p> <p class="challenge-final-compare-value" data-finish-live-cases>0</p> <p class="mini-note" data-finish-live-peak>Peak 0</p> </article> </div> </div> <div class="challenge-final-model" aria-label="Final model state"><article class="challenge-final-model-item" data-compartment="S"><p class="meta-label">S Susceptible</p><p class="challenge-final-model-value" data-finish-model="S">0.0 %</p></article><article class="challenge-final-model-item" data-compartment="E"><p class="meta-label">E Exposed</p><p class="challenge-final-model-value" data-finish-model="E">0.0 %</p></article><article class="challenge-final-model-item" data-compartment="I"><p class="meta-label">I Infectious</p><p class="challenge-final-model-value" data-finish-model="I">0.0 %</p></article><article class="challenge-final-model-item" data-compartment="R"><p class="meta-label">R Recovered</p><p class="challenge-final-model-value" data-finish-model="R">0.0 %</p></article></div> </div><div class="challenge-run-actions"> <button class="phase-link challenge-start-button" type="button" data-action="toggle-play">
+Mission starten
+</button> <button class="phase-link challenge-review-chart" type="button" data-action="review-chart" hidden> View curve </button> <button class="phase-link challenge-reset" type="button" data-action="reset">
+Neu beginnen
+</button> <a class="phase-link challenge-quiz-link" href="/en/guided/minilabs/ml2/quiz"> Continue to Quiz </a> </div></article><article class="challenge-situation-panel challenge-situation-panel--ring challenge-situation-panel--overlay" data-situation-panel data-situation-visual="ring"><div class="challenge-situation-head"><div><p class="meta-label">Situation before you decide</p><p class="mini-note">This shows how many people are affected right now, not just abstract percentages.</p></div></div><div class="challenge-situation-ring-layout"><div class="challenge-situation-ring" data-situation-ring><div class="challenge-situation-ring-core"><p class="meta-label">Currently sick</p><p class="challenge-situation-ring-value" data-situation-value="current-infectious-people" data-situation-format="people">
+0
+</p></div></div><div class="challenge-situation-metric-list"><div class="challenge-situation-metric-row"><p class="meta-label">Sick so far</p><p class="challenge-situation-metric-value" data-situation-value="cumulative-infected-people" data-situation-format="people">
+0
+</p></div><div class="challenge-situation-metric-row"><p class="meta-label">Recovered</p><p class="challenge-situation-metric-value" data-situation-value="recovered-people" data-situation-format="people">
+0
+</p></div><div class="challenge-situation-metric-row"><p class="meta-label">Residents</p><p class="challenge-situation-metric-value" data-situation-value="population" data-situation-format="people">
+0
+</p></div></div></div></article></div><div class="challenge-stage-bottom"><div class="challenge-stage-bottom-layout"><div class="challenge-tool-dock"><div class="challenge-tool-stack"><section class="challenge-tool-group challenge-tool-group-initial"> <div class="challenge-tool-group-head"> <div> <p class="meta-label">Available now</p> <h4>Interventions</h4> </div>  </div>   <div class="challenge-tool-grid challenge-tool-grid--compact"> <button class="challenge-tool challenge-tool-skip challenge-tool-skip--compact" type="button" data-action="skip-window"> <span class="challenge-tool-head"> <span class="challenge-tool-label">No new measure</span> </span> <span class="mini-note">Continue without a new intervention.</span> <div class="challenge-tool-actions"> <span class="challenge-tool-select challenge-tool-select--muted">Continue without measure</span> </div> </button> <article class="challenge-tool" data-intervention="hygiene-campaign" data-label="Hygiene campaign" data-summary="A light early slowdown through hygiene, communication and behaviour rules. Visible, but deliberately not enough on its own." data-boost="3" data-vaccination-boost="0" data-e-isolation-boost="0.08" data-active-days="21" data-burden="2" data-max-uses="1" data-unlock-stage="initial" data-model-badge="Direct model intervention" data-model-target="Buys some time without interrupting the hidden wave precisely enough yet." data-model-rule="beta_eff decreases slightly; a small share of later E -> I transitions is filtered." data-model-assumption="The hygiene campaign is not a fake option: it has a visible effect in the dummy model, but usually does not keep the wave below the threshold by itself." data-category-id="communication" data-category-icon="megaphone" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:3,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;},{&#34;id&#34;:&#34;exposed_isolation&#34;,&#34;value&#34;:0.08,&#34;unit&#34;:&#34;share&#34;,&#34;direction&#34;:&#34;filter&#34;,&#34;formula&#34;:&#34;isolated_E_to_I = exposed_isolation_eff * sigma * E&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Communication</span> <span class="challenge-tool-label">Hygiene campaign</span> </span>  </span> <span class="mini-note">A light early slowdown through hygiene, communication and behaviour rules. Visible, but deliberately not enough on its own.</span> <span class="challenge-tool-duration" data-tool-duration="hygiene-campaign"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article><article class="challenge-tool" data-intervention="contact-rules" data-label="Isolate contact chains" data-summary="Isolate contacts from the E-trace early so later I generates fewer new contacts." data-boost="11" data-vaccination-boost="0" data-e-isolation-boost="0.58" data-active-days="21" data-burden="5" data-max-uses="2" data-unlock-stage="initial" data-model-badge="Direct model intervention" data-model-target="Acts indirectly on the E -> I sequence by cutting later contacts out of the hidden lead phase." data-model-rule="Part of the hidden wave is moved into isolated courses; later contact impact decreases." data-model-assumption="In the Challenge dummy, E-group isolation represents early isolation of contacts before they themselves become visibly infectious." data-category-id="contact-management" data-category-icon="network" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:11,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;},{&#34;id&#34;:&#34;exposed_isolation&#34;,&#34;value&#34;:0.58,&#34;unit&#34;:&#34;share&#34;,&#34;direction&#34;:&#34;filter&#34;,&#34;formula&#34;:&#34;isolated_E_to_I = exposed_isolation_eff * sigma * E&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Containment management</span> <span class="challenge-tool-label">Isolate contact chains</span> </span>  </span> <span class="mini-note">Isolate contacts from the E-trace early so later I generates fewer new contacts.</span> <span class="challenge-tool-duration" data-tool-duration="contact-rules"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article><article class="challenge-tool" data-intervention="shield-week" data-label="Shield E-clusters" data-summary="Temporarily shield risk groups and affected settings so fewer onward contacts arise from E." data-boost="14" data-vaccination-boost="0" data-e-isolation-boost="0.42" data-active-days="21" data-burden="7" data-max-uses="2" data-unlock-stage="initial" data-model-badge="Direct model intervention" data-model-target="Reduces effective contacts around emerging clusters before the I-curve becomes fully visible." data-model-rule="beta_eff temporarily decreases in the hidden lead wave; the I-track reacts with a delay." data-model-assumption="Shielding does not act directly on symptoms in the model, but on later contact opportunities from the hidden lead wave." data-category-id="contact-management" data-category-icon="network" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:14,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;},{&#34;id&#34;:&#34;exposed_isolation&#34;,&#34;value&#34;:0.42,&#34;unit&#34;:&#34;share&#34;,&#34;direction&#34;:&#34;filter&#34;,&#34;formula&#34;:&#34;isolated_E_to_I = exposed_isolation_eff * sigma * E&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Containment management</span> <span class="challenge-tool-label">Shield E-clusters</span> </span>  </span> <span class="mini-note">Temporarily shield risk groups and affected settings so fewer onward contacts arise from E.</span> <span class="challenge-tool-duration" data-tool-duration="shield-week"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article> </div> </section><section class="challenge-tool-group challenge-tool-group-minister"> <div class="challenge-tool-group-head"> <div> <p class="meta-label">After Supervision</p> <h4>Harder interventions</h4> </div> <p class="mini-note">These interventions unlock only after the capacity threshold.</p> </div> <ul class="challenge-tool-preview-list"> <li class="challenge-tool-preview-item"> <span> <small>Screening &amp; access</small> Entry checks </span>  </li><li class="challenge-tool-preview-item"> <span> <small>Containment management</small> Expand isolation </span>  </li> </ul> <div class="challenge-threshold-directive challenge-threshold-directive--inline" data-threshold-directive-inline> <div class="challenge-threshold-directive__copy"> <p class="meta-label">Department directive · Asher</p> <h4>Critical threshold exceeded</h4> <p>The latest figures confirm that the outbreak has exceeded the critical threshold. This requires an immediate and effective response from the Department of Health and all relevant agencies. I am asking you to act swiftly, implement measures with clear impact, and ensure that public health remains our highest priority.</p> </div> <video class="challenge-threshold-directive__video" src="/media/challenge/ml2/threshold-en.mp4" controls playsinline preload="metadata" data-threshold-directive-video aria-label="Department directive: Asher"></video> </div> <div class="challenge-tool-grid challenge-tool-grid--compact">  <article class="challenge-tool" data-intervention="entry-testing" data-label="Entry checks" data-summary="Broad testing and access checks in sensitive institutions. Effective, but much more burdensome than early targeted measures." data-boost="16" data-vaccination-boost="0" data-e-isolation-boost="0.7" data-active-days="21" data-burden="11" data-max-uses="1" data-unlock-stage="supervision" data-model-badge="Direct model intervention" data-model-target="A broad late lever against incoming E-clusters and follow-up contacts." data-model-rule="beta_eff decreases clearly; the later E -> I sequence is broadly filtered." data-model-assumption="In the dummy model, entry checks stand for broad testing and access rules. They are visible and effective, but much more intervention-heavy than early precision measures." data-category-id="screening-access" data-category-icon="scan" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:16,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;},{&#34;id&#34;:&#34;exposed_isolation&#34;,&#34;value&#34;:0.7,&#34;unit&#34;:&#34;share&#34;,&#34;direction&#34;:&#34;filter&#34;,&#34;formula&#34;:&#34;isolated_E_to_I = exposed_isolation_eff * sigma * E&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Screening &amp; access</span> <span class="challenge-tool-label">Entry checks</span> </span>  </span> <span class="mini-note">Broad testing and access checks in sensitive institutions. Effective, but much more burdensome than early targeted measures.</span> <span class="challenge-tool-duration" data-tool-duration="entry-testing"> 21 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article><article class="challenge-tool" data-intervention="emergency-brake" data-label="Expand isolation" data-summary="Stronger isolation in affected areas. Effective, but quickly disproportionate." data-boost="24" data-vaccination-boost="0" data-e-isolation-boost="0.8" data-active-days="14" data-burden="15" data-max-uses="1" data-unlock-stage="supervision" data-model-badge="Direct model intervention" data-model-target="Strongly interrupts the late contact pathway once the hidden wave has already built up too far." data-model-rule="beta_eff falls strongly; the full effect appears on the I-curve only after a delay." data-model-assumption="Expanded isolation is deliberately modelled as a hard lever: strongly effective, but only proportionate in limited situations." data-category-id="contact-management" data-category-icon="network" data-effect-paths="[{&#34;id&#34;:&#34;beta_eff&#34;,&#34;value&#34;:24,&#34;unit&#34;:&#34;percentage-points&#34;,&#34;direction&#34;:&#34;decrease&#34;,&#34;formula&#34;:&#34;beta_eff = beta * (1 - mitigation_eff/100)&#34;},{&#34;id&#34;:&#34;exposed_isolation&#34;,&#34;value&#34;:0.8,&#34;unit&#34;:&#34;share&#34;,&#34;direction&#34;:&#34;filter&#34;,&#34;formula&#34;:&#34;isolated_E_to_I = exposed_isolation_eff * sigma * E&#34;}]" data-state="resting"> <span class="challenge-tool-head"> <span class="challenge-tool-title"> <span class="challenge-tool-category">Containment management</span> <span class="challenge-tool-label">Expand isolation</span> </span>  </span> <span class="mini-note">Stronger isolation in affected areas. Effective, but quickly disproportionate.</span> <span class="challenge-tool-duration" data-tool-duration="emergency-brake"> 14 days </span>  <div class="challenge-tool-actions"> <button class="challenge-tool-select" type="button" data-intervention-action> Choose now </button> </div> </article> </div> </section></div></div><div class="challenge-side-rail"><article class="challenge-event-card challenge-event-card--compact" data-crisis-card data-label="Supervision" data-cta-label="Open supervision" data-title="Supervision due to hidden lead wave" data-intro-note="As long as the combined pressure from exposed and infectious people stays below 7.0%, later interventions remain locked. If this hidden lead wave tips, leadership requests supervision." data-active-note="Exposed and infectious people together are now above the pressure threshold. This is not an automatic failure: in Guided mode, a sharper isolation measure is unlocked in the next regular window."><p class="meta-label">Supervision</p><h3 data-crisis-title>Supervision due to hidden lead wave</h3><p data-crisis-note>As long as the combined pressure from exposed and infectious people stays below 7.0%, later interventions remain locked. If this hidden lead wave tips, leadership requests supervision.</p><div class="challenge-threshold-directive" data-threshold-directive> <div class="challenge-threshold-directive__copy"> <p class="meta-label">Department directive · Asher</p> <h4>Critical threshold exceeded</h4> <p>The latest figures confirm that the outbreak has exceeded the critical threshold. This requires an immediate and effective response from the Department of Health and all relevant agencies. I am asking you to act swiftly, implement measures with clear impact, and ensure that public health remains our highest priority.</p> </div> <video class="challenge-threshold-directive__video" src="/media/challenge/ml2/threshold-en.mp4" controls playsinline preload="metadata" data-threshold-directive-video aria-label="Department directive: Asher"></video> </div><button class="phase-link challenge-event-action" type="button" data-action="acknowledge-event">Open supervision</button></article><div class="challenge-objectives-panel challenge-objectives-panel--compact"><div class="challenge-objectives-head"><div><p class="meta-label">Mission status</p><h3 data-challenge-status>Mission ready</h3></div><p class="mini-note" data-challenge-note>Success is not about maximum force, but about balancing effect and proportionality.</p></div><div class="challenge-success-card"><p class="meta-label" data-verdict-title>Your result</p><p data-verdict-note>At the end, what matters is how strongly you influenced the later I-wave through the advantage of the yellow E lead wave, whether early measures kept the situation under control and whether later escalation was really necessary.</p><div class="challenge-final-impact" data-final-impact><p class="challenge-final-impact-value" data-kpi="avoided-cases">0</p><p class="challenge-final-impact-note" data-kpi="impact-note">At the end you see what your plan changed.</p></div><div class="challenge-final-score-block" data-final-score-block><div class="challenge-final-score-head"><p class="meta-label">Score</p><p class="challenge-final-score-value" data-kpi="mission-score">0 / 100</p></div><div class="challenge-final-compare-grid"><article class="challenge-final-compare-card challenge-final-compare-card--reference"><p class="meta-label">Without measures</p><p class="challenge-final-compare-value" data-kpi="reference-cases">0</p><p class="mini-note" data-kpi="reference-peak-cases">Peak 0</p></article><article class="challenge-final-compare-card challenge-final-compare-card--live"><p class="meta-label">With your plan</p><p class="challenge-final-compare-value" data-kpi="live-cases">0</p><p class="mini-note" data-kpi="live-peak-cases">Peak 0</p></article></div></div></div></div><article class="challenge-history-card challenge-history-card--compact"><div class="challenge-history-head"><div><p class="meta-label">Decisions</p><h3>What you have chosen so far</h3></div></div><ol class="challenge-history-list" data-history-list><li class="challenge-history-empty">No decision yet.</li></ol></article></div></div></div></div></div><div class="challenge-runway" aria-label="Mission timeline"><div class="challenge-runway-track"><div hidden data-run-track-anchor></div><div class="challenge-runway-progress" data-run-progress></div><div class="challenge-runway-playhead" data-run-playhead></div><div class="challenge-runway-signals" data-run-signals></div><div class="challenge-runway-events" data-run-events></div><div class="challenge-runway-marker" data-window-marker data-window="w1" data-window-day="10" data-window-open-day="10" data-window-close-day="11" data-window-span-days="1" data-window-label="Window 1" data-window-note="The visible I-curve is still small, but pressure is already building in E." style="left: 13.88888888888889%"><span>Window 1</span></div><div class="challenge-runway-marker" data-window-marker data-window="w2" data-window-day="22" data-window-open-day="22" data-window-close-day="23" data-window-span-days="1" data-window-label="Window 2" data-window-note="The hidden lead wave is becoming easier to read. Now you see whether the first response carried enough weight." style="left: 30.555555555555557%"><span>Window 2</span></div><div class="challenge-runway-marker" data-window-marker data-window="w3" data-window-day="38" data-window-open-day="38" data-window-close-day="39" data-window-span-days="1" data-window-label="Window 3" data-window-note="Correction window before the tipping point: if you started too softly, sharpen the response now." style="left: 52.77777777777778%"><span>Window 3</span></div><div class="challenge-runway-marker" data-window-marker data-window="w4" data-window-day="54" data-window-open-day="54" data-window-close-day="55" data-window-span-days="1" data-window-label="Window 4" data-window-note="Crisis window: if the hidden wave has already grown too large, only broad or harder escalation remains." style="left: 75%"><span>Window 4</span></div></div><div class="challenge-runway-labels"><span>Day 0</span><span data-run-end-label>Day 72</span></div></div></section></section><script type="module" src="/_astro/ChallengeBoard.astro_astro_type_script_index_0_lang.Dc5ifL9e.js"></script> </div> </section>   </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-901df433-d86f-4397-a9c3-72ddca61a9e6" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-901df433-d86f-4397-a9c3-72ddca61a9e6" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-901df433-d86f-4397-a9c3-72ddca61a9e6)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-901df433-d86f-4397-a9c3-72ddca61a9e6)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-901df433-d86f-4397-a9c3-72ddca61a9e6)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> <p class="site-footer-brand__lead" lang="en"> <span class="site-brand-responsive-copy is-long">A bilingual learning environment that makes infection dynamics easier to understand.</span> <span class="site-brand-responsive-copy is-short">A bilingual learning environment.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Learn</p> <a href="/en/guided">Home</a><a href="/en/guided/learning-journey">Learning journey</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Project</p> <a href="/en/guided/about">About</a><a href="/en/guided/contact">Contact</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Frame</p> <a href="/en/guided/legal">Legal</a>  </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/en/guided" aria-label="Understanding Infection Dynamics"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-31d10fb5-1658-41cb-9101-2871cdecd08e" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-31d10fb5-1658-41cb-9101-2871cdecd08e" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-31d10fb5-1658-41cb-9101-2871cdecd08e)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-31d10fb5-1658-41cb-9101-2871cdecd08e)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-31d10fb5-1658-41cb-9101-2871cdecd08e)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="en">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </span> </a> <div class="micro-footer__links"> <a href="/en/guided/contact">Contact</a> <a href="/en/guided/legal">Legal</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>
