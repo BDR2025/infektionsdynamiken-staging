@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Mini-game for the SIRV compartment chain in academic mode."><title>MiniLab 5 Quiz | Infektionsdynamiken verstehen</title><style>
+          html[data-staging-lock='pending'] body {
+            visibility: hidden;
+          }
+        </style><script>
+          (() => {
+            const STAGING_HOST = 'staging.infektionsdynamiken.de';
+            const SESSION_KEY = 'idv.staging.session';
+            const SESSION_VERSION = 'v4';
+            const GATE_PATH = '/gate.html';
+            const html = document.documentElement;
+
+            if (window.location.hostname !== STAGING_HOST) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            if (window.location.pathname === GATE_PATH) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            html.setAttribute('data-staging-lock', 'pending');
+
+            try {
+              const raw = window.sessionStorage.getItem(SESSION_KEY);
+              if (!raw) {
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+                return;
+              }
+
+              const session = JSON.parse(raw);
+              if (
+                !session ||
+                session.v !== SESSION_VERSION ||
+                typeof session.tabId !== 'string' ||
+                session.tabId.trim() === ''
+              ) {
+                window.sessionStorage.removeItem(SESSION_KEY);
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+              }
+            } catch {
+              try {
+                window.sessionStorage.removeItem(SESSION_KEY);
+              } catch {}
+
+              const next = window.location.pathname + window.location.search + window.location.hash;
+              window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            }
+          })();
+        </script><script src="/gate-guard.js"></script><script>
+          (() => {
+            const guard = window.__idvStagingGuard;
+            if (!guard) return;
+            void guard.protectPage();
+          })();
+        </script><style>.coach-overlay-shell[data-astro-cid-v4wgx27a]{transform-origin:top left}.coach-overlay-shell[data-astro-cid-v4wgx27a][data-morphing=true]{will-change:transform,opacity,filter;pointer-events:none}
+</style>
+<link rel="stylesheet" href="/_astro/CoachEdgeVideoEntry.DrNpwg1H.css">
+<link rel="stylesheet" href="/_astro/CoachTextFeature.BT8RNp5N.css">
+<link rel="stylesheet" href="/_astro/BaseLayout.Djhd7spK.css"></head> <body data-coach="archer" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="default" data-routing-scope="default" data-page-shell="default"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        if (body.dataset.routingScope === 'landing-project') {
+          body.dataset.surfacePreference = 'light';
+          body.dataset.surface = 'light';
+
+          window.__idSurfaceController = {
+            storageKey,
+            applyPreference: () => ({
+              preference: 'light',
+              surface: 'light'
+            }),
+            getState: () => ({
+              preference: 'light',
+              surface: 'light'
+            })
+          };
+
+          return;
+        }
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="default" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="default" data-edge-shell> <header class="site-header site-header--track" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/en/academic"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-8eb0ad36-d867-4800-b3ca-cd5e06901243" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-8eb0ad36-d867-4800-b3ca-cd5e06901243" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-8eb0ad36-d867-4800-b3ca-cd5e06901243)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-8eb0ad36-d867-4800-b3ca-cd5e06901243)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-8eb0ad36-d867-4800-b3ca-cd5e06901243)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy site-brand-lockup site-brand-lockup--header"> <div class="brand-title-row"> <p class="brand-title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> </div> <p class="brand-subtitle brand-claim" lang="en"> precise. rigorous. transparent. </p> </div> </div>  <div class="site-header-utility">  <div class="header-context-coach-rail"> <div class="track-context-switch track-context-switch--integrated" data-track-context-switch data-open="false"> <button class="track-context-switch__trigger" type="button" aria-expanded="false" aria-controls="track-context-switch-en-academic-ml5-quiz" data-track-context-trigger> <span class="track-context-switch__trigger-copy"> <span class="track-context-switch__label track-context-switch__label--collapsed">Context · EN · Academic</span> <span class="track-context-switch__label track-context-switch__label--expanded">Context</span> </span> <span class="track-context-switch__chevron" aria-hidden="true"></span> </button> <div class="track-context-switch__submenu" id="track-context-switch-en-academic-ml5-quiz" data-track-context-panel aria-hidden="true" hidden> <div class="track-context-switch__group" aria-label="Language"> <a class="track-context-switch__segment" href="/de/academic/minilabs/ml5/quiz" data-track-context-link> DE </a><span class="track-context-switch__segment is-active" aria-current="page"> EN </span> </div> <span class="track-context-switch__divider" aria-hidden="true"></span> <div class="track-context-switch__group" aria-label="Mode"> <a class="track-context-switch__segment" href="/en/guided/minilabs/ml5/quiz" data-track-context-link> Guided </a><span class="track-context-switch__segment is-active" aria-current="page"> Academic </span><span class="track-context-switch__segment is-disabled" aria-disabled="true" title="Coming soon"> Scientific </span> </div> </div> </div> <script>
+  (() => {
+    const roots = Array.from(document.querySelectorAll('[data-track-context-switch]'));
+    if (!roots.length) return;
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    const setOpen = (root, nextOpen) => {
+      if (!(root instanceof HTMLElement)) return;
+      root.dataset.open = nextOpen ? 'true' : 'false';
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      const panel = root.querySelector('[data-track-context-panel]');
+      if (trigger instanceof HTMLElement) {
+        trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+      if (panel instanceof HTMLElement) {
+        panel.hidden = !nextOpen;
+        panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+      }
+    };
+
+    const closeAll = (except) => {
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root === except) return;
+        setOpen(root, false);
+      });
+    };
+
+    roots.forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
+      const trigger = root.querySelector('[data-track-context-trigger]');
+      if (!(trigger instanceof HTMLButtonElement)) return;
+
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const nextOpen = root.dataset.open !== 'true';
+        closeAll(root);
+        setOpen(root, nextOpen);
+      });
+
+      root.addEventListener('focusin', () => {
+        closeAll(root);
+        setOpen(root, true);
+      });
+
+      root.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          if (activeElement instanceof Node && root.contains(activeElement)) return;
+          setOpen(root, false);
+        }, 0);
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        setOpen(root, false);
+        trigger.focus();
+      });
+
+      if (canHover) {
+        root.addEventListener('pointerenter', () => {
+          closeAll(root);
+          setOpen(root, true);
+        });
+
+        root.addEventListener('pointerleave', () => {
+          setOpen(root, false);
+        });
+      }
+
+      setOpen(root, root.dataset.open === 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof HTMLElement) || event.target.closest('[data-track-context-switch]')) return;
+      closeAll(null);
+    });
+  })();
+</script> <div class="coach-assist coach-assist--header-coin" data-coach-assist data-endpoint="https://ai.infektionsdynamiken.de/api/coach" data-assistant-id="archer-quiz" data-coach-id="archer" data-assist-fallback-assistant-id="archer-global" data-assist-thinking-label="Archer is thinking" data-context="{&#34;pageKey&#34;:&#34;minilab-phase&#34;,&#34;pageLabel&#34;:&#34;MiniLab 5 · SIRV · Quiz&#34;,&#34;legalPageHref&#34;:&#34;/en/academic/legal&#34;,&#34;isContactPage&#34;:false,&#34;siteIdentity&#34;:&#34;Infektionsdynamiken verstehen&#34;,&#34;operatorHint&#34;:&#34;This is the project platform. Internal labels and URL segments are not part of the user-facing explanation.&#34;,&#34;minilabId&#34;:&#34;ml5&#34;,&#34;phase&#34;:&#34;quiz&#34;,&#34;coachId&#34;:&#34;archer&#34;,&#34;coachLabel&#34;:&#34;Archer&#34;,&#34;audience&#34;:&#34;Academic&#34;,&#34;language&#34;:&#34;EN&#34;,&#34;minilabTitle&#34;:&#34;MiniLab 5 · SIRV&#34;,&#34;phaseLabel&#34;:&#34;Quiz&#34;,&#34;isMinilabPhasePage&#34;:true,&#34;phaseSpecificCoachBriefing&#34;:&#34;Page mode: Quiz. Playful understanding checks, matching, and transfer come first.&#34;}" data-context-source="en-academic:ml5:quiz:header-coach" data-open="false" aria-busy="false" data-avatar-light="/media/coaches/avatars/archer-small.png" data-avatar-dark="/media/coaches/avatars/archer-small.png" data-accent-light="#2563eb" data-accent-dark="#60a5fa" data-accent-strong-light="#1d4ed8" data-accent-strong-dark="#3b82f6" data-gradient-from-light="#f3f7ff" data-gradient-from-dark="#0d1729" data-gradient-to-light="#e7efff" data-gradient-to-dark="#14243f" data-ring-light="rgba(37, 99, 235, 0.35)" data-ring-dark="rgba(96, 165, 250, 0.35)" style="--coach-accent: #2563eb; --coach-accent-strong: #1d4ed8; --coach-gradient-from: #f3f7ff; --coach-gradient-to: #e7efff; --coach-ring: rgba(37, 99, 235, 0.35)"> <button class="coach-assist__trigger coach-assist__trigger--header coach-assist__trigger--header-coin" type="button" aria-expanded="false" aria-controls="coach-assist-panel-archer-quiz-header-coin" aria-label="Ask Archer about Quiz" data-assist-toggle> <span class="coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/archer-small.png" alt="" loading="lazy" decoding="async"> </span> <span class="coach-assist__trigger-badge" aria-hidden="true">AI</span> <span class="coach-assist__trigger-copy"> <span class="coach-assist__trigger-label">Coach Archer</span> <span class="coach-assist__trigger-text">Ask Archer about Quiz</span> </span> </button> <section class="coach-assist__panel card" id="coach-assist-panel-archer-quiz-header-coin" data-assist-panel hidden aria-hidden="true"> <div class="coach-assist__panel-head"> <div class="coach-assist__panel-copy"> <p class="coach-assist__panel-label">Coach Archer</p> <h3>Archer for Quiz</h3> <p class="coach-assist__panel-intro">Archer helps frame Quiz questions and their analytical logic.</p> </div> <button class="coach-assist__close" type="button" aria-label="Coach-Fenster schließen" data-assist-close> <span aria-hidden="true">×</span> </button> </div> <div class="coach-assist__quick-list"> <button class="coach-assist__quick" type="button" data-assist-quick-prompt="What reasoning is required here?"> What reasoning is required here? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="How should I compare the options?"> How should I compare the options? </button><button class="coach-assist__quick" type="button" data-assist-quick-prompt="What is the analytical core?"> What is the analytical core? </button> </div> <div class="coach-assist__thread" data-assist-thread> <article class="coach-assist__message is-assistant"> <p>I stay with this Quiz and its analytical logic.</p> </article> </div> <form class="coach-assist__form" data-assist-form> <label class="coach-assist__input-shell"> <span class="coach-assist__sr-only">Frage an Coach Archer</span> <textarea class="coach-assist__textarea" name="question" rows="3" placeholder="Ask Archer about framing, comparison, or transfer." data-assist-input></textarea> </label> <div class="coach-assist__form-footer"> <p class="coach-assist__status" data-assist-status>Academic Quiz help for this MiniLab.</p> <button class="card-cta" type="submit" data-assist-submit>
+Senden
+</button> </div> </form> </section> </div> <script type="module" src="/_astro/CoachAssistShell.astro_astro_type_script_index_0_lang.BFnJU2IQ.js"></script> </div> <div class="header-action-cluster"> <div class="header-canvas-shell" data-header-canvas-root data-header-canvas-id="site-header-canvas-en-academic-journey-ml5-quiz" data-open="false"> <button class="header-canvas-toggle" type="button" aria-expanded="false" aria-controls="site-header-canvas-en-academic-journey-ml5-quiz" aria-label="Open navigation menu" data-header-canvas-toggle> <span class="header-canvas-toggle__lines" aria-hidden="true"> <span></span> <span></span> <span></span> </span> </button> </div> </div>  </div> </div> </header> <div class="header-canvas-overlay" data-header-canvas-overlay data-header-canvas-id="site-header-canvas-en-academic-journey-ml5-quiz" data-open="false"> <div class="header-canvas-backdrop" data-header-canvas-close hidden></div> <aside class="header-canvas-panel" id="site-header-canvas-en-academic-journey-ml5-quiz" aria-hidden="true" aria-label="Navigation" tabindex="-1" data-header-canvas-panel hidden> <div class="header-canvas-panel__head"> <div class="header-canvas-panel__copy"> <p class="header-canvas-panel__eyebrow">Navigation</p> <h2 class="header-canvas-panel__title">Everything with more context</h2> <p class="header-canvas-panel__intro">Jump to the MiniLab Hub, the Lab Hub, project pages, and display settings from one place.</p> </div> <button class="header-canvas-panel__close" type="button" aria-label="Close navigation menu" data-header-canvas-close> <span aria-hidden="true">×</span> </button> </div> <div class="header-canvas-panel__meta" aria-label="Current track context"> <span class="tag">EN</span> <span class="tag">Academic</span> <span class="tag">Coach Archer</span> <span class="tag" data-header-canvas-surface-label>Surface · Light</span> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Continue</p> <div class="header-canvas-panel__links" aria-label="Continue"> <a class="header-canvas-panel__link header-canvas-panel__link--context is-active" href="/en/academic/minilabs/ml5/quiz" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">ML5 · Quiz</span> <span class="header-canvas-panel__link-meta">Learning journey</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">Now</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Hubs</p> <div class="header-canvas-panel__links header-canvas-panel__links--hubs" aria-label="Hubs"> <a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/en/academic/learning-journey" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">MiniLab Hub</span> <span class="header-canvas-panel__link-meta">Structured overview across the six MiniLabs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">6 MiniLabs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a><a class="header-canvas-panel__link header-canvas-panel__link--hub" href="/en/scientific/labs" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Lab Hub</span> <span class="header-canvas-panel__link-meta">Direct access to the two larger labs.</span> </span> <span class="header-canvas-panel__link-tail"> <span class="header-canvas-panel__link-badge">2 Labs</span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </span> </a> </div> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Project</p> <nav class="header-canvas-panel__links" aria-label="Project"> <a class="header-canvas-panel__link" href="/en/academic/about" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">About</span> <span class="header-canvas-panel__link-meta">Project framing and contributors</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/academic/contact" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Contact</span> <span class="header-canvas-panel__link-meta">Contact and support</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a><a class="header-canvas-panel__link" href="/en/academic/legal" data-header-canvas-link> <span class="header-canvas-panel__link-copy"> <span class="header-canvas-panel__link-title">Legal</span> <span class="header-canvas-panel__link-meta">Legal and data protection</span> </span> <span class="header-canvas-panel__link-icon" aria-hidden="true">→</span> </a> </nav> </div> <div class="header-canvas-panel__section"> <p class="header-canvas-panel__section-label">Display</p> <div class="header-canvas-panel__surface"> <div class="header-canvas-panel__surface-group" role="group" aria-label="Display"> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="light" aria-pressed="false"> Light </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="dark" aria-pressed="false"> Dark </button> <button class="header-canvas-panel__surface-button" type="button" data-surface-preference="system" aria-pressed="false"> System </button> </div> </div> </div> </aside> </div> <script>
+    (() => {
+      const roots = Array.from(document.querySelectorAll('[data-header-canvas-root]'));
+      const overlays = Array.from(document.querySelectorAll('[data-header-canvas-overlay]'));
+      if (!roots.length) return;
+
+      const findOverlay = (root) => {
+        if (!(root instanceof HTMLElement)) return null;
+        const overlayId = root.dataset.headerCanvasId;
+        if (!overlayId) return null;
+        return overlays.find(
+          (overlay) => overlay instanceof HTMLElement && overlay.dataset.headerCanvasId === overlayId
+        ) ?? null;
+      };
+
+      const mountOverlayToBody = (overlay) => {
+        if (!(overlay instanceof HTMLElement)) return null;
+        if (overlay.parentElement !== document.body) {
+          document.body.appendChild(overlay);
+        }
+        return overlay;
+      };
+
+      const syncBodyState = () => {
+        const hasOpenRoot = roots.some((root) => root instanceof HTMLElement && root.dataset.open === 'true');
+        document.body.dataset.headerCanvasOpen = hasOpenRoot ? 'true' : 'false';
+      };
+
+      const setOpen = (root, nextOpen) => {
+        if (!(root instanceof HTMLElement)) return;
+        const overlay = mountOverlayToBody(findOverlay(root));
+        const trigger = root.querySelector('[data-header-canvas-toggle]');
+        const backdrop = overlay?.querySelector('.header-canvas-backdrop');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        root.dataset.open = nextOpen ? 'true' : 'false';
+        if (overlay instanceof HTMLElement) {
+          overlay.dataset.open = nextOpen ? 'true' : 'false';
+        }
+        if (trigger instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+        }
+        if (backdrop instanceof HTMLElement) {
+          backdrop.hidden = !nextOpen;
+        }
+        if (panel instanceof HTMLElement) {
+          panel.hidden = !nextOpen;
+          panel.setAttribute('aria-hidden', nextOpen ? 'false' : 'true');
+          if (nextOpen) {
+            window.setTimeout(() => panel.focus(), 30);
+          }
+        }
+        syncBodyState();
+      };
+
+      const closeAll = (except) => {
+        roots.forEach((root) => {
+          if (!(root instanceof HTMLElement) || root === except) return;
+          setOpen(root, false);
+        });
+      };
+
+      const readSurfaceState = () => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.getState === 'function') {
+          try {
+            return controller.getState();
+          } catch {}
+        }
+
+        const body = document.body;
+        return {
+          preference: body instanceof HTMLElement ? body.dataset.surfacePreference ?? 'light' : 'light',
+          surface: body instanceof HTMLElement ? body.dataset.surface ?? 'light' : 'light'
+        };
+      };
+
+      const applySurfacePreference = (preference) => {
+        const controller = window.__idSurfaceController;
+        if (controller && typeof controller.applyPreference === 'function') {
+          controller.applyPreference(preference);
+          return;
+        }
+
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizedPreference = preference === 'dark' || preference === 'system' ? preference : 'light';
+        const nextSurface =
+          normalizedPreference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : normalizedPreference;
+
+        body.dataset.surfacePreference = normalizedPreference;
+        body.dataset.surface = nextSurface;
+        window.dispatchEvent(
+          new CustomEvent('id:surfacechange', {
+            detail: {
+              preference: normalizedPreference,
+              surface: nextSurface
+            }
+          })
+        );
+      };
+
+      const syncSurfaceTag = (overlay, surface) => {
+        const tag = overlay?.querySelector('[data-header-canvas-surface-label]');
+        if (!(tag instanceof HTMLElement)) return;
+
+        const prefix = document.documentElement.lang === 'en' ? 'Surface' : 'Darstellung';
+        const label =
+          surface === 'dark'
+            ? document.documentElement.lang === 'en'
+              ? 'Dark'
+              : 'Dunkel'
+            : document.documentElement.lang === 'en'
+              ? 'Light'
+              : 'Hell';
+        tag.textContent = `${prefix} · ${label}`;
+      };
+
+      roots.forEach((root) => {
+        if (!(root instanceof HTMLElement) || root.dataset.mounted === 'true') return;
+        root.dataset.mounted = 'true';
+
+        const overlay = findOverlay(root);
+        mountOverlayToBody(overlay);
+        const toggle = root.querySelector('[data-header-canvas-toggle]');
+        const panel = overlay?.querySelector('[data-header-canvas-panel]');
+        const closeButtons = Array.from(overlay?.querySelectorAll('[data-header-canvas-close]') ?? []);
+        const navLinks = Array.from(overlay?.querySelectorAll('[data-header-canvas-link]') ?? []);
+        const surfaceButtons = Array.from(overlay?.querySelectorAll('[data-surface-preference]') ?? []);
+
+        if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+
+        const syncSurfaceButtons = () => {
+          const state = readSurfaceState();
+          surfaceButtons.forEach((button) => {
+            if (!(button instanceof HTMLButtonElement)) return;
+            const preference = button.dataset.surfacePreference ?? 'light';
+            const isActive = preference === state.preference;
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            button.toggleAttribute('data-active', isActive);
+          });
+          syncSurfaceTag(overlay, state.surface);
+        };
+
+        toggle.addEventListener('click', () => {
+          const nextOpen = root.dataset.open !== 'true';
+          closeAll(root);
+          setOpen(root, nextOpen);
+        });
+
+        closeButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            setOpen(root, false);
+            toggle.focus();
+          });
+        });
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            setOpen(root, false);
+          });
+        });
+
+        surfaceButtons.forEach((button) => {
+          if (!(button instanceof HTMLButtonElement)) return;
+          button.addEventListener('click', () => {
+            applySurfacePreference(button.dataset.surfacePreference ?? 'light');
+            syncSurfaceButtons();
+          });
+        });
+
+        const handleEscape = (event) => {
+          if (event.key !== 'Escape') return;
+          setOpen(root, false);
+          toggle.focus();
+        };
+
+        root.addEventListener('keydown', handleEscape);
+        overlay?.addEventListener('keydown', handleEscape);
+        window.addEventListener('id:surfacechange', syncSurfaceButtons);
+        syncSurfaceButtons();
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) return;
+        if (event.target.closest('[data-header-canvas-root]') || event.target.closest('[data-header-canvas-overlay]')) return;
+        closeAll(null);
+      });
+    })();
+  </script> <nav class="journey-local-rail" data-edge-subrail aria-label="Local page navigation"> <div class="journey-local-rail__scroll"> <div class="journey-local-rail__nav"> <a class="journey-local-rail__link is-parent" href="/en/academic"> <span>Home</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-context" href="/en/academic/learning-journey"> <span>Learning journey</span> </a> <a class="journey-local-rail__link is-module" href="/en/academic/minilabs/ml5/quiz"> <span>ML5</span> </a> <a class="journey-local-rail__link is-child" href="/en/academic/minilabs/ml5/intro"> <span>Intro</span> </a> <a class="journey-local-rail__link is-child" href="/en/academic/minilabs/ml5/explore"> <span>Explore</span> </a> <a class="journey-local-rail__link is-active" href="/en/academic/minilabs/ml5/quiz" aria-current="page"> <span>Quiz</span> </a> <span class="journey-local-rail__divider" aria-hidden="true"></span><a class="journey-local-rail__link is-parent" href="/en/academic/about"> <span>About</span> </a>  </div> </div> </nav> <script>
+                (() => {
+                  const root = document.documentElement;
+                  const header = document.querySelector('[data-edge-header]');
+                  if (!(header instanceof HTMLElement)) return;
+
+                  const syncStickyOffset = () => {
+                    root.style.setProperty('--site-header-sticky-height', `${header.getBoundingClientRect().height}px`);
+                  };
+
+                  syncStickyOffset();
+
+                  if ('ResizeObserver' in window) {
+                    const observer = new ResizeObserver(syncStickyOffset);
+                    observer.observe(header);
+                  } else {
+                    window.addEventListener('resize', syncStickyOffset, { passive: true });
+                  }
+                })();
+              </script> <main class="site-main site-main--with-subrail" data-edge-main>   <section class="minilab-grid phase-quiz-layout"> <div class="content-panel quiz-content-panel"> <div class="quiz-minigame-stack"> <section class="quiz-shell minigame-shell" data-minigame-shell data-compartment-chain data-game-id="en-academic:ml5:compartment-chain:sirv" data-status-idle="Ready." data-status-selected="Card selected. Now choose the matching empty box." data-status-correct="Snapped in. The transition becomes visible." data-status-wrong="Not yet. This card belongs somewhere else." data-status-complete> <article class="compartment-chain"> <header class="compartment-chain__header"> <div class="compartment-chain__topline"> <p class="compartment-chain__eyebrow">Compartment Chain</p> <ol class="compartment-chain__progress" aria-label="Mini-game progress"> <li> <span class="compartment-chain__progress-item is-active" aria-label="Mini-game 1" aria-current="step"> 1 </span> </li> <li> <span class="compartment-chain__progress-item is-upcoming" aria-label="Mini-game 2"> 2 </span> </li> <li> <span class="compartment-chain__progress-item is-upcoming" aria-label="Mini-game 3"> 3 </span> </li> <li class="compartment-chain__progress-divider" aria-hidden="true"></li><li> <span class="compartment-chain__progress-item is-recap" aria-label="Recap"> 4 </span> </li>  </ol> </div> <div class="compartment-chain__headline"> <h2>Build the SIRV chain</h2> <p>One compartment is fixed. Place the remaining compartments until the protection path becomes visible.</p> </div> </header> <div class="compartment-chain__stage" data-chain-stage> <div class="compartment-chain__rail compartment-chain__rail--branch-sirv" data-chain-rail aria-label="Build the SIRV chain"> <div class="compartment-chain__slot" data-chain-slot data-slot-id="slot-1" data-slot-index="0" data-correct-card="S" style="grid-area: slot1" role="button" tabindex="0" aria-label="Empty box 1" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <span class="compartment-chain__slot-placeholder" aria-hidden="true"> <span></span> </span> </div><div class="compartment-chain__slot is-prefilled is-filled" data-chain-slot data-slot-id="slot-2" data-slot-index="1" data-correct-card="I" data-filled-card="I" style="grid-area: slot2; --chain-card-color: var(--compartment-i)" aria-label="I: Infectious" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <div class="compartment-chain-card is-placed" data-chain-card data-card-id="I" data-card-label="Infectious" style="--chain-card-color: var(--compartment-i)"> <span class="compartment-chain-card__symbol">I</span> <span class="compartment-chain-card__body"> <strong>Infectious</strong> <span>People who can pass the disease on.</span> </span> </div> </div><div class="compartment-chain__slot" data-chain-slot data-slot-id="slot-3" data-slot-index="2" data-correct-card="R" style="grid-area: slot3" role="button" tabindex="0" aria-label="Empty box 3" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <span class="compartment-chain__slot-placeholder" aria-hidden="true"> <span></span> </span> </div><div class="compartment-chain__slot" data-chain-slot data-slot-id="slot-4" data-slot-index="3" data-correct-card="V" style="grid-area: slot4" role="button" tabindex="0" aria-label="Empty box 4" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <span class="compartment-chain__slot-placeholder" aria-hidden="true"> <span></span> </span> </div><svg class="compartment-chain__fork-stem" data-chain-fork-stem data-fork-from-slot="slot-1" style="grid-area: fork" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"> <path class="compartment-chain__fork-stem-path" d="M 0 50 H 32" pathLength="1"></path> </svg><svg class="compartment-chain__connector compartment-chain__connector--fork compartment-chain__connector--fork-up" data-chain-connector data-connector-index="0" data-connector-from-slot="slot-1" data-connector-to-slot="slot-2" style="grid-area: fork" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"> <defs> <linearGradient id="en-academic-ml5-compartment-chain-sirv-connector-1-gradient" x1="0%" y1="50%" x2="100%" y2="23%"> <stop class="compartment-chain__connector-stop-from" offset="0%"></stop> <stop class="compartment-chain__connector-stop-to" offset="100%"></stop> </linearGradient> </defs> <path class="compartment-chain__connector-path" d="M 32 50 C 50 50 57 24 92 24" pathLength="1" stroke="url(#en-academic-ml5-compartment-chain-sirv-connector-1-gradient)"></path> <path class="compartment-chain__connector-arrow" d="M 100 24 L 91 18.5 L 91 29.5 Z"></path> </svg><div class="compartment-chain__connector" data-chain-connector data-connector-index="1" data-connector-from-slot="slot-2" data-connector-to-slot="slot-3" style="grid-area: connector2" aria-hidden="true"> <span class="compartment-chain__connector-line"></span> <span class="compartment-chain__connector-head"></span> </div><svg class="compartment-chain__connector compartment-chain__connector--fork compartment-chain__connector--fork-down" data-chain-connector data-connector-index="2" data-connector-from-slot="slot-1" data-connector-to-slot="slot-4" style="grid-area: fork" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"> <defs> <linearGradient id="en-academic-ml5-compartment-chain-sirv-connector-3-gradient" x1="0%" y1="50%" x2="100%" y2="77%"> <stop class="compartment-chain__connector-stop-from" offset="0%"></stop> <stop class="compartment-chain__connector-stop-to" offset="100%"></stop> </linearGradient> </defs> <path class="compartment-chain__connector-path" d="M 32 50 C 50 50 57 76 92 76" pathLength="1" stroke="url(#en-academic-ml5-compartment-chain-sirv-connector-3-gradient)"></path> <path class="compartment-chain__connector-arrow" d="M 100 76 L 91 70.5 L 91 81.5 Z"></path> </svg> </div> </div> <footer class="compartment-chain__footer"> <div class="compartment-chain__deck" aria-label="Cards" data-chain-deck> <p>Cards</p> <div class="compartment-chain__deck-cards"> <button class="compartment-chain-card is-draggable" type="button" draggable="true" data-chain-card data-card-id="S" data-card-label="Susceptible" style="--chain-card-color: var(--compartment-s)" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <span class="compartment-chain-card__symbol">S</span> <span class="compartment-chain-card__body"> <strong>Susceptible</strong> <span>People who can still become infected.</span> </span> </button><button class="compartment-chain-card is-draggable" type="button" draggable="true" data-chain-card data-card-id="R" data-card-label="Recovered" style="--chain-card-color: var(--compartment-r)" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <span class="compartment-chain-card__symbol">R</span> <span class="compartment-chain-card__body"> <strong>Recovered</strong> <span>People who have recovered from the infection.</span> </span> </button><button class="compartment-chain-card is-draggable" type="button" draggable="true" data-chain-card data-card-id="V" data-card-label="Vaccinated" style="--chain-card-color: var(--compartment-v)" aria-describedby="en-academic-ml5-compartment-chain-sirv-status"> <span class="compartment-chain-card__symbol">V</span> <span class="compartment-chain-card__body"> <strong>Vaccinated</strong> <span>People with vaccine protection.</span> </span> </button> </div> </div> <p class="compartment-chain__status" id="en-academic-ml5-compartment-chain-sirv-status" data-chain-status role="status" aria-live="polite"> Ready. </p> </footer> <section class="compartment-chain__coach-validation" data-coach-validation hidden> <div class="compartment-chain__coach-card"> <div class="compartment-chain__coach-copy"> <h3>Exactly right.</h3> <p>SIRV adds V to the familiar SIR logic. Vaccination moves people out of the susceptible group into a protected state and changes the later course of the wave.</p>  </div> <div class="compartment-chain__coach-coin coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/archer-small.png" alt="" loading="lazy" decoding="async" data-chain-coach-avatar data-avatar-light="/media/coaches/avatars/archer-small.png" data-avatar-dark="/media/coaches/avatars/archer-small.png"> </div> </div> </section> </article> </section> <script type="module" src="/_astro/CompartmentChain.astro_astro_type_script_index_0_lang.CF_N_K7l.js"></script> <section class="quiz-shell minigame-shell" data-minigame-shell data-multiple-choice-game data-game-id="en-academic:ml5:multiple-choice-sirv"> <script type="application/json" data-multiple-choice-config>{"title":"Choose the SIRV premise","eyebrow":"Multiple Choice","prompt":"One answer fits the model.","question":"Where does V enter SIRV logic?","optionsAriaLabel":"Answers","resetLabel":"Reset","statusIdle":"Ready.","statusSelected":"Answer selected.","statusCorrect":"Correct answer selected.","statusWrong":"This answer does not carry the model.","completion":{"title":"Answer locked.","text":"The central SIRV premise is clear."},"coachValidation":{"title":"Exactly right.","body":"SIRV moves part of the susceptible group into V. That means fewer people reach the infectious phase."},"options":[{"id":"sirv-v-from-s","label":"A","text":"At S: part of the group moves into a protected state.","correct":true,"feedback":"V branches before infection."},{"id":"sirv-v-after-r","label":"B","text":"After R, people move on to V.","correct":false,"feedback":"V sits at the beginning of the path."},{"id":"sirv-d-after-i","label":"C","text":"After I, the outcome splits into R and D.","correct":false,"feedback":"That belongs to SIRD logic."}],"id":"en-academic:ml5:multiple-choice-sirv","model":"sirv"}</script> <article class="multiple-choice-game"> <header class="multiple-choice-game__header"> <div class="multiple-choice-game__topline"> <p class="multiple-choice-game__eyebrow">Multiple Choice</p> <ol class="multiple-choice-game__progress" aria-label="Mini-game progress"> <li> <span class="multiple-choice-game__progress-item is-done" aria-label="Mini-game 1"> 1 </span> </li> <li> <span class="multiple-choice-game__progress-item is-active" aria-label="Mini-game 2" aria-current="step"> 2 </span> </li> <li> <span class="multiple-choice-game__progress-item is-upcoming" aria-label="Mini-game 3"> 3 </span> </li> <li class="multiple-choice-game__progress-divider" aria-hidden="true"></li><li> <span class="multiple-choice-game__progress-item is-recap" aria-label="Recap"> 4 </span> </li>  </ol> </div> <div class="multiple-choice-game__headline"> <h2>Choose the SIRV premise</h2> <p>One answer fits the model.</p> </div> </header> <div class="multiple-choice-game__runtime" data-multiple-choice-runtime aria-describedby="en-academic-ml5-multiple-choice-sirv-status"></div> <p class="multiple-choice-game__status" id="en-academic-ml5-multiple-choice-sirv-status" data-multiple-choice-status role="status" aria-live="polite"> Ready. </p> <section class="multiple-choice-game__coach-validation" data-multiple-choice-coach-validation hidden> <div class="multiple-choice-game__coach-card"> <div class="multiple-choice-game__coach-copy"> <h3>Exactly right.</h3> <p>SIRV moves part of the susceptible group into V. That means fewer people reach the infectious phase.</p>  </div> <div class="multiple-choice-game__coach-coin coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/archer-small.png" alt="" loading="lazy" decoding="async" data-multiple-choice-coach-avatar data-avatar-light="/media/coaches/avatars/archer-small.png" data-avatar-dark="/media/coaches/avatars/archer-small.png"> </div> </div> </section> </article> </section> <script type="module" src="/_astro/MultipleChoiceGame.astro_astro_type_script_index_0_lang.DAOpr537.js"></script> <section class="quiz-shell minigame-shell" data-minigame-shell data-matching-game data-game-id="en-academic:ml5:matching-sirv"> <script type="application/json" data-matching-config>{"title":"Match the SIRV assumptions","eyebrow":"Matching Game","prompt":"Which statement belongs to which model element?","leftLabel":"Statements","rightLabel":"Elements","resetLabel":"Reset","retryWrongOnlyLabel":"Retry wrong ones","statusIdle":"Ready.","statusSelectedItem":"Statement selected. Choose the matching element.","statusSelectedTarget":"Element selected. Choose the matching statement.","statusPaired":"Match created.","statusWrong":"Not all matches are correct yet.","completion":{"title":"Matching complete.","text":"The SIRV assumptions are matched correctly."},"coachValidation":{"title":"Exactly right.","body":"SIRV adds a protection state to SIR. Vaccination moves people out of S into V and changes how many reach I in the first place."},"targets":[{"id":"susceptible","label":"Susceptible","hint":"can become infected","accent":"S"},{"id":"infectious","label":"Infectious","hint":"can pass the disease on","accent":"I"},{"id":"recovered","label":"Recovered","hint":"infection overcome","accent":"R"},{"id":"vaccinated","label":"Vaccinated","hint":"protected by vaccination","accent":"V"}],"items":[{"id":"sirv-item-v","text":"People are protected by vaccination and move out of the susceptible group.","target":"vaccinated","feedbackCorrect":"Correct. This describes V.","feedbackWrong":"This statement belongs to V."},{"id":"sirv-item-i","text":"People can pass the disease on to others.","target":"infectious","feedbackCorrect":"Correct. This describes I.","feedbackWrong":"This statement belongs to I."},{"id":"sirv-item-s","text":"People can still become infected.","target":"susceptible","feedbackCorrect":"Correct. This describes S.","feedbackWrong":"This statement belongs to S."},{"id":"sirv-item-r","text":"People have recovered from the infection.","target":"recovered","feedbackCorrect":"Correct. This describes R.","feedbackWrong":"This statement belongs to R."}],"id":"en-academic:ml5:matching-sirv","model":"sirv"}</script> <article class="matching-game"> <header class="matching-game__header"> <div class="matching-game__topline"> <p class="matching-game__eyebrow">Matching Game</p> <ol class="matching-game__progress" aria-label="Mini-game progress"> <li> <span class="matching-game__progress-item is-done" aria-label="Mini-game 1"> 1 </span> </li> <li> <span class="matching-game__progress-item is-upcoming" aria-label="Mini-game 2"> 2 </span> </li> <li> <span class="matching-game__progress-item is-active" aria-label="Mini-game 3" aria-current="step"> 3 </span> </li> <li class="matching-game__progress-divider" aria-hidden="true"></li><li> <span class="matching-game__progress-item is-recap" aria-label="Recap"> 4 </span> </li>  </ol> </div> <div class="matching-game__headline"> <h2>Match the SIRV assumptions</h2> <p>Which statement belongs to which model element?</p> </div> </header> <div class="matching-game__runtime" data-matching-runtime aria-describedby="en-academic-ml5-matching-sirv-status"></div> <p class="matching-game__status" id="en-academic-ml5-matching-sirv-status" data-matching-status role="status" aria-live="polite"> Ready. </p> <section class="matching-game__coach-validation" data-matching-coach-validation hidden> <div class="matching-game__coach-card"> <div class="matching-game__coach-copy"> <h3>Exactly right.</h3> <p>SIRV adds a protection state to SIR. Vaccination moves people out of S into V and changes how many reach I in the first place.</p>  </div> <div class="matching-game__coach-coin coach-assist__trigger-avatar" aria-hidden="true"> <img src="/media/coaches/avatars/archer-small.png" alt="" loading="lazy" decoding="async" data-matching-coach-avatar data-avatar-light="/media/coaches/avatars/archer-small.png" data-avatar-dark="/media/coaches/avatars/archer-small.png"> </div> </div> </section> </article> </section> <script type="module" src="/_astro/MatchingGame.astro_astro_type_script_index_0_lang.C1_KEj9k.js"></script> </div> </div>  </section>   </main> <footer class="site-footer" data-site-footer> <div class="site-footer-trigger" data-site-footer-trigger aria-hidden="true"></div> <div class="site-footer-top"> <div class="site-footer-brand site-brand-lockup site-brand-lockup--footer"> <svg class="logo-mark-svg site-footer-brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-footer-13e7a98b-4666-49b1-9683-f4c6eceb06b1" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-footer-13e7a98b-4666-49b1-9683-f4c6eceb06b1" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-footer-13e7a98b-4666-49b1-9683-f4c6eceb06b1)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-footer-13e7a98b-4666-49b1-9683-f4c6eceb06b1)" stroke-width="4"></rect> <g fill="url(#logo-gradient-footer-13e7a98b-4666-49b1-9683-f4c6eceb06b1)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <div class="site-footer-brand__copy"> <p class="site-footer-brand__title" lang="en"> <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </p> <p class="site-footer-brand__lead" lang="en"> <span class="site-brand-responsive-copy is-long">A bilingual learning environment for analytical thinking and rigorous understanding.</span> <span class="site-brand-responsive-copy is-short">A bilingual learning environment.</span> </p> </div> </div> <div class="site-footer-oer" aria-label="Open Educational Resources"> <svg class="oer-square-logo-svg site-footer-oer__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="Open Educational Resources" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"> <rect width="500" height="500" rx="48" fill="var(--oer-logo-bg, #7f9da3)"></rect> <g transform="translate(0 16)"> <g fill="var(--oer-logo-fg, #ffffff)"> <circle cx="112" cy="86" r="77"></circle> <circle cx="228" cy="86" r="77"></circle> <circle cx="344" cy="86" r="77"></circle> </g> <circle cx="112" cy="86" r="38.5" fill="none" stroke="var(--oer-logo-bg, #7f9da3)" stroke-width="10.5"></circle> <circle cx="228" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <circle cx="344" cy="86" r="46.5" fill="var(--oer-logo-bg, #7f9da3)"></circle> <text x="228" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+E
+</text> <text x="344" y="86" text-anchor="middle" dominant-baseline="middle" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="58" font-weight="400">
+R
+</text> </g> <text x="36" y="286" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Open
+</text> <text x="36" y="378" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Educational
+</text> <text x="36" y="469" fill="var(--oer-logo-fg, #ffffff)" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="79" font-weight="300" letter-spacing="0">
+Resources
+</text> </svg> </div> </div> <div class="site-footer-grid"> <div class="site-footer-column"> <p class="site-footer-heading">Learn</p> <a href="/en/academic">Home</a><a href="/en/academic/learning-journey">Learning journey</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Project</p> <a href="/en/academic/about">About</a><a href="/en/academic/contact">Contact</a>  </div><div class="site-footer-column"> <p class="site-footer-heading">Frame</p> <a href="/en/academic/legal">Legal</a>  </div> </div> </footer> <div class="micro-footer" data-micro-footer data-visible="false" aria-hidden="true"> <div class="micro-footer__inner"> <a class="micro-footer__brand" href="/en/academic" aria-label="Understanding Infection Dynamics"> <svg class="logo-mark-svg micro-footer__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-micro-e6598ff7-3691-48cc-93b9-0b651559f0ac" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-micro-e6598ff7-3691-48cc-93b9-0b651559f0ac" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-micro-e6598ff7-3691-48cc-93b9-0b651559f0ac)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-micro-e6598ff7-3691-48cc-93b9-0b651559f0ac)" stroke-width="4"></rect> <g fill="url(#logo-gradient-micro-e6598ff7-3691-48cc-93b9-0b651559f0ac)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> <span class="micro-footer__copy" lang="en">
+© <span data-current-year>2026</span>  <span class="site-brand-responsive-copy is-long">Understanding Infection Dynamics</span> <span class="site-brand-responsive-copy is-short">infectiondynamics.eu</span> </span> </a> <div class="micro-footer__links"> <a href="/en/academic/contact">Contact</a> <a href="/en/academic/legal">Legal</a> </div> </div> </div> <script>
+  (() => {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll('[data-current-year]').forEach((node) => {
+      node.textContent = year;
+    });
+
+    const microFooter = document.querySelector('[data-micro-footer]');
+    const footerTrigger = document.querySelector('[data-site-footer-trigger]');
+    if (!(microFooter instanceof HTMLElement) || !(footerTrigger instanceof HTMLElement)) return;
+
+    if (microFooter.parentElement !== document.body) {
+      document.body.appendChild(microFooter);
+    }
+
+    const setVisible = (visible) => {
+      microFooter.dataset.visible = visible ? 'true' : 'false';
+      microFooter.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      document.body.dataset.microFooterVisible = visible ? 'true' : 'false';
+    };
+
+    const updateVisibilityFallback = () => {
+      const triggerTop = footerTrigger.getBoundingClientRect().top;
+      const footerZoneVisible = triggerTop <= window.innerHeight;
+      setVisible(!footerZoneVisible);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      window.addEventListener('scroll', updateVisibilityFallback, { passive: true });
+      window.addEventListener('resize', updateVisibilityFallback, { passive: true });
+      updateVisibilityFallback();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    observer.observe(footerTrigger);
+    updateVisibilityFallback();
+  })();
+</script> </div> </div> </body></html>
