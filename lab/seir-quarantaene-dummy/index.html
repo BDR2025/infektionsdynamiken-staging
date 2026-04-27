@@ -1,0 +1,704 @@
+<!DOCTYPE html><html lang="de"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Isolierte Spielwiese fuer ein SEIR-Modell mit gesundem Q und infizierter Isolation."><title>SEIR Quarantaene Dummy | Infektionsdynamiken verstehen</title><style>
+          html[data-staging-lock='pending'] body {
+            visibility: hidden;
+          }
+        </style><script>
+          (() => {
+            const STAGING_HOST = 'staging.infektionsdynamiken.de';
+            const SESSION_KEY = 'idv.staging.session';
+            const SESSION_VERSION = 'v4';
+            const GATE_PATH = '/gate.html';
+            const html = document.documentElement;
+
+            if (window.location.hostname !== STAGING_HOST) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            if (window.location.pathname === GATE_PATH) {
+              html.setAttribute('data-staging-lock', 'passed');
+              return;
+            }
+
+            html.setAttribute('data-staging-lock', 'pending');
+
+            try {
+              const raw = window.sessionStorage.getItem(SESSION_KEY);
+              if (!raw) {
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+                return;
+              }
+
+              const session = JSON.parse(raw);
+              if (
+                !session ||
+                session.v !== SESSION_VERSION ||
+                typeof session.tabId !== 'string' ||
+                session.tabId.trim() === ''
+              ) {
+                window.sessionStorage.removeItem(SESSION_KEY);
+                const next = window.location.pathname + window.location.search + window.location.hash;
+                window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+              }
+            } catch {
+              try {
+                window.sessionStorage.removeItem(SESSION_KEY);
+              } catch {}
+
+              const next = window.location.pathname + window.location.search + window.location.hash;
+              window.location.replace(`${GATE_PATH}?next=${encodeURIComponent(next)}`);
+            }
+          })();
+        </script><script src="/gate-guard.js"></script><script>
+          (() => {
+            const guard = window.__idvStagingGuard;
+            if (!guard) return;
+            void guard.protectPage();
+          })();
+        </script><link rel="stylesheet" href="/_astro/seir-quarantaene-dummy@_@astro.DC5EXQmr.css">
+<link rel="stylesheet" href="/_astro/BaseLayout.99UHujZl.css"></head> <body data-coach="neutral" data-surface="light" data-surface-default="light" data-surface-preference="light" data-shell-mode="wide" data-routing-scope="default" data-page-shell="default"> <script>
+      (() => {
+        const body = document.body;
+        if (!(body instanceof HTMLElement)) return;
+
+        const storageKey = 'id-surface-preference';
+        if (body.dataset.routingScope === 'landing-project') {
+          body.dataset.surfacePreference = 'light';
+          body.dataset.surface = 'light';
+
+          window.__idSurfaceController = {
+            storageKey,
+            applyPreference: () => ({
+              preference: 'light',
+              surface: 'light'
+            }),
+            getState: () => ({
+              preference: 'light',
+              surface: 'light'
+            })
+          };
+
+          return;
+        }
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const normalizePreference = (value) => (value === 'dark' || value === 'system' ? value : 'light');
+        const resolveSurface = (preference) =>
+          preference === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : preference;
+
+        const dispatchSurfaceChange = (preference, nextSurface) => {
+          window.dispatchEvent(
+            new CustomEvent('id:surfacechange', {
+              detail: {
+                preference,
+                surface: nextSurface
+              }
+            })
+          );
+        };
+
+        const applyPreference = (preference, options = {}) => {
+          const { persist = true, dispatch = true } = options;
+          const normalizedPreference = normalizePreference(preference);
+          const nextSurface = resolveSurface(normalizedPreference);
+
+          body.dataset.surfacePreference = normalizedPreference;
+          body.dataset.surface = nextSurface;
+
+          if (persist) {
+            try {
+              window.localStorage.setItem(storageKey, normalizedPreference);
+            } catch {}
+          }
+
+          if (dispatch) {
+            dispatchSurfaceChange(normalizedPreference, nextSurface);
+          }
+
+          return {
+            preference: normalizedPreference,
+            surface: nextSurface
+          };
+        };
+
+        const readStoredPreference = () => {
+          try {
+            return window.localStorage.getItem(storageKey);
+          } catch {
+            return null;
+          }
+        };
+
+        const initialPreference = normalizePreference(
+          readStoredPreference() ?? body.dataset.surfaceDefault ?? body.dataset.surface ?? 'light'
+        );
+
+        window.__idSurfaceController = {
+          storageKey,
+          applyPreference,
+          getState: () => ({
+            preference: body.dataset.surfacePreference ?? initialPreference,
+            surface: body.dataset.surface ?? resolveSurface(body.dataset.surfacePreference ?? initialPreference)
+          })
+        };
+
+        applyPreference(initialPreference, { persist: false, dispatch: false });
+
+        const syncSystemPreference = () => {
+          if ((body.dataset.surfacePreference ?? initialPreference) !== 'system') return;
+          applyPreference('system', { persist: false });
+        };
+
+        if (body.dataset.surfaceControllerMounted === 'true') return;
+        body.dataset.surfaceControllerMounted = 'true';
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncSystemPreference);
+        }
+
+        window.addEventListener('pageshow', () => {
+          const latestPreference = readStoredPreference();
+          if (!latestPreference) return;
+          applyPreference(latestPreference, { persist: false });
+        });
+      })();
+    </script> <div class="site-shell" data-shell-mode="wide" data-shell-chrome="frame"> <div class="shell-frame" data-shell-mode="wide" data-edge-shell> <header class="site-header compact" data-edge-header> <div class="site-header-top"> <div class="brand-lockup"> <a class="brand-mark" href="/lab/seir-quarantaene-dummy/"> <svg class="logo-mark-svg brand-mark__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="logo-gradient-header-e2b7090b-84ec-47b7-958d-36a320ae560a" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-accent-strong)"></stop> <stop offset="1" style="stop-color: var(--coach-accent)"></stop> </linearGradient> <linearGradient id="logo-glow-header-e2b7090b-84ec-47b7-958d-36a320ae560a" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color: var(--coach-gradient-from)"></stop> <stop offset="1" style="stop-color: var(--coach-gradient-to)"></stop> </linearGradient> </defs> <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#logo-glow-header-e2b7090b-84ec-47b7-958d-36a320ae560a)" opacity="0.7"></rect> <rect x="8" y="8" width="48" height="48" rx="14" fill="none" stroke="url(#logo-gradient-header-e2b7090b-84ec-47b7-958d-36a320ae560a)" stroke-width="4"></rect> <g fill="url(#logo-gradient-header-e2b7090b-84ec-47b7-958d-36a320ae560a)"> <rect x="18.5" y="19" width="4.75" height="26" rx="2.2"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M28 19H33.4C41.15 19 46 23.88 46 32C46 40.12 41.15 45 33.4 45H28V19ZM32.6 23V41H33.1C38.2 41 41.5 38.15 41.5 32C41.5 25.85 38.2 23 33.1 23H32.6Z"></path> </g> </svg> </a> <div class="brand-copy"> <div class="brand-title-row"> <p class="brand-title" lang="de" aria-label="Infektionsdynamiken verstehen"> <span class="site-brand-responsive-copy is-long">Infektionsdynamiken verstehen</span> <span class="site-brand-responsive-copy is-short">infektionsdynamiken.de</span> <span class="site-brand-mobile-title" aria-hidden="true"> <span>Infektionsdynamiken</span> <span>verstehen</span> </span> </p> </div> <p class="brand-subtitle brand-claim" lang="de"> SEIR-Q Spielwiese </p> </div> </div>  <div class="site-header-utility"> <div class="header-meta">  </div> </div> </div> </header>     <main class="site-main" data-edge-main>  <section class="hero-panel seirq-hero" data-astro-cid-wrwr4vjd> <div class="hero-copy" data-astro-cid-wrwr4vjd> <p class="eyebrow" data-astro-cid-wrwr4vjd>Lab / Dummy / SEIR-Q</p> <h1 data-astro-cid-wrwr4vjd>SEIR mit Quarantaene- und Isolationsbecken</h1> <p class="lead" data-astro-cid-wrwr4vjd>
+Eine bewusst getrennte Spielwiese: gesunde Kontaktpersonen landen in Q und kehren nach Ablauf der
+        Quarantaene zurueck nach S. Entdeckte Exponierte laufen separat ueber Q_E und Q_I bis R.
+</p> </div> <aside class="hero-meta card" data-astro-cid-wrwr4vjd> <p class="meta-label" data-astro-cid-wrwr4vjd>Modellidee</p> <ul class="meta-list" data-astro-cid-wrwr4vjd> <li data-astro-cid-wrwr4vjd>S verliert Menschen durch Infektion und durch gesunde Kontakt-Quarantaene.</li> <li data-astro-cid-wrwr4vjd>Q ist gesund und fliesst nach tau_Q wieder nach S.</li> <li data-astro-cid-wrwr4vjd>E kann entdeckt werden und laeuft dann isoliert ueber Q_E -> Q_I -> R.</li> <li data-astro-cid-wrwr4vjd>Ein befristetes Massentest-Fenster kann auf den E-Peak gelegt werden.</li> </ul> </aside> </section> <section class="seirq-shell" data-seirq-dummy data-astro-cid-wrwr4vjd> <div class="seirq-runtime" data-astro-cid-wrwr4vjd> <section class="seirq-panel seirq-panel--chart" data-astro-cid-wrwr4vjd> <div class="seirq-panel__head" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <p class="eyebrow" data-astro-cid-wrwr4vjd>Kurven</p> <h2 data-astro-cid-wrwr4vjd>Freie Dynamik vs. Absonderung</h2> </div> <div class="seirq-chart-legend" aria-label="Legende" data-astro-cid-wrwr4vjd> <span style="--tone:#22c55e" data-astro-cid-wrwr4vjd>S</span> <span style="--tone:#f59e0b" data-astro-cid-wrwr4vjd>E</span> <span style="--tone:#ef4444" data-astro-cid-wrwr4vjd>I</span> <span style="--tone:#ffffff" data-astro-cid-wrwr4vjd>Q</span> <span style="--tone:#94a3b8" data-astro-cid-wrwr4vjd>Q_E + Q_I</span> <span style="--tone:#2563eb" data-astro-cid-wrwr4vjd>R</span> <span class="seirq-legend-window" style="--tone:#64748b" data-astro-cid-wrwr4vjd>Fenster</span> </div> </div> <div class="seirq-canvas-wrap" data-astro-cid-wrwr4vjd> <canvas class="seirq-canvas" data-seirq-canvas width="1120" height="540" data-astro-cid-wrwr4vjd></canvas> </div> <div class="seirq-kpis" data-astro-cid-wrwr4vjd> <article class="seirq-kpi" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Peak I frei</span> <strong data-kpi="peakI" data-astro-cid-wrwr4vjd>0,0 %</strong> </article> <article class="seirq-kpi" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Max Q gesamt</span> <strong data-kpi="maxQ" data-astro-cid-wrwr4vjd>0,0 %</strong> </article> <article class="seirq-kpi" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Rueckfluss Q -> S</span> <strong data-kpi="returnedS" data-astro-cid-wrwr4vjd>0,0 %</strong> </article> <article class="seirq-kpi" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Fensterwirkung</span> <strong data-kpi="peakDelta" data-astro-cid-wrwr4vjd>0,0 %</strong> </article> </div> </section> <aside class="seirq-panel seirq-panel--controls" data-astro-cid-wrwr4vjd> <div class="seirq-panel__head" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <p class="eyebrow" data-astro-cid-wrwr4vjd>Parameter</p> <h2 data-astro-cid-wrwr4vjd>Absonderung testen</h2> </div> <button class="phase-link" type="button" data-action="reset" data-astro-cid-wrwr4vjd>Reset</button> </div> <div class="seirq-controls" data-astro-cid-wrwr4vjd> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>R0</span> <input data-param="r0" type="range" min="0.6" max="5" step="0.05" value="2.4" data-astro-cid-wrwr4vjd> <output data-output="r0" data-astro-cid-wrwr4vjd>2.40</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Latenz L</span> <input data-param="latency" type="range" min="1" max="14" step="0.5" value="5" data-astro-cid-wrwr4vjd> <output data-output="latency" data-astro-cid-wrwr4vjd>5.0 d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Infektioese Dauer D</span> <input data-param="duration" type="range" min="2" max="18" step="0.5" value="7" data-astro-cid-wrwr4vjd> <output data-output="duration" data-astro-cid-wrwr4vjd>7.0 d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>E-Erkennung rho_E</span> <input data-param="detectE" type="range" min="0" max="0.8" step="0.01" value="0.2" data-astro-cid-wrwr4vjd> <output data-output="detectE" data-astro-cid-wrwr4vjd>20 %/d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Kontakt-Q alpha_Q</span> <input data-param="contactQ" type="range" min="0" max="10" step="0.1" value="3.5" data-astro-cid-wrwr4vjd> <output data-output="contactQ" data-astro-cid-wrwr4vjd>3.5</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Quarantaene tau_Q</span> <input data-param="qDuration" type="range" min="2" max="18" step="0.5" value="7" data-astro-cid-wrwr4vjd> <output data-output="qDuration" data-astro-cid-wrwr4vjd>7.0 d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Isolations-Leck</span> <input data-param="leakage" type="range" min="0" max="0.35" step="0.01" value="0.03" data-astro-cid-wrwr4vjd> <output data-output="leakage" data-astro-cid-wrwr4vjd>3 %</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Start E</span> <input data-param="seedE" type="range" min="0.01" max="2" step="0.01" value="0.12" data-astro-cid-wrwr4vjd> <output data-output="seedE" data-astro-cid-wrwr4vjd>0.12 %</output> </label> </div> <div class="seirq-measure-box" data-astro-cid-wrwr4vjd> <div class="seirq-measure-head" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <p class="eyebrow" data-astro-cid-wrwr4vjd>Punktmassnahme</p> <h3 data-astro-cid-wrwr4vjd>Massentest-Fenster</h3> </div> <label class="seirq-switch" data-astro-cid-wrwr4vjd> <input data-param="interventionEnabled" type="checkbox" checked data-astro-cid-wrwr4vjd> <span data-output="interventionEnabled" data-astro-cid-wrwr4vjd>aktiv</span> </label> </div> <fieldset class="seirq-segmented" aria-label="Lage der Massnahme" data-astro-cid-wrwr4vjd> <label data-astro-cid-wrwr4vjd> <input type="radio" name="interventionMode" value="peak" checked data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>E-Peak</span> </label> <label data-astro-cid-wrwr4vjd> <input type="radio" name="interventionMode" value="manual" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Manuell</span> </label> </fieldset> <div class="seirq-controls" data-astro-cid-wrwr4vjd> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Starttag</span> <input data-param="interventionStart" type="range" min="0" max="170" step="1" value="55" data-astro-cid-wrwr4vjd> <output data-output="interventionStart" data-astro-cid-wrwr4vjd>Tag 55</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Dauer</span> <input data-param="interventionDuration" type="range" min="3" max="28" step="1" value="14" data-astro-cid-wrwr4vjd> <output data-output="interventionDuration" data-astro-cid-wrwr4vjd>14 d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Test findet E</span> <input data-param="interventionDetectE" type="range" min="0" max="0.9" step="0.01" value="0.35" data-astro-cid-wrwr4vjd> <output data-output="interventionDetectE" data-astro-cid-wrwr4vjd>35 %/d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Test findet I</span> <input data-param="interventionDetectI" type="range" min="0" max="0.9" step="0.01" value="0.45" data-astro-cid-wrwr4vjd> <output data-output="interventionDetectI" data-astro-cid-wrwr4vjd>45 %/d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Falsch-Q aus S</span> <input data-param="interventionFalseQ" type="range" min="0" max="0.01" step="0.0005" value="0.001" data-astro-cid-wrwr4vjd> <output data-output="interventionFalseQ" data-astro-cid-wrwr4vjd>0.10 %/d</output> </label> <label class="seirq-control" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Kontaktreduktion</span> <input data-param="interventionBetaCut" type="range" min="0" max="0.8" step="0.01" value="0" data-astro-cid-wrwr4vjd> <output data-output="interventionBetaCut" data-astro-cid-wrwr4vjd>0 %</output> </label> </div> </div> </aside> </div> <section class="seirq-panel seirq-flow-panel" data-astro-cid-wrwr4vjd> <div class="seirq-panel__head" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <p class="eyebrow" data-astro-cid-wrwr4vjd>Beckenlogik</p> <h2 data-astro-cid-wrwr4vjd>Strikte Trennung von gesundem Q und infizierter Isolation</h2> </div> </div> <div class="seirq-compartments" aria-label="Kompartimente" data-astro-cid-wrwr4vjd> <article class="seirq-compartment" data-compartment="S" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>S</span> <strong data-level="S" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>frei und empfaenglich</small> </article> <div class="seirq-arrow" data-astro-cid-wrwr4vjd>Infektion</div> <article class="seirq-compartment" data-compartment="E" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>E</span> <strong data-level="E" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>exponiert, noch nicht infektioes</small> </article> <div class="seirq-arrow" data-astro-cid-wrwr4vjd>nicht entdeckt</div> <article class="seirq-compartment" data-compartment="I" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>I</span> <strong data-level="I" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>frei infektioes</small> </article> <div class="seirq-arrow" data-astro-cid-wrwr4vjd>Genesung</div> <article class="seirq-compartment" data-compartment="R" data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>R</span> <strong data-level="R" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>removed / recovered</small> </article> </div> <div class="seirq-quarantine-row" data-astro-cid-wrwr4vjd> <article class="seirq-quarantine-box" data-compartment="Q" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Q</span> <strong data-level="Q" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>gesund in Quarantaene, Rueckfluss nach S</small> </div> <p data-astro-cid-wrwr4vjd>S -> Q -> S</p> </article> <article class="seirq-quarantine-box" data-compartment="QE" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Q_E</span> <strong data-level="QE" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>entdeckte Exponierte, isoliert latent</small> </div> <p data-astro-cid-wrwr4vjd>E -> Q_E -> Q_I</p> </article> <article class="seirq-quarantine-box" data-compartment="QI" data-astro-cid-wrwr4vjd> <div data-astro-cid-wrwr4vjd> <span data-astro-cid-wrwr4vjd>Q_I</span> <strong data-level="QI" data-astro-cid-wrwr4vjd>0,0 %</strong> <small data-astro-cid-wrwr4vjd>isoliert infektioes, kaum ansteckend</small> </div> <p data-astro-cid-wrwr4vjd>Q_I -> R</p> </article> </div> <div class="seirq-equations" data-astro-cid-wrwr4vjd> <p data-astro-cid-wrwr4vjd><strong data-astro-cid-wrwr4vjd>S:</strong> - neue Infektionen - Kontakt-Q + Rueckfluss aus Q</p> <p data-astro-cid-wrwr4vjd><strong data-astro-cid-wrwr4vjd>Q:</strong> gesunde Kontaktpersonen, Abgang mit 1 / tau_Q nach S</p> <p data-astro-cid-wrwr4vjd><strong data-astro-cid-wrwr4vjd>E:</strong> neue Expositionen, Abgang zu I oder ueber rho_E nach Q_E</p> <p data-astro-cid-wrwr4vjd><strong data-astro-cid-wrwr4vjd>Q_E / Q_I:</strong> infizierte Isolation, Fortschritt ueber L und D bis R</p> <p data-astro-cid-wrwr4vjd><strong data-astro-cid-wrwr4vjd>Fenster:</strong> zeitweise hoehere Erkennung, optional Falsch-Q und Kontaktreduktion</p> </div> </section> </section>  </main>  </div> </div> </body></html> <script>
+  /**
+   * @typedef {'r0' | 'latency' | 'duration' | 'detectE' | 'contactQ' | 'qDuration' | 'leakage' | 'seedE' | 'interventionEnabled' | 'interventionStart' | 'interventionDuration' | 'interventionDetectE' | 'interventionDetectI' | 'interventionFalseQ' | 'interventionBetaCut'} ControlKey
+   * @typedef {'S' | 'E' | 'I' | 'R' | 'Q' | 'QE' | 'QI'} SeriesKey
+   * @typedef {'peak' | 'manual'} InterventionMode
+   * @typedef {{ start: number; end: number; duration: number }} InterventionWindow
+   * @typedef {{ alpha?: number; lineWidth?: number; dash?: number[] }} LineOptions
+   * @typedef {{
+   *   r0: number;
+   *   latency: number;
+   *   duration: number;
+   *   detectE: number;
+   *   contactQ: number;
+   *   qDuration: number;
+   *   leakage: number;
+   *   seedE: number;
+   *   interventionEnabled: boolean;
+   *   interventionMode: InterventionMode;
+   *   interventionStart: number;
+   *   interventionDuration: number;
+   *   interventionDetectE: number;
+   *   interventionDetectI: number;
+   *   interventionFalseQ: number;
+   *   interventionBetaCut: number;
+   * }} SeirqParams
+   * @typedef {{
+   *   t: Float64Array;
+   *   S: Float64Array;
+   *   E: Float64Array;
+   *   I: Float64Array;
+   *   R: Float64Array;
+   *   Q: Float64Array;
+   *   QE: Float64Array;
+   *   QI: Float64Array;
+   *   returnedS: Float64Array;
+   * }} SeirqSeries
+   */
+
+  const root = document.querySelector('[data-seirq-dummy]');
+
+  if (root instanceof HTMLElement && root.dataset.mounted !== 'true') {
+    root.dataset.mounted = 'true';
+
+    const canvas = root.querySelector('[data-seirq-canvas]');
+    const context = canvas instanceof HTMLCanvasElement ? canvas.getContext('2d') : null;
+    /** @type {Record<ControlKey, Element | null>} */
+    const controls = {
+      r0: root.querySelector('[data-param="r0"]'),
+      latency: root.querySelector('[data-param="latency"]'),
+      duration: root.querySelector('[data-param="duration"]'),
+      detectE: root.querySelector('[data-param="detectE"]'),
+      contactQ: root.querySelector('[data-param="contactQ"]'),
+      qDuration: root.querySelector('[data-param="qDuration"]'),
+      leakage: root.querySelector('[data-param="leakage"]'),
+      seedE: root.querySelector('[data-param="seedE"]'),
+      interventionEnabled: root.querySelector('[data-param="interventionEnabled"]'),
+      interventionStart: root.querySelector('[data-param="interventionStart"]'),
+      interventionDuration: root.querySelector('[data-param="interventionDuration"]'),
+      interventionDetectE: root.querySelector('[data-param="interventionDetectE"]'),
+      interventionDetectI: root.querySelector('[data-param="interventionDetectI"]'),
+      interventionFalseQ: root.querySelector('[data-param="interventionFalseQ"]'),
+      interventionBetaCut: root.querySelector('[data-param="interventionBetaCut"]')
+    };
+    /** @type {Record<ControlKey, Element | null>} */
+    const outputs = {
+      r0: root.querySelector('[data-output="r0"]'),
+      latency: root.querySelector('[data-output="latency"]'),
+      duration: root.querySelector('[data-output="duration"]'),
+      detectE: root.querySelector('[data-output="detectE"]'),
+      contactQ: root.querySelector('[data-output="contactQ"]'),
+      qDuration: root.querySelector('[data-output="qDuration"]'),
+      leakage: root.querySelector('[data-output="leakage"]'),
+      seedE: root.querySelector('[data-output="seedE"]'),
+      interventionEnabled: root.querySelector('[data-output="interventionEnabled"]'),
+      interventionStart: root.querySelector('[data-output="interventionStart"]'),
+      interventionDuration: root.querySelector('[data-output="interventionDuration"]'),
+      interventionDetectE: root.querySelector('[data-output="interventionDetectE"]'),
+      interventionDetectI: root.querySelector('[data-output="interventionDetectI"]'),
+      interventionFalseQ: root.querySelector('[data-output="interventionFalseQ"]'),
+      interventionBetaCut: root.querySelector('[data-output="interventionBetaCut"]')
+    };
+    const kpis = {
+      peakI: root.querySelector('[data-kpi="peakI"]'),
+      maxQ: root.querySelector('[data-kpi="maxQ"]'),
+      returnedS: root.querySelector('[data-kpi="returnedS"]'),
+      peakDelta: root.querySelector('[data-kpi="peakDelta"]')
+    };
+    const levels = {
+      S: root.querySelector('[data-level="S"]'),
+      E: root.querySelector('[data-level="E"]'),
+      I: root.querySelector('[data-level="I"]'),
+      R: root.querySelector('[data-level="R"]'),
+      Q: root.querySelector('[data-level="Q"]'),
+      QE: root.querySelector('[data-level="QE"]'),
+      QI: root.querySelector('[data-level="QI"]')
+    };
+    const interventionModeControls = Array.from(root.querySelectorAll('input[name="interventionMode"]')).filter(
+      (control) => control instanceof HTMLInputElement
+    );
+
+    /** @type {SeirqParams} */
+    const defaults = {
+      r0: 2.4,
+      latency: 5,
+      duration: 7,
+      detectE: 0.2,
+      contactQ: 3.5,
+      qDuration: 7,
+      leakage: 0.03,
+      seedE: 0.12,
+      interventionEnabled: true,
+      interventionMode: 'peak',
+      interventionStart: 55,
+      interventionDuration: 14,
+      interventionDetectE: 0.35,
+      interventionDetectI: 0.45,
+      interventionFalseQ: 0.001,
+      interventionBetaCut: 0
+    };
+    const horizon = 180;
+    const dt = 0.1;
+    const colors = {
+      S: '#22c55e',
+      E: '#f59e0b',
+      I: '#ef4444',
+      R: '#2563eb',
+      Q: '#ffffff',
+      QInf: '#94a3b8',
+      baseline: 'rgba(239, 68, 68, 0.24)',
+      anchorI: 'rgba(239, 68, 68, 0.5)',
+      windowFill: 'rgba(100, 116, 139, 0.16)',
+      windowLine: 'rgba(100, 116, 139, 0.38)',
+      grid: 'rgba(148, 163, 184, 0.25)',
+      ink: '#0f172a'
+    };
+
+    /** @param {Element | null} control @param {number} fallback */
+    function num(control, fallback) {
+      if (!(control instanceof HTMLInputElement)) return fallback;
+      const value = Number(control.value);
+      return Number.isFinite(value) ? value : fallback;
+    }
+
+    /** @returns {SeirqParams} */
+    function readParams() {
+      const selectedMode = interventionModeControls.find(
+        (control) => control instanceof HTMLInputElement && control.checked
+      );
+      const selectedValue = selectedMode instanceof HTMLInputElement ? selectedMode.value : defaults.interventionMode;
+      const interventionMode = selectedValue === 'manual' || selectedValue === 'peak' ? selectedValue : defaults.interventionMode;
+
+      return {
+        r0: num(controls.r0, defaults.r0),
+        latency: num(controls.latency, defaults.latency),
+        duration: num(controls.duration, defaults.duration),
+        detectE: num(controls.detectE, defaults.detectE),
+        contactQ: num(controls.contactQ, defaults.contactQ),
+        qDuration: num(controls.qDuration, defaults.qDuration),
+        leakage: num(controls.leakage, defaults.leakage),
+        seedE: num(controls.seedE, defaults.seedE),
+        interventionEnabled:
+          controls.interventionEnabled instanceof HTMLInputElement
+            ? controls.interventionEnabled.checked
+            : defaults.interventionEnabled,
+        interventionMode,
+        interventionStart: num(controls.interventionStart, defaults.interventionStart),
+        interventionDuration: num(controls.interventionDuration, defaults.interventionDuration),
+        interventionDetectE: num(controls.interventionDetectE, defaults.interventionDetectE),
+        interventionDetectI: num(controls.interventionDetectI, defaults.interventionDetectI),
+        interventionFalseQ: num(controls.interventionFalseQ, defaults.interventionFalseQ),
+        interventionBetaCut: num(controls.interventionBetaCut, defaults.interventionBetaCut)
+      };
+    }
+
+    /** @param {number} value @param {number} [min] @param {number} [max] */
+    function clamp(value, min = 0, max = 1) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    /** @param {number} value @param {number} [digits] */
+    function pct(value, digits = 1) {
+      return `${(value * 100).toLocaleString('de-DE', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      })} %`;
+    }
+
+    /** @param {number} value @param {number} [digits] */
+    function number(value, digits = 1) {
+      return value.toLocaleString('de-DE', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      });
+    }
+
+    /** @param {SeirqSeries} series @param {SeriesKey} key */
+    function findPeakTime(series, key) {
+      const values = series[key];
+      if (!values) return 0;
+      let peak = -Infinity;
+      let peakTime = 0;
+      for (let index = 0; index < values.length; index += 1) {
+        const value = values[index] || 0;
+        if (value > peak) {
+          peak = value;
+          peakTime = series.t[index] || 0;
+        }
+      }
+      return peakTime;
+    }
+
+    /** @param {SeirqParams} params @param {SeirqSeries} anchorSeries @returns {InterventionWindow | null} */
+    function makeInterventionWindow(params, anchorSeries) {
+      if (!params.interventionEnabled) return null;
+      const duration = clamp(params.interventionDuration, 0, horizon);
+      const anchorStart =
+        params.interventionMode === 'peak'
+          ? findPeakTime(anchorSeries, 'E') - duration / 2
+          : params.interventionStart;
+      const start = clamp(anchorStart, 0, Math.max(0, horizon - duration));
+      return {
+        start,
+        end: start + duration,
+        duration
+      };
+    }
+
+    /** @param {number} time @param {InterventionWindow | null} interventionWindow */
+    function isInterventionActive(time, interventionWindow) {
+      return Boolean(interventionWindow && time >= interventionWindow.start && time < interventionWindow.end);
+    }
+
+    /** @param {SeirqParams} params @param {boolean} [withQuarantine] @param {InterventionWindow | null} [interventionWindow] @returns {SeirqSeries} */
+    function simulate(params, withQuarantine = true, interventionWindow = null) {
+      const steps = Math.floor(horizon / dt) + 1;
+      const series = {
+        t: new Float64Array(steps),
+        S: new Float64Array(steps),
+        E: new Float64Array(steps),
+        I: new Float64Array(steps),
+        R: new Float64Array(steps),
+        Q: new Float64Array(steps),
+        QE: new Float64Array(steps),
+        QI: new Float64Array(steps),
+        returnedS: new Float64Array(steps)
+      };
+      const seed = clamp(params.seedE / 100, 0.000001, 0.08);
+      const sigma = 1 / Math.max(0.1, params.latency);
+      const gamma = 1 / Math.max(0.1, params.duration);
+      const omegaQ = 1 / Math.max(0.1, params.qDuration);
+      const beta = params.r0 * gamma;
+      const detectE = withQuarantine ? params.detectE : 0;
+      const contactQ = withQuarantine ? params.contactQ : 0;
+      const leakage = withQuarantine ? params.leakage : 1;
+
+      series.S[0] = 1 - seed;
+      series.E[0] = seed;
+
+      for (let index = 1; index < steps; index += 1) {
+        const prev = index - 1;
+        const time = prev * dt;
+        const interventionActive = withQuarantine && isInterventionActive(time, interventionWindow);
+        const S = series.S[prev];
+        const E = series.E[prev];
+        const I = series.I[prev];
+        const R = series.R[prev];
+        const Q = series.Q[prev];
+        const QE = series.QE[prev];
+        const QI = series.QI[prev];
+        const returnedS = series.returnedS[prev];
+        const effectiveBeta = beta * (interventionActive ? 1 - clamp(params.interventionBetaCut) : 1);
+        const effectiveDetectE = detectE + (interventionActive ? params.interventionDetectE : 0);
+        const effectiveDetectI = interventionActive ? params.interventionDetectI : 0;
+        const force = effectiveBeta * Math.max(0, I + leakage * QI);
+        const infection = clamp(force * S, 0, S / dt);
+        const contactHealthyQ = contactQ * I * S;
+        const falseHealthyQ = interventionActive ? params.interventionFalseQ * S : 0;
+        const healthyQuarantine = clamp(
+          contactHealthyQ + falseHealthyQ,
+          0,
+          Math.max(0, S - infection * dt) / dt
+        );
+        const releaseHealthyQ = omegaQ * Q;
+        const detectedE = clamp(effectiveDetectE * E, 0, E / dt);
+        const progressE = clamp(sigma * E, 0, Math.max(0, E / dt - detectedE));
+        const progressQE = sigma * QE;
+        const detectedI = clamp(effectiveDetectI * I, 0, I / dt);
+        const recoverI = clamp(gamma * I, 0, Math.max(0, I / dt - detectedI));
+        const recoverQI = gamma * QI;
+
+        series.S[index] = clamp(S + dt * (-infection - healthyQuarantine + releaseHealthyQ));
+        series.E[index] = clamp(E + dt * (infection - progressE - detectedE));
+        series.I[index] = clamp(I + dt * (progressE - recoverI - detectedI));
+        series.R[index] = clamp(R + dt * (recoverI + recoverQI));
+        series.Q[index] = clamp(Q + dt * (healthyQuarantine - releaseHealthyQ));
+        series.QE[index] = clamp(QE + dt * (detectedE - progressQE));
+        series.QI[index] = clamp(QI + dt * (progressQE + detectedI - recoverQI));
+        series.returnedS[index] = returnedS + dt * releaseHealthyQ;
+        series.t[index] = index * dt;
+
+        const total =
+          series.S[index] +
+          series.E[index] +
+          series.I[index] +
+          series.R[index] +
+          series.Q[index] +
+          series.QE[index] +
+          series.QI[index];
+        if (total > 0) {
+          series.S[index] /= total;
+          series.E[index] /= total;
+          series.I[index] /= total;
+          series.R[index] /= total;
+          series.Q[index] /= total;
+          series.QE[index] /= total;
+          series.QI[index] /= total;
+        }
+      }
+
+      return series;
+    }
+
+    /** @param {ArrayLike<number>} values @param {(value: number, index: number) => number} [mapper] */
+    function maxOf(values, mapper = (value) => value) {
+      let max = 0;
+      for (let index = 0; index < values.length; index += 1) {
+        max = Math.max(max, mapper(values[index], index));
+      }
+      return max;
+    }
+
+    function resizeCanvas() {
+      if (!(canvas instanceof HTMLCanvasElement) || !context) return;
+      const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+      const width = Math.max(320, Math.round(canvas.clientWidth || 900));
+      const height = Math.max(280, Math.round(canvas.clientHeight || 430));
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    /** @param {CanvasRenderingContext2D} ctx @param {SeirqSeries} series @param {ArrayLike<number>} values @param {string} color @param {LineOptions} [options] */
+    function drawLine(ctx, series, values, color, options = {}) {
+      const width = canvas instanceof HTMLCanvasElement ? canvas.clientWidth : 900;
+      const height = canvas instanceof HTMLCanvasElement ? canvas.clientHeight : 430;
+      const pad = { left: 46, right: 20, top: 20, bottom: 36 };
+      const chartWidth = width - pad.left - pad.right;
+      const chartHeight = height - pad.top - pad.bottom;
+      const maxT = series.t[series.t.length - 1] || horizon;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = options.alpha ?? 1;
+      ctx.lineWidth = options.lineWidth ?? 2.4;
+      if (options.dash) ctx.setLineDash(options.dash);
+      ctx.beginPath();
+      for (let index = 0; index < values.length; index += 1) {
+        const x = pad.left + chartWidth * (series.t[index] || 0) / maxT;
+        const y = pad.top + chartHeight * (1 - clamp(values[index] || 0));
+        if (index === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    /** @param {CanvasRenderingContext2D} ctx @param {InterventionWindow | null} activeWindow */
+    function drawInterventionWindow(ctx, activeWindow) {
+      if (!activeWindow) return;
+      const width = canvas instanceof HTMLCanvasElement ? canvas.clientWidth : 900;
+      const height = canvas instanceof HTMLCanvasElement ? canvas.clientHeight : 430;
+      const pad = { left: 46, right: 20, top: 20, bottom: 36 };
+      const chartWidth = width - pad.left - pad.right;
+      const chartHeight = height - pad.top - pad.bottom;
+      const x1 = pad.left + chartWidth * activeWindow.start / horizon;
+      const x2 = pad.left + chartWidth * activeWindow.end / horizon;
+
+      ctx.save();
+      ctx.fillStyle = colors.windowFill;
+      ctx.fillRect(x1, pad.top, Math.max(1, x2 - x1), chartHeight);
+      ctx.beginPath();
+      ctx.rect(x1, pad.top, Math.max(1, x2 - x1), chartHeight);
+      ctx.clip();
+      ctx.strokeStyle = colors.windowLine;
+      ctx.lineWidth = 1;
+      for (let x = x1 - chartHeight; x < x2 + chartHeight; x += 11) {
+        ctx.beginPath();
+        ctx.moveTo(x, pad.top + chartHeight);
+        ctx.lineTo(x + chartHeight, pad.top);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.62)';
+      ctx.font = '700 12px Avenir Next, Segoe UI, sans-serif';
+      ctx.fillText(`Massentest Tag ${Math.round(activeWindow.start)}-${Math.round(activeWindow.end)}`, x1 + 8, pad.top + 18);
+      ctx.restore();
+    }
+
+    /** @param {SeirqSeries} series @param {SeirqSeries} baseline @param {SeirqSeries} anchorSeries @param {InterventionWindow | null} interventionWindow */
+    function drawChart(series, baseline, anchorSeries, interventionWindow) {
+      if (!(canvas instanceof HTMLCanvasElement) || !context) return;
+      resizeCanvas();
+      const ctx = context;
+      const width = canvas.clientWidth || 900;
+      const height = canvas.clientHeight || 430;
+      const pad = { left: 46, right: 20, top: 20, bottom: 36 };
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.save();
+      ctx.fillStyle = 'rgba(248, 250, 252, 0.82)';
+      ctx.fillRect(0, 0, width, height);
+      drawInterventionWindow(ctx, interventionWindow);
+      ctx.strokeStyle = colors.grid;
+      ctx.lineWidth = 1;
+      [0, 0.25, 0.5, 0.75, 1].forEach((fraction) => {
+        const y = pad.top + (height - pad.top - pad.bottom) * (1 - fraction);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(width - pad.right, y);
+        ctx.stroke();
+      });
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.58)';
+      ctx.font = '12px Avenir Next, Segoe UI, sans-serif';
+      ctx.fillText('Tage', width - 52, height - 11);
+      ctx.fillText('100 %', 8, pad.top + 4);
+      ctx.fillText('0 %', 18, height - pad.bottom + 4);
+      ctx.restore();
+
+      const qTotal = new Float64Array(series.Q.length);
+      const qInf = new Float64Array(series.Q.length);
+      for (let index = 0; index < qTotal.length; index += 1) {
+        qTotal[index] = (series.Q[index] || 0) + (series.QE[index] || 0) + (series.QI[index] || 0);
+        qInf[index] = (series.QE[index] || 0) + (series.QI[index] || 0);
+      }
+
+      drawLine(ctx, baseline, baseline.I, colors.baseline, { lineWidth: 2, dash: [7, 6] });
+      if (interventionWindow) {
+        drawLine(ctx, anchorSeries, anchorSeries.I, colors.anchorI, { lineWidth: 2, dash: [3, 5] });
+      }
+      drawLine(ctx, series, series.S, colors.S, { lineWidth: 2 });
+      drawLine(ctx, series, series.E, colors.E, { lineWidth: 2 });
+      drawLine(ctx, series, series.I, colors.I, { lineWidth: 3 });
+      drawLine(ctx, series, qTotal, '#64748b', { lineWidth: 4.2, alpha: 0.65 });
+      drawLine(ctx, series, qInf, colors.QInf, { lineWidth: 2.2, alpha: 0.9 });
+      drawLine(ctx, series, series.R, colors.R, { lineWidth: 2 });
+    }
+
+    function render() {
+      const params = readParams();
+      const anchorSeries = simulate(params, true);
+      const interventionWindow = makeInterventionWindow(params, anchorSeries);
+      const series = simulate(params, true, interventionWindow);
+      const baseline = simulate(params, false);
+      const peakI = maxOf(series.I);
+      const peakWithoutWindow = maxOf(anchorSeries.I);
+      const maxQ = maxOf(series.Q, (_, index) => (series.Q[index] || 0) + (series.QE[index] || 0) + (series.QI[index] || 0));
+      const last = series.S.length - 1;
+
+      if (outputs.r0) outputs.r0.textContent = number(params.r0, 2);
+      if (outputs.latency) outputs.latency.textContent = `${number(params.latency, 1)} d`;
+      if (outputs.duration) outputs.duration.textContent = `${number(params.duration, 1)} d`;
+      if (outputs.detectE) outputs.detectE.textContent = `${number(params.detectE * 100, 0)} %/d`;
+      if (outputs.contactQ) outputs.contactQ.textContent = number(params.contactQ, 1);
+      if (outputs.qDuration) outputs.qDuration.textContent = `${number(params.qDuration, 1)} d`;
+      if (outputs.leakage) outputs.leakage.textContent = `${number(params.leakage * 100, 0)} %`;
+      if (outputs.seedE) outputs.seedE.textContent = `${number(params.seedE, 2)} %`;
+      if (outputs.interventionEnabled) {
+        outputs.interventionEnabled.textContent = params.interventionEnabled ? 'aktiv' : 'aus';
+      }
+      if (outputs.interventionStart) {
+        const start = interventionWindow ? interventionWindow.start : params.interventionStart;
+        outputs.interventionStart.textContent = `Tag ${number(start, 0)}`;
+      }
+      if (outputs.interventionDuration) {
+        outputs.interventionDuration.textContent = `${number(params.interventionDuration, 0)} d`;
+      }
+      if (outputs.interventionDetectE) {
+        outputs.interventionDetectE.textContent = `${number(params.interventionDetectE * 100, 0)} %/d`;
+      }
+      if (outputs.interventionDetectI) {
+        outputs.interventionDetectI.textContent = `${number(params.interventionDetectI * 100, 0)} %/d`;
+      }
+      if (outputs.interventionFalseQ) {
+        outputs.interventionFalseQ.textContent = `${number(params.interventionFalseQ * 100, 2)} %/d`;
+      }
+      if (outputs.interventionBetaCut) {
+        outputs.interventionBetaCut.textContent = `${number(params.interventionBetaCut * 100, 0)} %`;
+      }
+      if (controls.interventionStart instanceof HTMLInputElement) {
+        controls.interventionStart.disabled = params.interventionMode === 'peak';
+      }
+
+      if (kpis.peakI) kpis.peakI.textContent = pct(peakI);
+      if (kpis.maxQ) kpis.maxQ.textContent = pct(maxQ);
+      if (kpis.returnedS) kpis.returnedS.textContent = pct(series.returnedS[last] || 0);
+      if (kpis.peakDelta) kpis.peakDelta.textContent = pct(Math.max(0, peakWithoutWindow - peakI));
+
+      (/** @type {[SeriesKey, Element | null][]} */ (Object.entries(levels))).forEach(([key, target]) => {
+        if (!target) return;
+        target.textContent = pct(series[key]?.[last] || 0);
+      });
+
+      drawChart(series, baseline, anchorSeries, interventionWindow);
+    }
+
+    Object.values(controls).forEach((control) => {
+      control?.addEventListener('input', render, { passive: true });
+    });
+    interventionModeControls.forEach((control) => {
+      control.addEventListener('change', render, { passive: true });
+    });
+
+    root.querySelector('[data-action="reset"]')?.addEventListener('click', () => {
+      Object.entries(defaults).forEach(([key, value]) => {
+        if (!(key in controls)) return;
+        const controlKey = /** @type {ControlKey} */ (key);
+        const control = controls[controlKey];
+        if (control instanceof HTMLInputElement) {
+          if (control.type === 'checkbox') control.checked = Boolean(value);
+          else control.value = String(value);
+        }
+      });
+      interventionModeControls.forEach((control) => {
+        if (control instanceof HTMLInputElement) {
+          control.checked = control.value === defaults.interventionMode;
+        }
+      });
+      render();
+    });
+
+    window.addEventListener('resize', render);
+    render();
+  }
+</script>
